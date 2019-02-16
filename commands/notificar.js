@@ -1,6 +1,7 @@
 module.exports = {
   run: (client, message, args) => {
-
+    message.delete().catch(O_o=>{});
+    
     let notifyRole = message.guild.roles.find('name', 'Novidades')
 
     if (!message.member.roles.exists('name', notifyRole.name)) {

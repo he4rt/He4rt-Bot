@@ -1,6 +1,11 @@
 module.exports = async (client, message) => {
   if (message.author.bot) return;
 
+  if(message.channel.id == process.env.SUGGESTION_CHAT){
+    message.react("✅");
+    message.react("❌");
+  }
+
   if (message.content.indexOf(process.env.COMMAND_PREFIX) !== 0) return
 
   const args = message.content.slice(process.env.COMMAND_PREFIX.length).trim().split(/ +/g)
