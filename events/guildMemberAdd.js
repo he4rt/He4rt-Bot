@@ -16,7 +16,7 @@ module.exports = async (client, member) => {
   	const canvas = Canvas.createCanvas(700, 250);
   	const ctx = canvas.getContext('2d');
   	const wallpaper = await Canvas.loadImage('./wallpaper.jpg');
-    
+
   	ctx.drawImage(wallpaper, 0, 0, canvas.width, canvas.height);
 
   	ctx.font = '28px sans-serif';
@@ -36,5 +36,5 @@ module.exports = async (client, member) => {
   	ctx.drawImage(avatar, 25, 25, 200, 200);
 
   	const attachment = new Discord.Attachment(canvas.toBuffer(), 'welcome-user.png');
-  	client.channels.get(process.env.WELCOME_CHAT).send(`${member}`, attachment);
+  	client.channels.get(process.env.WELCOME_CHAT).send(`<:he4rt:546395281093034015> | ${member}`, attachment);
 }

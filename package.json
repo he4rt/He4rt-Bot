@@ -20,10 +20,12 @@
   },
   "homepage": "https://github.com/DanielHe4rt/He4rtBOT-Discord#readme",
   "dependencies": {
+    "@vitalets/google-translate-api": "^2.7.0",
     "canvas": "^2.3.1",
     "discord.js": "^11.4.2",
     "dotenv": "^6.2.0",
     "enmap": "^4.7.1",
+    "mathjs": "^5.4.2",
     "snekfetch": "^4.0.4"
   }
 }

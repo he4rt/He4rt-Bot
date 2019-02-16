@@ -1,10 +1,8 @@
 module.exports = {
   run: (client, message, args) => {
     message.delete().catch(O_o=>{});
-    
-    let notifyRole = message.guild.roles.find('name', 'Novidades')
 
-    if (!message.member.roles.exists('name', notifyRole.name)) {
+    if (!message.member.roles.exists('id', process.env.NOTIFY_ROLE)) {
       message.member.addRole(notifyRole)
       return message.channel.send("``❕`` Agora você sempre será notificado quando houver notícias.")
     } else {
