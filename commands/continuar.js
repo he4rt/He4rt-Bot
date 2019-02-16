@@ -3,6 +3,13 @@ const Discord = require('discord.js');
 module.exports = {
   run: (client, message, args) => {
 
+    const hidden_roles = [
+      "541021498064896000","546152565633449995","546152542040490009","540994118634176512",
+      "540995379538165774","540995627559944207","540995072246939648","452927819757125663",
+      "540994295541399552","540993488410378281","546150872397119491","512389942354378772",
+      "452927657634693130","543317837222117396",process.env.GUILD_ID
+    ]
+
     const embedName = new Discord.RichEmbed()
       .setTitle(`**Qual é seu nome?** (Exemplo: Daniel Reis)`)
       .setColor("#36393E")
@@ -121,28 +128,27 @@ module.exports = {
                           .addField("**Nickname:**", collectorNick.collected.first().content, true)
                           .addField("**Git:**", collectorGit.collected.first().content, true)
                           .addField("**Linguagens:**", client.guilds.get(process.env.GUILD_ID).members.get(message.author.id).roles.filter(r => r.id !== process.env.GUILD_ID && r.id !== "546148712833875985" && r.id !== "546148711416332298" && r.id !== "546148708077666315" && r.id !== "546150872397119491" && r.id !== "512389942354378772" && r.id !== "452927657634693130" && r.id !== "452927819757125663").map(roles => `<@&${roles.id}>`).join(", ") || "\`Nenhuma\`", true)
-                          .addField("**Nível de inglês:**", client.guilds.get(process.env.GUILD_ID).members.get(message.author.id).roles.filter(r => r.id !== process.env.GUILD_ID && r.id !== "541021498064896000" && r.id !== "546152565633449995" && r.id !== "546152542040490009" && r.id !== "540994118634176512" && r.id !== "540995379538165774" && r.id !== "540995627559944207" && r.id !== "540995072246939648" && r.id !== "540994295541399552" && r.id !== "540993488410378281"
-                          && r.id !==  "546150872397119491" && r.id !== "512389942354378772" && r.id !== "452927657634693130" && r.id !== "452927819757125663").map(roles => `<@&${roles.id}>`).join(", ") || "\`Nenhuma\`", true)
+                          .addField("**Nível de inglês:**", client.guilds.get(process.env.GUILD_ID).members.get(message.author.id).roles.filter(r => {
+                            return !hidden_roles.includes(r.id)
+                          }).map(roles => `<@&${roles.id}>`).join(", ") || "\`Nenhuma\`", true)
                           .setFooter("2019 © He4rt Developers", "https://heartdevs.com/wp-content/uploads/2018/12/logo.png")
                           .setTimestamp()
                         if (reaction.emoji.name === '🇦' && user.id !== client.user.id) {
                           msg.delete()
                           client.guilds.get(process.env.GUILD_ID).members.get(message.author.id).addRole(process.env.INGLES_A)
-                          client.guilds.get(process.env.GUILD_ID).members.get(message.author.id).addRole(process.env.APRESENTOU_ROLE)
                           client.channels.get(process.env.APRESENTACAO_CHAT).send(about)
                         }
                         if (reaction.emoji.name === '🇧' && user.id !== client.user.id) {
                           msg.delete()
                           client.guilds.get(process.env.GUILD_ID).members.get(message.author.id).addRole(process.env.INGLES_B)
-                          client.guilds.get(process.env.GUILD_ID).members.get(message.author.id).addRole(process.env.APRESENTOU_ROLE)
                           client.channels.get(process.env.APRESENTACAO_CHAT).send(about)
                         }
                         if (reaction.emoji.name === '🇨' && user.id !== client.user.id) {
                           msg.delete()
                           client.guilds.get(process.env.GUILD_ID).members.get(message.author.id).addRole(process.env.INGLES_C)
-                          client.guilds.get(process.env.GUILD_ID).members.get(message.author.id).addRole(process.env.APRESENTOU_ROLE)
                           client.channels.get(process.env.APRESENTACAO_CHAT).send(about)
                         }
+                        client.guilds.get(process.env.GUILD_ID).members.get(message.author.id).addRole(process.env.APRESENTOU_ROLE)
                       });
                     });
                   }
