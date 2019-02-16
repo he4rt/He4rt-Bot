@@ -3,10 +3,10 @@ module.exports = {
     message.delete().catch(O_o=>{});
 
     if (!message.member.roles.exists('id', process.env.NOTIFY_ROLE)) {
-      message.member.addRole(notifyRole)
+      message.member.addRole(process.env.NOTIFY_ROLE)
       return message.channel.send("``❕`` Agora você sempre será notificado quando houver notícias.")
     } else {
-      message.member.removeRole(notifyRole)
+      message.member.removeRole(process.env.NOTIFY_ROLE)
       return message.channel.send("``❕`` Agora você não será mais notificado quando houver notícias.")
     }
   },
