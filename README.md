@@ -17,26 +17,6 @@ npm install
 ```
 <br>
 
-## :computer: Running the server
-
-:bulb: After all the dependencies have been installed, you can run the server on the Windows running the file <strong>run-server.bat</strong>. But if you are a Linux user. just type the following command:
-```
-node app.js
-```
-
-<br>
-
-## :v: Greetz 
-
-```
-JoaoVirgili
-Pride
-Conspiracionista
-Dido32
-Evo0o0
-Princess Leia
-Dragoso
-```
 
 
 
