@@ -4,6 +4,10 @@ module.exports = {
   run: (client, message, args) => {
     message.delete().catch(O_o=>{});
 
+    if (!message.member.hasPermission('MANAGE_GUILD')) {
+      return message.channel.send("``❌`` Você não possui permissão para utilizar este comando. ``[MANAGE_GUILD]``")
+    }
+
     let mensg = args.slice(1).join(' ');
     let imageUrl = args[0];
     if(!mensg) return;
