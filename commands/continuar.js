@@ -129,19 +129,19 @@ module.exports = {
                           msg.delete()
                           client.guilds.get(process.env.GUILD_ID).members.get(message.author.id).addRole(process.env.INGLES_A)
                           client.guilds.get(process.env.GUILD_ID).members.get(message.author.id).addRole(process.env.APRESENTOU_ROLE)
-                          client.channels.get("546151895010508827").send(about)
+                          client.channels.get(process.env.APRESENTACAO_CHAT).send(about)
                         }
                         if (reaction.emoji.name === '🇧' && user.id !== client.user.id) {
                           msg.delete()
                           client.guilds.get(process.env.GUILD_ID).members.get(message.author.id).addRole(process.env.INGLES_B)
                           client.guilds.get(process.env.GUILD_ID).members.get(message.author.id).addRole(process.env.APRESENTOU_ROLE)
-                          client.channels.get("546151895010508827").send(about)
+                          client.channels.get(process.env.APRESENTACAO_CHAT).send(about)
                         }
                         if (reaction.emoji.name === '🇨' && user.id !== client.user.id) {
                           msg.delete()
                           client.guilds.get(process.env.GUILD_ID).members.get(message.author.id).addRole(process.env.INGLES_C)
                           client.guilds.get(process.env.GUILD_ID).members.get(message.author.id).addRole(process.env.APRESENTOU_ROLE)
-                          client.channels.get("546151895010508827").send(about)
+                          client.channels.get(process.env.APRESENTACAO_CHAT).send(about)
                         }
                       });
                     });
