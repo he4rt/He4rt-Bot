@@ -8,7 +8,7 @@
     Discord bot made for help with the He4rt Developers server management.
 </h3> 
 
-<a href="https://discord.gg/J78z3FV" align="center" target="_blank"><img src="https://discordapp.com/api/guilds/452926217558163456/embed.png" alt="Discord server"/></a>
+<center><a href="https://discord.gg/J78z3FV" target="_blank"><img src="https://discordapp.com/api/guilds/452926217558163456/embed.png" alt="Discord server"/></a></center>
 
 ## :rocket: 5 minutes quick start
 
