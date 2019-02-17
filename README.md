@@ -3,10 +3,11 @@
 <h1 align="center">
   He4rt Bot
 </h1>
-<iframe src="https://discordapp.com/widget?id=452926217558163456&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0"></iframe>
+
 <h3 align="center">
     Discord bot made for help with the He4rt Developers server management.
 </h3> 
+<a href="https://discord.gg/J78z3FV" target="_blank"><img src="https://discordapp.com/api/guilds/452926217558163456/embed.png" alt="Discord server"/></a>
 
 ## :rocket: 5 minutes quick start
 
