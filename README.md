@@ -3,7 +3,7 @@
 <h1 align="center">
   He4rt Bot
 </h1>
-
+<iframe src="https://discordapp.com/widget?id=452926217558163456&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0"></iframe>
 <h3 align="center">
     Discord bot made for help with the He4rt Developers server management.
 </h3> 
