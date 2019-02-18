@@ -10,7 +10,7 @@ module.exports = {
         .setTitle("``📡`` » !traduzir")
         .setColor("#8146DC")
         .addField("**Tradução:**", res.text)
-        .addField("**Indioma:**", res.from.language.iso)
+        .addField("**Idioma:**", res.from.language.iso)
         .setFooter("Comando utilizado por: " + message.author.tag, "https://heartdevs.com/wp-content/uploads/2018/12/logo.png")
         .setTimestamp()
         message.channel.send(translate);
