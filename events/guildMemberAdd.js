@@ -36,5 +36,6 @@ module.exports = async (client, member) => {
   	ctx.drawImage(avatar, 25, 25, 200, 200);
 
   	const attachment = new Discord.Attachment(canvas.toBuffer(), 'welcome-user.png');
+    member.addRole(member.guild.roles.find("name", "👥 Membros"));
   	client.channels.get(process.env.WELCOME_CHAT).send(`<:he4rt:546395281093034015> | ${member}`, attachment);
 }
