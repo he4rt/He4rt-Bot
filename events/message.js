@@ -1,7 +1,7 @@
 module.exports = async (client, message) => {
   if (message.author.bot) return;
 
-  if(message.channel.id == process.env.SUGGESTION_CHAT){
+  if(message.channel.id == process.env.SUGGESTION_CHAT || message.channel.id == process.env.SEARCH_CHAT){
     message.react("✅");
     message.react("❌");
   }
