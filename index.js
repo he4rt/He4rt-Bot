@@ -7,14 +7,7 @@ const Enmap = require('enmap');
 const tmi = require('tmi.js');
 const _ = require('lodash');
 
-const twitchclient = new tmi.client(options);
-
-client.commands = new Enmap();
-require('dotenv').config();
-
-const TWITCH_CHANNEL = ['danielhe4rt'];
-
-var options = {
+const options = {
   options: {
     debug: false,
   },
@@ -27,6 +20,13 @@ var options = {
   },
   channels: [`#${process.env.TWITCH_BOT_USERNAME}`],
 };
+
+const twitchclient = new tmi.client(options);
+
+client.commands = new Enmap();
+require('dotenv').config();
+
+const TWITCH_CHANNEL = ['danielhe4rt'];
 
 const init = async () => {
   const cmdFiles = await readdir('./commands/');
@@ -76,14 +76,11 @@ twitchclient.on('connected', (address, port) => {
   console.log('[#TWITCH]', 'Conectado com sucesso!');
 });
 
-setInterval(runChannels, process.env.CHECK_INTERVAL);
 let laststatus = 'default';
 function runChannels() {
-  const promises = [];
-  for (var i = 0, len = TWITCH_CHANNEL.length; i < len; i++) {
-    promises.push(
+  const promises = TWITCH_CHANNEL.map(
+    channelname =>
       new Promise((resolve, reject) => {
-        const channelname = TWITCH_CHANNEL[i];
         twitchclient.api(
           {
             url: `https://api.twitch.tv/kraken/streams/${channelname}`,
@@ -92,22 +89,21 @@ function runChannels() {
             },
           },
           (err, res, body) => {
-            if (body.stream == null) {
-              result = 'offline';
-            } else {
-              result = 'online';
+            /* TODO: tratar esse erro
+            if (err) {
+              return reject(err);
             }
-            resolve(result);
+            */
+            resolve(body.stream == null ? 'offline' : 'online');
           }
         );
       })
-    );
-  }
+  );
 
   Promise.all(promises).then(
     results => {
-      if (_.indexOf(results, 'online') != -1) {
-        if (laststatus != 'online') {
+      if (_.indexOf(results, 'online') !== -1) {
+        if (laststatus !== 'online') {
           const liveEmbed = new Discord.RichEmbed()
             .setTitle('<:he4rt:546395281093034015> **He4rt informa:**')
             .setDescription(
@@ -136,7 +132,7 @@ function runChannels() {
           // });
           laststatus = 'online';
         }
-      } else if (laststatus != 'offline') {
+      } else if (laststatus !== 'offline') {
         // client.user.setPresence({
         // status: 'online',
         // game: {
@@ -148,8 +144,7 @@ function runChannels() {
         laststatus = 'offline';
       }
     },
-    err => {
-      console.log(err);
-    }
+    err => console.log(err)
   );
 }
+setInterval(runChannels, process.env.CHECK_INTERVAL);
