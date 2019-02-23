@@ -1,11 +1,10 @@
 const Discord = require('discord.js');
-
-const client = new Discord.Client();
-const { promisify } = require('util');
-const readdir = promisify(require('fs').readdir);
+const fs = require('fs-extra');
 const Enmap = require('enmap');
 const tmi = require('tmi.js');
 const _ = require('lodash');
+
+const client = new Discord.Client();
 
 const options = {
   options: {
@@ -29,10 +28,11 @@ require('dotenv').config();
 const TWITCH_CHANNEL = ['danielhe4rt'];
 
 const init = async () => {
-  const cmdFiles = await readdir('./commands/');
+  const cmdFiles = await fs.readdir('./commands/');
   console.log('[#LOG]', `Carregando o total de ${cmdFiles.length} comandos.`);
   cmdFiles.forEach(f => {
     try {
+      // eslint-disable-next-line
       const props = require(`./commands/${f}`);
       if (f.split('.').slice(-1)[0] !== 'js') return;
       if (props.init) {
@@ -44,18 +44,17 @@ const init = async () => {
     }
   });
 
-  const evtFiles = await readdir('./events/');
+  const evtFiles = await fs.readdir('./events/');
   console.log('[#LOG]', `Carregando o total de ${evtFiles.length} eventos.`);
   evtFiles.forEach(f => {
     const eventName = f.split('.')[0];
+    // eslint-disable-next-line
     const event = require(`./events/${f}`);
 
     client.on(eventName, event.bind(null, client));
   });
 
-  client.on('error', err => {
-    console.log('[#ERROR]', err);
-  });
+  client.on('error', err => console.error('[#ERROR]', err));
 
   client.login(process.env.AUTH_TOKEN);
   client.on('ready', () =>
@@ -73,14 +72,14 @@ init();
 twitchclient.connect();
 
 twitchclient.on('connected', (address, port) => {
-  console.log('[#TWITCH]', 'Conectado com sucesso!');
+  console.log('[#TWITCH]', `Conectado com sucesso! ${address}:${port}`);
 });
 
 let laststatus = 'default';
 function runChannels() {
   const promises = TWITCH_CHANNEL.map(
     channelname =>
-      new Promise((resolve, reject) => {
+      new Promise(resolve => {
         twitchclient.api(
           {
             url: `https://api.twitch.tv/kraken/streams/${channelname}`,

@@ -34,7 +34,7 @@ module.exports = {
         'https://heartdevs.com/wp-content/uploads/2018/12/logo.png'
       )
       .setTimestamp();
-    message.channel.send(embed);
+    return message.channel.send(embed);
   },
 
   get command() {

@@ -27,6 +27,7 @@
     "discord.js": "^11.4.2",
     "dotenv": "^6.2.0",
     "enmap": "^4.7.1",
+    "fs-extra": "^7.0.1",
     "lodash": "^4.17.11",
     "mathjs": "^5.4.2",
     "snekfetch": "^4.0.4",

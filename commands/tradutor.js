@@ -7,7 +7,7 @@ module.exports = {
 
     translate(txt, { to: 'pt' })
       .then(res => {
-        const translate = new Discord.RichEmbed()
+        const translatedText = new Discord.RichEmbed()
           .setTitle('``📡`` » !traduzir')
           .setColor('#8146DC')
           .addField('**Tradução:**', res.text)
@@ -17,11 +17,9 @@ module.exports = {
             'https://heartdevs.com/wp-content/uploads/2018/12/logo.png'
           )
           .setTimestamp();
-        message.channel.send(translate);
+        message.channel.send(translatedText);
       })
-      .catch(err => {
-        console.log(err);
-      });
+      .catch(err => console.error(err));
   },
 
   get command() {
