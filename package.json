@@ -4,7 +4,9 @@
   "description": "Bot para o servidor heartdevs.com",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint --fix *.js assets/* commands/* events/*",
+    "start": "NODE_ENV=production node ."
   },
   "repository": {
     "type": "git",
@@ -29,5 +31,10 @@
     "mathjs": "^5.4.2",
     "snekfetch": "^4.0.4",
     "tmi.js": "^1.3.1"
+  },
+  "devDependencies": {
+    "eslint": "^5.14.1",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.16.0"
   }
 }

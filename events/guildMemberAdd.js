@@ -4,15 +4,14 @@ const snekfetch = require('snekfetch');
 
 
 module.exports = async (client, member) => {
-
-    const addText = (canvas, text) => {
+  const addText = (canvas, text) => {
     	const ctx = canvas.getContext('2d');
     	let fontSize = 70;
     	do {
     		ctx.font = `${fontSize -= 10}px sans-serif`;
     	} while (ctx.measureText(text).width > canvas.width - 300);
     	return ctx.font;
-    };
+  };
 
   	const canvas = Canvas.createCanvas(700, 250);
   	const ctx = canvas.getContext('2d');
@@ -37,6 +36,6 @@ module.exports = async (client, member) => {
   	ctx.drawImage(avatar, 25, 25, 200, 200);
 
   	const attachment = new Discord.Attachment(canvas.toBuffer(), 'welcome-user.png');
-    member.addRole(member.guild.roles.find("name", "👥 Membros"));
+  member.addRole(member.guild.roles.find('name', '👥 Membros'));
   	client.channels.get(process.env.WELCOME_CHAT).send(`<:he4rt:546395281093034015> | ${member}`, attachment);
-}
+};
