@@ -3,7 +3,7 @@ const Discord = require('discord.js');
 module.exports = {
   run: (client, message, args) => {
     message.delete().catch(O_o=>{});
-    
+
     let member = message.mentions.users.first() || message.author;
      const avatar = new Discord.RichEmbed()
        .setTitle("``🖼️`` » !avatar")

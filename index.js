@@ -108,27 +108,27 @@ twitchclient.connect();
            .setTimestamp()
 
          client.channels.get(process.env.ANNOUNCEMENT_CHAT).send("<:he4rt:546395281093034015> | @everyone", liveEmbed);
-         client.user.setPresence({
-           status: 'online',
-           game: {
-             name: '🔔 DanielHe4rt está online na Twitch!',
-             type: 'STREAMING',
-             url: 'https://www.twitch.tv/danielhe4rt'
-           }
-         });
+         //client.user.setPresence({
+           //status: 'online',
+           //game: {
+             //name: '🔔 DanielHe4rt está online na Twitch!',
+             //type: 'STREAMING',
+             //url: 'https://www.twitch.tv/danielhe4rt'
+           //}
+         //});
          laststatus = "online";
          return;
        }
      } else {
        if (laststatus != "offline") {
-         client.user.setPresence({
-           status: 'online',
-           game: {
-             name: 'a qualidade que você procura 💻 | heartdevs.com',
-             type: 'STREAMING',
-             url: 'https://www.twitch.tv/danielhe4rt'
-           }
-         });
+         //client.user.setPresence({
+           //status: 'online',
+           //game: {
+            // name: 'a qualidade que você procura 💻 | heartdevs.com',
+            // type: 'STREAMING',
+            // url: 'https://www.twitch.tv/danielhe4rt'
+           //}
+         //});
          laststatus = "offline";
          return;
        }
