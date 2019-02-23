@@ -3,11 +3,14 @@ const math = require('mathjs');
 
 module.exports = {
   run: (client, message, args) => {
-    message.delete().catch((O_o) => {});
+    // TODO: verificar o que fazer com possivel erro
+    message.delete().catch(() => {});
 
     const input = args.join(' ');
     if (!input) {
-      return message.channel.send('``❌`` Utilize ``!calcular [cálculo]``.').then(msg => msg.delete(8000));
+      return message.channel
+        .send('``❌`` Utilize ``!calcular [cálculo]``.')
+        .then(msg => msg.delete(8000));
     }
 
     const question = args.join(' ');
@@ -16,7 +19,9 @@ module.exports = {
     try {
       answer = math.eval(question);
     } catch (err) {
-      return message.channel.send('``❌`` Utilize ``!calcular [cálculo]``.').then(msg => msg.delete(8000));
+      return message.channel
+        .send('``❌`` Utilize ``!calcular [cálculo]``.')
+        .then(msg => msg.delete(8000));
     }
 
     const embed = new Discord.RichEmbed()
@@ -24,7 +29,10 @@ module.exports = {
       .setColor('#8146DC')
       .addField('**Cálculo:**', question)
       .addField('**Resposta:**', answer)
-      .setFooter(`Comando utilizado por: ${message.author.tag}`, 'https://heartdevs.com/wp-content/uploads/2018/12/logo.png')
+      .setFooter(
+        `Comando utilizado por: ${message.author.tag}`,
+        'https://heartdevs.com/wp-content/uploads/2018/12/logo.png'
+      )
       .setTimestamp();
     message.channel.send(embed);
   },
@@ -37,5 +45,4 @@ module.exports = {
       usage: 'calcular',
     };
   },
-
 };

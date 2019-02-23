@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint --fix *.js assets/* commands/* events/*",
+    "lint": "eslint --fix *.js commands/**/*.js events/**/*.js",
     "start": "NODE_ENV=production node ."
   },
   "repository": {
@@ -35,6 +35,9 @@
   "devDependencies": {
     "eslint": "^5.14.1",
     "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-plugin-import": "^2.16.0"
+    "eslint-config-prettier": "^4.0.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-prettier": "^3.0.1",
+    "prettier": "^1.16.4"
   }
 }
