@@ -1,0 +1,20 @@
+{
+  "continuar": {
+    "name": {
+      "title": "**Qual é seu nome?** (Exemplo: Daniel Reis)",
+      "color": "#36393E"
+    },
+    "nick": {
+      "title": "**Qual é seu nick?** (Exemplo: DanielHe4rt)",
+      "color": "#36393E"
+    },
+    "about": {
+      "title": "**Diga um pouco sobre você:** (Exemplo: Me chamo Gustavo...)",
+      "color": "#36393E"
+    },
+    "git": {
+      "title": "**Qual é seu Git?** (Exemplo: https://github.com/DanielHe4rt)",
+      "color": "#36393E"
+    }
+  }
+}

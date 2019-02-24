@@ -23,21 +23,10 @@ const hiddenRolesEng = [
 ];
 
 const createEmbeds = ({ devRoles, engRoles }) => {
-  const name = new Discord.RichEmbed()
-    .setTitle(`**Qual é seu nome?** (Exemplo: Daniel Reis)`)
-    .setColor('#36393E');
-
-  const nick = new Discord.RichEmbed()
-    .setTitle(`**Qual é seu nick?** (Exemplo: DanielHe4rt)`)
-    .setColor('#36393E');
-
-  const about = new Discord.RichEmbed()
-    .setTitle(`**Diga um pouco sobre você:** (Exemplo: Me chamo Gustavo...)`)
-    .setColor('#36393E');
-
-  const git = new Discord.RichEmbed()
-    .setTitle(`**Qual é seu Git?** (Exemplo: https://github.com/DanielHe4rt)`)
-    .setColor('#36393E');
+  const name = util.embed('continuar.name');
+  const nick = util.embed('continuar.nick');
+  const about = util.embed('continuar.about');
+  const git = util.embed('continuar.git');
 
   const languagesDescriptionLine = devRoles
     .map(devRole => `${devRole.react}  -  ${devRole.name}`)
