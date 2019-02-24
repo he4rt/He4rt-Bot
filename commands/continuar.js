@@ -188,7 +188,7 @@ module.exports = {
 
     const presentedRole = client.guilds
       .get(process.env.GUILD_ID)
-      .roles.find('name', 'Apresentou');
+      .roles.find('name', '🎓 Apresentou');
 
     if (
       !client.guilds

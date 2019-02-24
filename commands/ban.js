@@ -15,7 +15,7 @@ module.exports = {
     const embedBan = new Discord.RichEmbed()
       .setTitle('``📌`` » !ban')
       .setDescription(
-        'Para banir um usuário utilize:\n- ``!ban <nick> <motivo>``.'
+        'Para banir um usuário utilize:\n- ``!ban <@usuário> <motivo>``.'
       )
       .setColor('#ff1919')
       .setFooter(
