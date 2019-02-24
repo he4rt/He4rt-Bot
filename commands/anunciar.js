@@ -24,7 +24,7 @@ module.exports = {
       )
       .setTimestamp();
 
-    return message.channel.send('<@&546333494654009345>', announce);
+    return message.channel.send('@everyone', announce);
   },
 
   get command() {
