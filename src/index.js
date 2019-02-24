@@ -28,7 +28,7 @@ require('dotenv').config();
 const TWITCH_CHANNEL = ['danielhe4rt'];
 
 const init = async () => {
-  const cmdFiles = await fs.readdir('./commands/');
+  const cmdFiles = await fs.readdir('src/commands/');
   console.log('[#LOG]', `Carregando o total de ${cmdFiles.length} comandos.`);
   cmdFiles.forEach(f => {
     try {
@@ -44,7 +44,7 @@ const init = async () => {
     }
   });
 
-  const evtFiles = await fs.readdir('./events/');
+  const evtFiles = await fs.readdir('src/events/');
   console.log('[#LOG]', `Carregando o total de ${evtFiles.length} eventos.`);
   evtFiles.forEach(f => {
     const eventName = f.split('.')[0];

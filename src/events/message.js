@@ -1,5 +1,7 @@
+const util = require('../util');
+
 module.exports = async (client, message) => {
-  if (message.author.bot) return;
+  if (message.author.bot) return null;
 
   if (
     message.channel.id === process.env.SUGGESTION_CHAT ||
@@ -8,8 +10,7 @@ module.exports = async (client, message) => {
     message.react('✅');
     message.react('❌');
   }
-
-  if (message.content.indexOf(process.env.COMMAND_PREFIX) !== 0) return;
+  if (!util.isCommand(message)) return null;
 
   const args = message.content
     .slice(process.env.COMMAND_PREFIX.length)
@@ -18,7 +19,7 @@ module.exports = async (client, message) => {
   const command = args.shift().toLowerCase();
 
   const cmd = client.commands.get(command);
-  if (!cmd) return;
+  if (!cmd) return null;
 
   console.log(
     '[#LOG]',
@@ -26,5 +27,18 @@ module.exports = async (client, message) => {
       cmd.command.name
     }`
   );
-  cmd.run(client, message, args);
+  try {
+    await cmd.run(client, message, args);
+  } catch (err) {
+    if (cmd.fail) {
+      return cmd.fail(err, client, message, args);
+    }
+  } finally {
+    if (cmd.after) {
+      await cmd.after(client, message, args);
+    }
+  }
+  if (cmd.success) {
+    await cmd.success(client, message, args);
+  }
 };
