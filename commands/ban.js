@@ -26,18 +26,19 @@ module.exports = {
 
     if(!member) return message.reply(embedBan).then(msg => msg.delete(8000));
     if(!member.bannable)
-        return message.channel.send("``❌`` Ocorreu um problema para punir este usuário.").then(msg => msg.delete(8000));
+        return message.channel.send('``❌`` Ocorreu um problema para punir este usuário.').then(msg => msg.delete(8000));
 
     const reason = args.slice(1).join(' ');
     if(!reason) return message.reply(embedBan).then(msg => msg.delete(8000));
 
-    member.ban(`Motivo: ` + reason + ` | Punido por: ${message.author.tag}`).catch(error => message.channel.send("``❌`` Ocorreu um problema para punir este usuário.").then(msg => msg.delete(8000)));
+    member.ban(`Motivo: ` + reason + ` | Punido por: ${message.author.tag}`).catch(error => message.channel.send('``❌`` Ocorreu um problema para punir este usuário.').then(msg => msg.delete(8000)));
 
       const embedPunish = new Discord.RichEmbed()
         .setTitle('``🚔`` » Punição')
-        .addField("``👤`` **Usuário punido:**", member.user, true)
-        .addField("``👮`` **Punidor por:**", message.author, true)
-        .addField("``📣`` **Motivo:**", reason, true)
+        .addField('``👤`` **Usuário punido:**', member.user, true)
+        .addField('``👮`` **Punido por:**', message.author, true)
+        .addField('``📄`` **Tipo:**', 'Banimento', true)
+        .addField('``📣`` **Motivo:**', reason, true)
         .setThumbnail(member.user.avatarURL)
         .setColor('#8146DC')
         .setFooter(
@@ -46,7 +47,9 @@ module.exports = {
         )
         .setTimestamp();
 
-    client.channels.get("546143129749815306").send(embedPunish);
+    message.channel.send('``✅`` Usuário banido com sucesso.').then(msg => msg.delete(8000));
+    member.send('Você foi punido, mais informações abaixo.', embedPunish);
+    client.channels.get(process.env.PUNISHMENTS_CHAT).send(embedPunish);
 
   },
 
