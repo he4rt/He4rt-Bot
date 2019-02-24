@@ -246,7 +246,7 @@ module.exports = {
     return {
       name: 'continuar',
       category: 'Users',
-      description: 'O usuario irá continuiar a apresentação.',
+      description: 'O usuario irá continuar a apresentação.',
       usage: 'continuar',
     };
   },
