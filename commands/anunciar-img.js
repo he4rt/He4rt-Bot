@@ -28,7 +28,7 @@ module.exports = {
       )
       .setTimestamp();
 
-    return message.channel.send('<@&546333494654009345>', announceImage);
+    return message.channel.send('@everyone', announceImage);
   },
 
   get command() {
