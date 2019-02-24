@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint --fix *.js commands/**/*.js events/**/*.js",
-    "start": "NODE_ENV=production node ."
+    "lint": "eslint --fix src/**/*.js",
+    "start": "NODE_ENV=production node src/index.js"
   },
   "repository": {
     "type": "git",
