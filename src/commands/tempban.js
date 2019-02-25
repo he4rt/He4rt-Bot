@@ -1,57 +1,42 @@
 module.exports = {
-  run: (client, message, args) => {
-    if (!message.member.hasPermission('KICK_MEMBERS')) {
-      return message.channel.send(
-        '``❌`` Você não possui permissão para utilizar este comando. ``[KICK_MEMBERS]``'
-      );
+  validate(client, message, args) {
+    if (!message.member.hasPermission('BAN_MEMBERS')) {
+      throw new Error('permission');
     }
 
     const member = message.mentions.members.first();
-
-    if (!member)
-      return message
-        .reply('Você deve informar um user')
-        .then(msg => msg.delete(8000));
-
-    if (!member.bannable)
-      return message.channel.send(
-        '``❌`` Ocorreu um problema para punir este usuário.'
-      );
-
-    const temp = args[1];
-    if (!temp)
-      return message.channel.send(
-        'Você deve informar o tempo do ban (em minutos)'
-      );
-
-    const reason = args.slice(2).join(' ');
-    if (!reason)
-      return message
-        .reply('Você deve informar uma razão')
-        .then(msg => msg.delete(8000));
-
+    if (!member) {
+      throw new Error('no_user');
+    }
+    if (!args[1]) {
+      throw new Error('no_time');
+    }
+    if (!args[2]) {
+      throw new Error('no_reason');
+    }
+    if (!member.bannable) {
+      throw new Error('not_bannable');
+    }
+  },
+  async run(client, message, args) {
+    const member = message.mentions.members.first();
     // minutos para ms
-    const tempoEmMs = temp * 60000;
+    const time = args[1] * 60 * 1000;
+    const reason = args.slice(2).join(' ');
 
-    const desbanirTimeStanp = Date.now() + tempoEmMs;
+    const desbanirTimeStamp = Date.now() + time;
 
     // banir a pessoa colocando o timestanp no comeco da reason para usar depois
-    member
-      .ban(
-        `[${desbanirTimeStanp}] Motivo: ${reason} | Punido por: ${
-          message.author.tag
-        }`
-      )
-      .catch(error => {
-        console.error(error);
-        message.channel
-          .send('``❌`` Ocorreu um problema para punir este usuário.')
-          .then(msg => msg.delete(8000));
-      });
+    await member.ban(
+      `[${desbanirTimeStamp}] Motivo: ${reason} | Punido por: ${
+        message.author.tag
+      }`
+    );
 
-    message.channel.send(`O usuario ${member} foi banido por ${temp} minutos`);
+    return message.channel.send(
+      `O usuario ${member} foi banido por ${time} minutos`
+    );
   },
-
   get command() {
     return {
       name: 'tempban',

@@ -28,11 +28,19 @@ module.exports = async (client, message) => {
     }`
   );
   try {
+    if (cmd.validate) {
+      await cmd.validate(client, message, args);
+    }
     await cmd.run(client, message, args);
   } catch (err) {
     if (cmd.fail) {
       return cmd.fail(err, client, message, args);
     }
+    const embed =
+      util.embed(`${command}.fail.${err.message}`) ||
+      util.embed(`${command}.fail.default`) ||
+      util.embed(`error_command`, [command, err.message]);
+    return message.reply(embed).then(msg => msg.delete(15000));
   } finally {
     if (cmd.after) {
       await cmd.after(client, message, args);

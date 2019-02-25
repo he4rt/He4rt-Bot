@@ -16,5 +16,31 @@
       "title": "**Qual é seu Git?** (Exemplo: https://github.com/DanielHe4rt)",
       "color": "#36393E"
     }
+  },
+  "tempban": {
+    "fail": {
+      "permission": {
+        "description": "``❌`` Você não possui permissão para utilizar este comando. ``[BAN_MEMBERS]``"
+      },
+      "no_user": {
+        "description": "Você deve informar um user"
+      },
+      "no_time": {
+        "description": "Você deve informar o tempo do ban (em minutos)"
+      },
+      "no_reason": {
+        "description": "Você deve informar uma razão"
+      },
+      "default": {
+        "description": "``❌`` Ocorreu um problema para punir este usuário."
+      }
+    }
+  },
+  "error_command": {
+    "description": "``❌`` Ocorreu um erro inesperado.",
+    "fields": [
+      { "name": "**Comando:**", "inline": true },
+      { "name": "**Mensagem:**", "inline": true }
+    ]
   }
 }

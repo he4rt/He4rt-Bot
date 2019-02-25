@@ -6,6 +6,9 @@ module.exports = {
   isCommand: message => message.content.startsWith(process.env.COMMAND_PREFIX),
   embed: (path, fields = []) => {
     const data = _.get(langPTBR, path);
+    if (!data) {
+      return null;
+    }
     if (data.fields) {
       data.fields = data.fields.map((field, index) => ({
         ...field,

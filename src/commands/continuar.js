@@ -49,9 +49,9 @@ const createEmbeds = ({ devRoles, engRoles }) => {
 const createEmbedResponse = ({ author, collectors, client }) =>
   new Discord.RichEmbed()
     .setTitle(`**Apresentação** » ${author.username}`)
-    .addField('**Sobre:**', collectors.about.collected.first().content)
     .setThumbnail(author.avatarURL)
     .setColor('#8146DC')
+    .addField('**Sobre:**', collectors.about.collected.first().content)
     .addField('**Nome:**', collectors.name.collected.first().content, true)
     .addField('**Nickname:**', collectors.nick.collected.first().content, true)
     .addField('**Git:**', collectors.git.collected.first().content, true)
