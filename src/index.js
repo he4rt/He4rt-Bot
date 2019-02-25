@@ -57,16 +57,6 @@ const init = async () => {
   client.on('error', err => console.error('[#ERROR]', err));
 
   client.login(process.env.AUTH_TOKEN);
-  client.on('ready', () =>
-    client.user.setPresence({
-      status: 'online',
-      game: {
-        name: 'a qualidade que você procura 💻 | heartdevs.com',
-        type: 'STREAMING',
-        url: 'https://www.twitch.tv/danielhe4rt',
-      },
-    })
-  );
 };
 init();
 twitchclient.connect();
