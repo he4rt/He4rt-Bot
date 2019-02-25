@@ -18,17 +18,19 @@ module.exports = async (client, message) => {
       .then(bans =>
         bans.forEach(ban => {
           // timestanp do cara banido
-          const timeStanpBanido = ban.reason
+          const timeStampBanido = ban.reason
             .toString()
             .split(' ')[0]
             .replace('[', '')
             .replace(']', '');
 
           // Se o timestanp do cara banido for maior que o atual
-          if (Date.now() > timeStanpBanido) {
+          if (Date.now() > timeStampBanido) {
             guild
               .unban(ban.user.id)
-              .then(console.log(`Usuario desbanido (tempban): ${ban.user.id}`))
+              .then(() =>
+                console.log(`Usuario desbanido (tempban): ${ban.user.id}`)
+              )
               .catch(console.error);
           }
         })
