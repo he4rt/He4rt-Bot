@@ -1,5 +1,3 @@
-const Discord = require('discord.js');
-
 module.exports = {
   run: (client, message, args) => {
     if (!message.member.hasPermission('KICK_MEMBERS')) {
@@ -9,10 +7,15 @@ module.exports = {
     }
 
     const member = message.mentions.members.first();
-        
-        if(!member) return message.reply("Você deve informar um user").then(msg => msg.delete(8000));
-        
-        if(!member.bannable) return message.channel.send('``❌`` Ocorreu um problema para punir este usuário.')
+
+    if (!member)
+      return message
+        .reply('Você deve informar um user')
+        .then(msg => msg.delete(8000));
+
+    if (!member.bannable)
+      return message.channel.send(
+        '``❌`` Ocorreu um problema para punir este usuário.'
       );
 
     const temp = args[1];
@@ -28,32 +31,33 @@ module.exports = {
         .then(msg => msg.delete(8000));
 
     // minutos para ms
-        const tempoEmMs = temp * 60000;
+    const tempoEmMs = temp * 60000;
 
-    let desbanirTimeStanp = Date.now() + tempoEmMs;
+    const desbanirTimeStanp = Date.now() + tempoEmMs;
 
     // banir a pessoa colocando o timestanp no comeco da reason para usar depois
     member
       .ban(
-        `[${desbanirTimeStanp}] Motivo: ` +
-          reason +
-          ` | Punido por: ${message.author.tag}`
+        `[${desbanirTimeStanp}] Motivo: ${reason} | Punido por: ${
+          message.author.tag
+        }`
       )
-      .catch(error =>
+      .catch(error => {
+        console.error(error);
         message.channel
           .send('``❌`` Ocorreu um problema para punir este usuário.')
-          .then(msg => msg.delete(8000))
-      );
+          .then(msg => msg.delete(8000));
+      });
 
     message.channel.send(`O usuario ${member} foi banido por ${temp} minutos`);
   },
-    
-    get command() {
-        return {
-            name: 'tempban',
-            category: 'mod',
-            description: 'Irá banir o usuario temporariamente (tempo um minutos)',
-            usage: '!tempban @user 5 motivo',
+
+  get command() {
+    return {
+      name: 'tempban',
+      category: 'mod',
+      description: 'Irá banir o usuario temporariamente (tempo um minutos)',
+      usage: '!tempban @user 5 motivo',
     };
   },
 };
