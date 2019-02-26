@@ -22,7 +22,7 @@ module.exports = async (client, member) => {
   ctx.font = '28px sans-serif';
   ctx.fillStyle = '#ffffff';
   ctx.fillText(
-    'Seja bem-vindo a He4rt,',
+    'Welcome to He4rt,',
     canvas.width / 2.5,
     canvas.height / 3.5
   );
@@ -55,4 +55,8 @@ module.exports = async (client, member) => {
   client.channels
     .get(process.env.WELCOME_CHAT)
     .send(`<:he4rt:546395281093034015> | ${member}`, attachment);
+  client.channels
+    .get(process.env.RULES_CHAT)
+    .send(`<:he4rt:546395281093034015> | ${member}`).then(msg => msg.delete(8000));
+  
 };
