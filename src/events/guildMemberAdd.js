@@ -2,6 +2,7 @@ const Discord = require('discord.js');
 const Canvas = require('canvas');
 const snekfetch = require('snekfetch');
 const request = require('request');
+const util = require('../util');
 
 module.exports = async (client, member) => {
   const addText = (canvas, text) => {
@@ -47,11 +48,15 @@ module.exports = async (client, member) => {
     canvas.toBuffer(),
     'welcome-user.png'
   );
-  member.addRole(member.guild.roles.find('name', '👥 Membros'));
-  request.post({
+  member.addRole(member.guild.roles.find('id', process.env.MEMBER_ROLE));
+  /*request.post({
     headers: {'content-type' : 'application/x-www-form-urlencoded'},
     url: process.env.END_POINT_CREATE + `${member.id}`
-  })
+  })*/
+
+  //Mandar DM pra pessoa que entrou
+
+  member.send(":flag_br: Bem-vindo a He4rt,\n\n")
   client.channels
     .get(process.env.WELCOME_CHAT)
     .send(`<:he4rt:546395281093034015> | ${member}`, attachment);
