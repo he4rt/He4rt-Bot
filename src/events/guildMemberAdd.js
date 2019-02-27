@@ -48,13 +48,13 @@ module.exports = async (client, member) => {
     canvas.toBuffer(),
     'welcome-user.png'
   );
-  //aqui 
+
   member.addRole(member.guild.roles.find('id', process.env.MEMBER_ROLE));
-  
-  /*request.post({
+
+  request.post({
     headers: {'content-type' : 'application/x-www-form-urlencoded'},
     url: process.env.END_POINT_CREATE + `${member.id}`
-  })*/
+  })
 
   //Mandar DM pra pessoa que entrou
 
