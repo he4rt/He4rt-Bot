@@ -67,8 +67,8 @@ module.exports = async (client, message) => {
           .setFooter('Última atualização:')
           .setTimestamp();
 
-        client.channels.get('546143129749815306').bulkDelete(1)
-        client.channels.get('546143129749815306').send(embed)
+        client.channels.get(process.env.STATUS_PAGE).bulkDelete(1)
+        client.channels.get(process.env.STATUS_PAGE).send(embed)
       }
     });
   }, 10000);
