@@ -2,6 +2,9 @@ const util = require('../util');
 const Discord = require('discord.js')
 
 module.exports = async (client, message) => {
+  const guild = client.guilds.get(process.env.GUILD_ID);
+
+
   client.user.setPresence({
     status: 'online',
     game: {
@@ -12,7 +15,6 @@ module.exports = async (client, message) => {
   });
 
   // polling do tempban
-  const guild = client.guilds.get(process.env.GUILD_ID);
   setInterval(() => {
     client.rest.methods
       .getGuildBans(guild)
@@ -30,7 +32,7 @@ module.exports = async (client, message) => {
             guild
               .unban(ban.user.id)
               .then(() =>
-                console.log(`Usuario desbanido (tempban): ${ban.user.id}`)
+                console.log(`[#LOG] Usuário desbanido: ${ban.user.id}`)
               )
               .catch(console.error);
           }
@@ -67,9 +69,9 @@ module.exports = async (client, message) => {
           .setFooter('Última atualização:')
           .setTimestamp();
 
-        client.channels.get(process.env.STATUS_PAGE).bulkDelete(1)
-        client.channels.get(process.env.STATUS_PAGE).send(embed)
+        client.channels.get(process.env.STATUS_PAGE_CHAT).bulkDelete(1)
+        client.channels.get(process.env.STATUS_PAGE_CHAT).send(embed)
       }
     });
-  }, 10000);
+  }, 60000 * 35);
 };

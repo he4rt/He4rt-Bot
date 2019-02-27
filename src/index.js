@@ -110,7 +110,7 @@ function runChannels() {
                 )
                 .setColor('#8146DC')
                 .setImage(
-                  'https://static-cdn.jtvnw.net/previews-ttv/live_user_danielhe4rt-1920x1080.jpg'
+                  'http://static-cdn.jtvnw.net/previews-ttv/live_user_danielhe4rt-1920x1080.jpg' 
                   )
                   .setFooter(
                     '2019 © He4rt Developers',
