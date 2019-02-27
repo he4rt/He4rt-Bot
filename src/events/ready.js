@@ -1,9 +1,7 @@
-const util = require('../util');
 const Discord = require('discord.js')
 
 module.exports = async (client, message) => {
   const guild = client.guilds.get(process.env.GUILD_ID);
-
 
   client.user.setPresence({
     status: 'online',
@@ -41,18 +39,14 @@ module.exports = async (client, message) => {
       .catch(console.erro);
   }, 60000); // verifica a cada 1mim
 
-
-  //Sistema para ficar editando a msg de status
-  setInterval(() => {
+  //funcao para enviar o embed de status
+  const enviarEmbedStatus = () =>  {
     const randomId = Math.floor((Math.random() * 12) + 1);
 
-    //Pegar a curiosidade no db e mandar o embed
     client.db.get(`SELECT * FROM curiosidades WHERE id='${randomId}'`, (err, result) => {
       if(err) console.error
       else {
-        const ping = Math.round(client.ping);
         const members = guild.members.size;
-    
 
         let numeroMembrosApresentados = 0;
         let lista  = guild.members;
@@ -65,13 +59,22 @@ module.exports = async (client, message) => {
           .addField('``💡`` **Curiosidade:**', `${result.text}`)
           .addField('``👥`` **Usuários:**', `${members}`, true)
           .addField('``🎓`` **Usuários apresentados:**', `${numeroMembrosApresentados}`, true) 
-          .addField('``📡`` **Letência da API:**', `${ping}ms`, true) 
+          .addField('``📡`` **Latência da API:**', Math.round(client.ping) + `ms`, true) 
           .setFooter('Última atualização:')
+          .setColor('#36393E')
           .setTimestamp();
 
         client.channels.get(process.env.STATUS_PAGE_CHAT).bulkDelete(1)
         client.channels.get(process.env.STATUS_PAGE_CHAT).send(embed)
       }
     });
+  }
+
+  //depois de 2s que o bot logar, manda uma msg de status
+  setTimeout(enviarEmbedStatus, 2000);
+
+  //Manda a msg com o status a cada 35mim
+  setInterval(() => {
+    enviarEmbedStatus();
   }, 60000 * 35);
 };
