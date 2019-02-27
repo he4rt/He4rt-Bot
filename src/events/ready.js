@@ -15,31 +15,31 @@ module.exports = async (client, message) => {
   });
 
   // polling do tempban
-  setInterval(() => {
-    client.rest.methods
-      .getGuildBans(guild)
-      .then(bans =>
-        bans.forEach(ban => {
-          // timestanp do cara banido
-          const timeStampBanido = ban.reason
-            .toString()
-            .split(' ')[0]
-            .replace('[', '')
-            .replace(']', '');
+  // setInterval(() => {
+  //   client.rest.methods
+  //     .getGuildBans(guild)
+  //     .then(bans =>
+  //       bans.forEach(ban => {
+  //         // timestanp do cara banido
+  //         const timeStampBanido = ban.reason
+  //           .toString()
+  //           .split(' ')[0]
+  //           .replace('[', '')
+  //           .replace(']', '');
 
-          // Se o timestanp do cara banido for maior que o atual
-          if (Date.now() > timeStampBanido) {
-            guild
-              .unban(ban.user.id)
-              .then(() =>
-                console.log(`[#LOG] Usuário desbanido: ${ban.user.id}`)
-              )
-              .catch(console.error);
-          }
-        })
-      )
-      .catch(console.erro);
-  }, 60000); // verifica a cada 1mim
+  //         // Se o timestanp do cara banido for maior que o atual
+  //         if (Date.now() > timeStampBanido) {
+  //           guild
+  //             .unban(ban.user.id)
+  //             .then(() =>
+  //               console.log(`[#LOG] Usuário desbanido: ${ban.user.id}`)
+  //             )
+  //             .catch(console.error);
+  //         }
+  //       })
+  //     )
+  //     .catch(console.erro);
+  // }, 60000); // verifica a cada 1mim
 
 
   //Sistema para ficar editando a msg de status
