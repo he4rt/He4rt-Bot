@@ -31,8 +31,6 @@ module.exports = {
     const reason = args.slice(1).join(' ');
     if(!reason) return message.reply(embedBan).then(msg => msg.delete(8000));
 
-    member.ban(`Motivo: ` + reason + ` | Punido por: ${message.author.tag}`).catch(error => message.channel.send('``❌`` Ocorreu um problema para punir este usuário.').then(msg => msg.delete(8000)));
-
       const embedPunish = new Discord.RichEmbed()
         .setTitle('``🚔`` » Punição')
         .addField('``👤`` **Usuário punido:**', member.user, true)
@@ -47,9 +45,10 @@ module.exports = {
         )
         .setTimestamp();
 
-    message.channel.send('``✅`` Usuário banido com sucesso.').then(msg => msg.delete(8000));
     member.send('Você foi punido, mais informações abaixo.', embedPunish);
     client.channels.get(process.env.PUNISHMENTS_CHAT).send(embedPunish);
+    member.ban(`Motivo: ` + reason + ` | Punido por: ${message.author.tag}`).catch(error => message.channel.send('``❌`` Ocorreu um problema para punir este usuário.').then(msg => msg.delete(8000)));
+    message.channel.send('``✅`` Usuário banido com sucesso.').then(msg => msg.delete(8000));
 
   },
 
