@@ -2,6 +2,7 @@ const Discord = require('discord.js');
 const Canvas = require('canvas');
 const snekfetch = require('snekfetch');
 const request = require('request');
+const util = require('../util');
 
 module.exports = async (client, member) => {
   const addText = (canvas, text) => {
@@ -22,7 +23,7 @@ module.exports = async (client, member) => {
   ctx.font = '28px sans-serif';
   ctx.fillStyle = '#ffffff';
   ctx.fillText(
-    'Seja bem-vindo a He4rt,',
+    'Welcome to He4rt,',
     canvas.width / 2.5,
     canvas.height / 3.5
   );
@@ -47,12 +48,23 @@ module.exports = async (client, member) => {
     canvas.toBuffer(),
     'welcome-user.png'
   );
-  member.addRole(member.guild.roles.find('name', '👥 Membros'));
-  request.post({
+  //aqui 
+  member.addRole(member.guild.roles.find('id', process.env.MEMBER_ROLE));
+  
+  /*request.post({
     headers: {'content-type' : 'application/x-www-form-urlencoded'},
     url: process.env.END_POINT_CREATE + `${member.id}`
-  })
+  })*/
+
+  //Mandar DM pra pessoa que entrou
+
+  member.send(":flag_br: Bem-vindo a He4rt, \n\n ▫ Leia o canal <#540992412793700382>;\n ▫ Descumprir as regras resultará em punições;\n ▫ Utilize ``!apresentar`` para facilitar a comunicação.\n\n``💡`` Não tenha medo de pedir ajuda, estamos aqui para ajudar e aprender." + "\n\n" + ":flag_us: Welcome to He4rt, \n\n ▫ Read the <#540992412793700382> channel;\n ▫ Breaking the rules will result in punishments;\n ▫ Use ``!apresentar`` to introduce and facilitate the communication.\n\n``💡`` Don't be afraid to ask for help, we're here to help and learn.")
+
   client.channels
     .get(process.env.WELCOME_CHAT)
     .send(`<:he4rt:546395281093034015> | ${member}`, attachment);
+  client.channels
+    .get(process.env.RULES_CHAT)
+    .send(`<:he4rt:546395281093034015> | ${member}`).then(msg => msg.delete(8000));
+  
 };

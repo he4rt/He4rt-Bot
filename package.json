@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint --fix *.js commands/**/*.js events/**/*.js",
-    "start": "NODE_ENV=production node ."
+    "lint": "eslint --fix src/**/*.js",
+    "dev": "nodemon src/index.js",
+    "start": "NODE_ENV=production node src/index.js"
   },
   "repository": {
     "type": "git",
@@ -31,6 +32,7 @@
     "lodash": "^4.17.11",
     "mathjs": "^5.4.2",
     "snekfetch": "^4.0.4",
+    "sqlite3": "^4.0.6",
     "tmi.js": "^1.3.1",
     "twit": "^2.2.11"
   },
@@ -40,6 +42,7 @@
     "eslint-config-prettier": "^4.0.0",
     "eslint-plugin-import": "^2.16.0",
     "eslint-plugin-prettier": "^3.0.1",
+    "nodemon": "^1.18.10",
     "prettier": "^1.16.4"
   }
 }

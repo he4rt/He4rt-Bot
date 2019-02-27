@@ -3,3 +3,4 @@
 .env
 yarn-error.log
 yarn.lock
+/.vs
