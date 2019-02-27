@@ -3,6 +3,10 @@ const util = require('../util');
 module.exports = async (client, message) => {
   if (message.author.bot) return null;
 
+  if (message.content === '!join') {
+		client.emit('guildMemberAdd', message.member || await message.guild.fetchMember(message.author));
+	}
+
   if (
     message.channel.id === process.env.SUGGESTION_CHAT ||
     message.channel.id === process.env.SEARCH_CHAT
