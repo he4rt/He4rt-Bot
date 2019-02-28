@@ -1,15 +1,14 @@
 const Discord = require('discord.js');
 
 module.exports = {
+  validate(client, message) {
+    if (!message.member.hasPermission('MANAGE_GUILD')) {
+      throw new Error('no_permission');
+    }
+  },
   run: (client, message, args) => {
     // TODO: verificar o que fazer com possivel erro
     message.delete().catch(() => {});
-
-    if (!message.member.hasPermission('MANAGE_GUILD')) {
-      return message.channel.send(
-        '``❌`` Você não possui permissão para utilizar este comando. ``[MANAGE_GUILD]``'
-      );
-    }
 
     const mensg = args.slice(0).join(' ');
     if (!mensg) return null;

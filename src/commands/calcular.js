@@ -2,27 +2,14 @@ const Discord = require('discord.js');
 const math = require('mathjs');
 
 module.exports = {
-  run: (client, message, args) => {
-    // TODO: verificar o que fazer com possivel erro
-    message.delete().catch(() => {});
-
-    const input = args.join(' ');
-    if (!input) {
-      return message.channel
-        .send('``❌`` Utilize ``!calcular [cálculo]``.')
-        .then(msg => msg.delete(8000));
+  validate(client, message, args) {
+    if (args.join('') === '') {
+      throw new Error('invalid_syntax');
     }
-
+  },
+  async run(client, message, args) {
     const question = args.join(' ');
-    let answer;
-
-    try {
-      answer = math.eval(question);
-    } catch (err) {
-      return message.channel
-        .send('``❌`` Utilize ``!calcular [cálculo]``.')
-        .then(msg => msg.delete(8000));
-    }
+    const answer = math.eval(question);
 
     const embed = new Discord.RichEmbed()
       .setTitle('``➗`` » !calcular')

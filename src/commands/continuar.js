@@ -23,10 +23,10 @@ const hiddenRolesEng = [
 ];
 
 const createEmbeds = ({ devRoles, engRoles }) => {
-  const name = util.embed('continuar.name');
-  const nick = util.embed('continuar.nick');
-  const about = util.embed('continuar.about');
-  const git = util.embed('continuar.git');
+  const name = util.translate('continuar.name');
+  const nick = util.translate('continuar.nick');
+  const about = util.translate('continuar.about');
+  const git = util.translate('continuar.git');
 
   const languagesDescriptionLine = devRoles
     .map(devRole => `${devRole.react}  -  ${devRole.name}`)
@@ -285,7 +285,7 @@ module.exports = {
     cooldown[message.author.id] = false;
     const success = new Discord.RichEmbed({
       title: '``✅`` **Apresentação finalizada com sucesso.**',
-      color: parseInt('36393E', 16),
+      color: 0x36393e,
     });
     await message.author.send(success);
   },

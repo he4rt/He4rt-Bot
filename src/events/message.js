@@ -3,10 +3,6 @@ const util = require('../util');
 module.exports = async (client, message) => {
   if (message.author.bot) return null;
 
-  if (message.content === '!join') {
-		client.emit('guildMemberAdd', message.member || await message.guild.fetchMember(message.author));
-	}
-
   if (
     message.channel.id === process.env.SUGGESTION_CHAT ||
     message.channel.id === process.env.SEARCH_CHAT
@@ -37,13 +33,20 @@ module.exports = async (client, message) => {
     }
     await cmd.run(client, message, args);
   } catch (err) {
+    console.error(err)
     if (cmd.fail) {
       return cmd.fail(err, client, message, args);
     }
     const embed =
-      util.embed(`${command}.fail.${err.message}`) ||
-      util.embed(`${command}.fail.default`) ||
-      util.embed(`error_command`, [command, err.message]);
+      util.translate(`${command}.fail.${err.message}`) ||
+      util.translate(`${command}.fail.default`) ||
+      util.translate(`error_command`, [command, err.message]);
+    if (!embed.title) {
+      embed.setTitle(`\`\`❌\`\` » ${process.env.COMMAND_PREFIX}${command}`);
+    }
+    if (!embed.color) {
+      embed.setColor('#36393E');
+    }
     return message.reply(embed).then(msg => msg.delete(15000));
   } finally {
     if (cmd.after) {

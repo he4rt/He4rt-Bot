@@ -4,10 +4,13 @@ const langPTBR = require('../../assets/pt_BR');
 
 module.exports = {
   isCommand: message => message.content.startsWith(process.env.COMMAND_PREFIX),
-  embed: (path, fields = []) => {
+  translate: (path, fields = []) => {
     const data = _.get(langPTBR, path);
     if (!data) {
       return null;
+    }
+    if (typeof data === 'string') {
+      return data;
     }
     if (data.fields) {
       data.fields = data.fields.map((field, index) => ({
