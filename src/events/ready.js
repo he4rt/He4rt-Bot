@@ -1,4 +1,4 @@
-const Discord = require('discord.js')
+const Discord = require('discord.js');
 
 module.exports = async (client, message) => {
   const guild = client.guilds.get(process.env.GUILD_ID);
@@ -39,41 +39,53 @@ module.exports = async (client, message) => {
       .catch(console.erro);
   }, 60000); // verifica a cada 1mim
 
-  //funcao para enviar o embed de status
-  const enviarEmbedStatus = () =>  {
-    const randomId = Math.floor((Math.random() * 12) + 1);
+  // funcao para enviar o embed de status
+  const enviarEmbedStatus = () => {
+    const randomId = Math.floor(Math.random() * 12 + 1);
 
-    client.db.get(`SELECT * FROM curiosidades WHERE id='${randomId}'`, (err, result) => {
-      if(err) console.error
-      else {
-        const members = guild.members.size;
+    client.db.get(
+      `SELECT * FROM curiosidades WHERE id='${randomId}'`,
+      (err, result) => {
+        if (err) console.error(err);
+        else {
+          const members = guild.members.size;
 
-        let numeroMembrosApresentados = 0;
-        let lista  = guild.members;
-        lista.forEach(m => {
-          if(m.roles.has(process.env.APRESENTOU_ROLE)) numeroMembrosApresentados++;
-        })
+          let numeroMembrosApresentados = 0;
+          const lista = guild.members;
+          lista.forEach(m => {
+            if (m.roles.has(process.env.APRESENTOU_ROLE))
+              numeroMembrosApresentados++;
+          });
 
-        const embed = new Discord.RichEmbed()
-          .setTitle('``⏰`` Página de Status')
-          .addField('``💡`` **Curiosidade:**', `${result.text}`)
-          .addField('``👥`` **Usuários:**', `${members}`, true)
-          .addField('``🎓`` **Usuários apresentados:**', `${numeroMembrosApresentados}`, true) 
-          .addField('``📡`` **Latência da API:**', Math.round(client.ping) + `ms`, true) 
-          .setFooter('Última atualização:')
-          .setColor('#36393E')
-          .setTimestamp();
+          const embed = new Discord.RichEmbed()
+            .setTitle('``⏰`` Página de Status')
+            .addField('``💡`` **Curiosidade:**', `${result.text}`)
+            .addField('``👥`` **Usuários:**', `${members}`, true)
+            .addField(
+              '``🎓`` **Usuários apresentados:**',
+              `${numeroMembrosApresentados}`,
+              true
+            )
+            .addField(
+              '``📡`` **Latência da API:**',
+              `${Math.round(client.ping)}ms`,
+              true
+            )
+            .setFooter('Última atualização:')
+            .setColor('#36393E')
+            .setTimestamp();
 
-        client.channels.get(process.env.STATUS_PAGE_CHAT).bulkDelete(1)
-        client.channels.get(process.env.STATUS_PAGE_CHAT).send(embed)
+          client.channels.get(process.env.STATUS_PAGE_CHAT).bulkDelete(1);
+          client.channels.get(process.env.STATUS_PAGE_CHAT).send(embed);
+        }
       }
-    });
-  }
+    );
+  };
 
-  //depois de 2s que o bot logar, manda uma msg de status
+  // depois de 2s que o bot logar, manda uma msg de status
   setTimeout(enviarEmbedStatus, 2000);
 
-  //Manda a msg com o status a cada 35mim
+  // Manda a msg com o status a cada 35mim
   setInterval(() => {
     enviarEmbedStatus();
   }, 60000 * 35);

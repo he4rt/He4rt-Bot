@@ -1,5 +1,5 @@
 const Twit = require('twit');
-const rp = require('request-promise');
+const axios = require('axios');
 
 // TODO: isso ta hard coded
 const T = new Twit({
@@ -21,10 +21,7 @@ module.exports = {
   },
   async run(client) {
     const Day = new Date().toISOString().split('T')[0];
-    const info = await rp({
-      uri: `${host}${Day}`,
-      json: true,
-    });
+    const { data: info } = await axios.get(`${host}${Day}`);
     const idUsers = info.data.map(element => element.discord_id);
     const promises = idUsers.map(userId => {
       const name = client.guilds.get(process.env.GUILD_ID).members.get(userId);
