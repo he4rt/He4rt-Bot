@@ -36,6 +36,66 @@
       }
     }
   },
+  "twitter": {
+    "fail": {
+      "no_permission": {
+        "description": "``❌`` Você não possui permissão para utilizar este comando. ``[MANAGE_GUILD]``"
+      }
+    }
+  },
+  "anunciar-img": {
+    "fail": {
+      "no_permission": {
+        "description": "``❌`` Você não possui permissão para utilizar este comando. ``[MANAGE_GUILD]``"
+      }
+    }
+  },
+  "anunciar": {
+    "fail": {
+      "no_permission": {
+        "description": "``❌`` Você não possui permissão para utilizar este comando. ``[MANAGE_GUILD]``"
+      }
+    }
+  },
+  "ban": {
+    "fail": {
+      "no_permission": {
+        "description": "``❌`` Você não possui permissão para utilizar este comando. ``[BAN_MEMBERS]``"
+      },
+      "invalid_syntax": {
+        "title": "``📌`` » !ban",
+        "description": "Para banir um usuário utilize:\n- ``!ban <@usuário> <motivo>``.",
+        "color": "#ff1919"
+      },
+      "default": {
+        "description": "``❌`` Ocorreu um problema para punir este usuário."
+      }
+    }
+  },
+  "apresentar": {
+    "fail": {
+      "registered": {
+        "description": "``❌`` Você já se apresentou."
+      }
+    }
+  },
+  "calcular": {
+    "fail": {
+      "default": {
+        "description": "``❌`` Utilize ``!calcular [cálculo]``."
+      }
+    }
+  },
+  "unban": {
+    "fail": {
+      "no_permission": {
+        "description": "``❌`` Você não possui permissão para utilizar este comando. ``[MANAGE_GUILD]``"
+      },
+      "invalid_syntax": {
+        "description": "Para desbanir um usuário utilize:\n- ``!unban <@usuário> <motivo>``."
+      }
+    }
+  },
   "error_command": {
     "description": "``❌`` Ocorreu um erro inesperado.",
     "fields": [
