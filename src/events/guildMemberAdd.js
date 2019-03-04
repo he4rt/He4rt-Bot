@@ -50,11 +50,9 @@ module.exports = async (client, member) => {
   );
 
   member.addRole(member.guild.roles.find('id', process.env.MEMBER_ROLE));
-
-  /*request.post({
-    headers: {'content-type' : 'application/x-www-form-urlencoded'},
-    url: process.env.END_POINT_CREATE + `${member.id}`
-  })*/
+  console.log(member.user)
+  client.axios.post('/users?discord_id='+member.user.id)
+  .catch(err => console.log(err))
 
   //Mandar DM pra pessoa que entrou
 

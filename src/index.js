@@ -7,6 +7,7 @@ const axios = require('axios');
 const sqlite3 = require('sqlite3').verbose();
 
 const client = new Discord.Client();
+require('dotenv').config();
 
 client.db = new sqlite3.Database(
   'assets/curiosidades.db',
@@ -42,7 +43,6 @@ const options = {
 const twitchclient = new tmi.client(options);
 
 client.commands = new Enmap();
-require('dotenv').config();
 
 const TWITCH_CHANNEL = ['danielhe4rt'];
 

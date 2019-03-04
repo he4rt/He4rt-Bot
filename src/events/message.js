@@ -2,7 +2,20 @@ const util = require('../util');
 
 module.exports = async (client, message) => {
   if (message.author.bot) return null;
-
+  client.axios.post('/users/'+message.author.id+'/levelup')
+  .then(res => {
+    console.log(res.data)
+    if(res.data.is_levelup){
+      //mandar um rich-embed num canal qualquer
+      console.log(message.author.username,": Upou")
+    }else{
+      console.log(message.author.username,": Não upou")
+    }
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+  
   if (
     message.channel.id === process.env.SUGGESTION_CHAT ||
     message.channel.id === process.env.SEARCH_CHAT
