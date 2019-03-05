@@ -254,7 +254,7 @@ module.exports = {
           '``❌`` **Você já utilizou este comando, verifique sua DM para mais informações.**'
         )
         .setColor('#36393E');
-      return message.author.send(cooldownEmbed);
+      return message.channel.send(cooldownEmbed);
     }
     cooldown[message.author.id] = false;
 
