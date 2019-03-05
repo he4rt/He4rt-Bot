@@ -197,7 +197,7 @@ module.exports = {
       .roles.find(role => role.name === '🎓 Apresentou');
 
     if (
-      !client.guilds
+      client.guilds
         .get(process.env.GUILD_ID)
         .members.get(message.author.id)
         .roles.some(role => role.name === presentedRole.name)
