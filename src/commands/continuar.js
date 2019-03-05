@@ -171,11 +171,11 @@ const collectEnglishReactions = async ({
     if (!engRole) {
       return;
     }
-    collector.stop();
     await client.guilds
       .get(process.env.GUILD_ID)
       .members.get(author.id)
       .addRole(engRole.id);
+    collector.stop();
   });
   return collect(collector).then(() => collector);
 };
