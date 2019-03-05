@@ -1,15 +1,24 @@
 const util = require('../util');
+const Discord = require('discord.js');
 
 module.exports = async (client, message) => {
-  if (message.author.bot) return null;
+  if (message.author.bot) return;
   client.axios.post('/users/'+message.author.id+'/levelup')
   .then(res => {
-    console.log(res.data)
-    if(res.data.is_levelup){
-      //mandar um rich-embed num canal qualquer
-      console.log(message.author.username,": Upou")
-    }else{
-      console.log(message.author.username,": Não upou")
+    if(res.data.is_levelup) {
+      const level = new Discord.RichEmbed()
+        .setTitle('🆙 **'+ message.author.username + '** subiu para o nível ' + res.data.level + '!')
+        .setThumbnail(message.author.avatarURL)
+        .setFooter(
+          '2019 © He4rt Developers',
+          'https://heartdevs.com/wp-content/uploads/2018/12/logo.png'
+        )
+        .setTimestamp();
+      
+      //message.channel.send(level)
+      console.log('[#LOG]', message.author.username + " subiu para o nível " + res.data.level + "!")
+    } else {
+      return null;
     }
   })
   .catch(function (error) {
