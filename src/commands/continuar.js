@@ -171,11 +171,11 @@ const collectEnglishReactions = async ({
     if (!engRole) {
       return;
     }
-    collector.stop();
     await client.guilds
       .get(process.env.GUILD_ID)
       .members.get(author.id)
       .addRole(engRole.id);
+    collector.stop();
   });
   return collect(collector).then(() => collector);
 };
@@ -197,7 +197,7 @@ module.exports = {
       .roles.find(role => role.name === '🎓 Apresentou');
 
     if (
-      !client.guilds
+      client.guilds
         .get(process.env.GUILD_ID)
         .members.get(message.author.id)
         .roles.some(role => role.name === presentedRole.name)
@@ -254,7 +254,7 @@ module.exports = {
           '``❌`` **Você já utilizou este comando, verifique sua DM para mais informações.**'
         )
         .setColor('#36393E');
-      return message.author.send(cooldownEmbed);
+      return message.channel.send(cooldownEmbed);
     }
     cooldown[message.author.id] = false;
 

@@ -5,7 +5,7 @@ const langPTBR = require('../../assets/pt_BR');
 module.exports = {
   isCommand: message => message.content.startsWith(process.env.COMMAND_PREFIX),
   translate: (path, fields = []) => {
-    const data = _.get(langPTBR, path);
+    const data = _.cloneDeep(_.get(langPTBR, path));
     if (!data) {
       return null;
     }

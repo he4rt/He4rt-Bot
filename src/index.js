@@ -5,7 +5,6 @@ const tmi = require('tmi.js');
 const _ = require('lodash');
 const axios = require('axios');
 const sqlite3 = require('sqlite3').verbose();
-
 const client = new Discord.Client();
 require('dotenv').config();
 

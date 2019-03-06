@@ -54,8 +54,11 @@ module.exports = async (client, message) => {
       await cmd.validate(client, message, args);
     }
     await cmd.run(client, message, args);
+    if (cmd.success) {
+      await cmd.success(client, message, args);
+    }
   } catch (err) {
-    console.error(err)
+    console.error(err);
     if (cmd.fail) {
       return cmd.fail(err, client, message, args);
     }
@@ -74,8 +77,5 @@ module.exports = async (client, message) => {
     if (cmd.after) {
       await cmd.after(client, message, args);
     }
-  }
-  if (cmd.success) {
-    await cmd.success(client, message, args);
   }
 };

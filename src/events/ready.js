@@ -13,31 +13,31 @@ module.exports = async (client, message) => {
   });
 
   // polling do tempban
-  setInterval(() => {
-    client.rest.methods
-      .getGuildBans(guild)
-      .then(bans =>
-        bans.forEach(ban => {
+  //setInterval(() => {
+  //  client.rest.methods
+  //    .getGuildBans(guild)
+  //    .then(bans =>
+  //      bans.forEach(ban => {
           // timestanp do cara banido
-          const timeStampBanido = ban.reason
-            .toString()
-            .split(' ')[0]
-            .replace('[', '')
-            .replace(']', '');
+  //        const timeStampBanido = ban.reason
+  //          .toString()
+  //          .split(' ')[0]
+  //          .replace('[', '')
+  //          .replace(']', '');
 
           // Se o timestanp do cara banido for maior que o atual
-          if (Date.now() > timeStampBanido) {
-            guild
-              .unban(ban.user.id)
-              .then(() =>
-                console.log(`[#LOG] Usuário desbanido: ${ban.user.id}`)
-              )
-              .catch(console.error);
-          }
-        })
-      )
-      .catch(console.erro);
-  }, 60000); // verifica a cada 1mim
+   //       if (Date.now() > timeStampBanido) {
+   //         guild
+   //           .unban(ban.user.id)
+   //           .then(() =>
+   //             console.log(`[#LOG] Usuário desbanido: ${ban.user.id}`)
+   //           )
+    //          .catch(console.error);
+   //       }
+   //     })
+  //    )
+  //    .catch(console.erro);
+  //}, 60000); // verifica a cada 1mim
 
   // funcao para enviar o embed de status
   const enviarEmbedStatus = () => {
