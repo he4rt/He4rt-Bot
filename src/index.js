@@ -1,7 +1,6 @@
 const Discord = require('discord.js');
 const fs = require('fs-extra');
 const Enmap = require('enmap');
-const tmi = require('tmi.js');
 const _ = require('lodash');
 const axios = require('axios');
 const sqlite3 = require('sqlite3').verbose();
@@ -25,25 +24,8 @@ client.axios = axios.create({
   headers: { Authorization: `Basic ${process.env.HE4RT_TOKEN}` },
 });
 
-const options = {
-  options: {
-    debug: false,
-  },
-  connection: {
-    reconnect: true,
-  },
-  identity: {
-    username: process.env.TWITCH_BOT_USERNAME,
-    password: process.env.TWITCH_BOT_PASSWORD,
-  },
-  channels: [`#${process.env.TWITCH_BOT_USERNAME}`],
-};
-
-const twitchclient = new tmi.client(options);
-
 client.commands = new Enmap();
 
-const TWITCH_CHANNEL = ['danielhe4rt'];
 
 const init = async () => {
   const cmdFiles = await fs.readdir('src/commands/');
@@ -77,81 +59,3 @@ const init = async () => {
   client.login(process.env.AUTH_TOKEN);
 };
 init();
-twitchclient.connect();
-
-twitchclient.on('connected', (address, port) => {
-  console.log('[#TWITCH]', `Conectado com sucesso! ${address}:${port}`);
-});
-
-let laststatus = 'default';
-function runChannels() {
-  const promises = TWITCH_CHANNEL.map(
-    channelname =>
-      new Promise(resolve => {
-        twitchclient.api(
-          {
-            url: `https://api.twitch.tv/kraken/streams/${channelname}`,
-            headers: {
-              'Client-ID': process.env.TWITCH_APP_CLIENT_ID,
-            },
-          },
-          (err, res, body) => {
-            /* TODO: tratar esse erro
-          if (err) {
-            return reject(err);
-          }
-          */
-            resolve(body.stream == null ? 'offline' : 'online');
-          }
-        );
-      })
-  );
-
-  Promise.all(promises).then(
-    results => {
-      if (_.indexOf(results, 'online') !== -1) {
-        if (laststatus !== 'online') {
-          const liveEmbed = new Discord.RichEmbed()
-            .setTitle('<:he4rt:546395281093034015> **He4rt informa:**')
-            .setDescription(
-              '[A live do DanielHe4rt está online na twitch!](https://www.twitch.tv/danielhe4rt)'
-            )
-            .setColor('#8146DC')
-            .setImage(
-              'http://static-cdn.jtvnw.net/previews-ttv/live_user_danielhe4rt-1920x1080.jpg'
-            )
-            .setFooter(
-              '2019 © He4rt Developers',
-              'https://heartdevs.com/wp-content/uploads/2018/12/logo.png'
-            )
-            .setTimestamp();
-
-          client.channels
-            .get(process.env.ANNOUNCEMENT_CHAT)
-            .send('<:he4rt:546395281093034015> | @everyone', liveEmbed);
-          // client.user.setPresence({
-          // status: 'online',
-          // game: {
-          // name: '🔔 DanielHe4rt está online na Twitch!',
-          // type: 'STREAMING',
-          // url: 'https://www.twitch.tv/danielhe4rt'
-          // }
-          // });
-          laststatus = 'online';
-        }
-      } else if (laststatus !== 'offline') {
-        // client.user.setPresence({
-        // status: 'online',
-        // game: {
-        // name: 'a qualidade que você procura 💻 | heartdevs.com',
-        // type: 'STREAMING',
-        // url: 'https://www.twitch.tv/danielhe4rt'
-        // }
-        // });
-        laststatus = 'offline';
-      }
-    },
-    err => console.log(err)
-  );
-}
-setInterval(runChannels, process.env.CHECK_INTERVAL);
