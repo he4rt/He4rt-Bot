@@ -27,13 +27,12 @@ const hiddenRolesDev = [
   }
 
 module.exports = {
-    run: (client, message, args) => {
+    async run(client, message, args){
         if(message.author.bot) return;
         const member = message.mentions.users.first() || message.author;
         const userID = member.id;
         
-        client.axios.get(`/users/${userID}`) 
-        .then((res) =>{
+        const res = await client.axios.get(`/users/${userID}`).catch(console.log)
             
             const user = res.data
         
@@ -61,12 +60,6 @@ module.exports = {
                 .setTimestamp();
             
             message.channel.send(info);
-                
-            
-        })
-        .catch((error) => {
-            console.log(error);
-        });
     },
     
     get command() {
