@@ -128,6 +128,13 @@
     "enable": "``❕`` Agora você sempre será notificado quando houver notícias.",
     "disable": "``❕`` Agora você não será mais notificado quando houver notícias."
   },
+  "avatar": {
+    "answer": {
+      "title": "``🖼️`` » !avatar",
+      "description": "**[Clique aqui](${member.avatarURL})** para baixar a imagem!",
+      "color": "#8146DC"
+    }
+  },
   "error_command": {
     "description": "``❌`` Ocorreu um erro inesperado.",
     "fields": [
