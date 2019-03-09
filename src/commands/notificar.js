@@ -1,18 +1,19 @@
-module.exports = {
-  run: (client, message, args) => {
-    // TODO: verificar o que fazer com possivel erro
-    message.delete().catch(() => {});
+const { translate } = require('../util');
 
-    if (!message.member.roles.exists('id', process.env.NOTIFY_ROLE)) {
-      message.member.addRole(process.env.NOTIFY_ROLE);
-      return message.channel.send(
-        '``❕`` Agora você sempre será notificado quando houver notícias.'
-      );
+const { NOTIFY_ROLE } = process.env;
+
+module.exports = {
+  async run(client, message) {
+    message.delete();
+
+    const hasRole = !message.member.roles.exists('id', NOTIFY_ROLE);
+    const answer = translate(`notificar.${hasRole ? 'disable' : 'enable'}`);
+    if (hasRole) {
+      await message.member.addRole(NOTIFY_ROLE);
+    } else {
+      await message.member.removeRole(NOTIFY_ROLE);
     }
-    message.member.removeRole(process.env.NOTIFY_ROLE);
-    return message.channel.send(
-      '``❕`` Agora você não será mais notificado quando houver notícias.'
-    );
+    return message.channel.send(answer);
   },
 
   get command() {
