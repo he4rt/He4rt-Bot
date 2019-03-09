@@ -96,6 +96,17 @@
       }
     }
   },
+  "chat": {
+    "fail": {
+      "no_permission": {
+        "description": "``❌`` Você não possui permissão para utilizar este comando. ``[MANAGE_MESSAGES]``"
+      },
+      "no_state": {
+        "description": "Para ativar ou pausar o chat utilize:\n- ``!chat on``;\n- ``!chat off``.",
+        "color": "#ff1919"
+      }
+    }
+  },
   "error_command": {
     "description": "``❌`` Ocorreu um erro inesperado.",
     "fields": [
