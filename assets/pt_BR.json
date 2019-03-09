@@ -96,6 +96,24 @@
       }
     }
   },
+  "perfil": {
+    "answer": {
+      "title": "``👥`` » !perfil",
+      "color": "#8146DC",
+      "fields": [
+        { "name": "**Nome:**", "inline": true },
+        { "name": "**Sobre:**", "inline": true },
+        { "name": "**Git:**", "inline": true },
+        { "name": "**Status:**", "inline": true },
+        { "name": "**Nível:**", "inline": true },
+        { "name": "**Experiência:**", "inline": true },
+        { "name": "**HCoins:**", "inline": true },
+        { "name": "**Linguagens:**", "inline": true },
+        { "name": "**Nível de inglês:**", "inline": true },
+        { "name": "**Juntou-se:**", "inline": true }
+      ]
+    }
+  },
   "error_command": {
     "description": "``❌`` Ocorreu um erro inesperado.",
     "fields": [
