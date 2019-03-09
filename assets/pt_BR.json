@@ -114,6 +114,16 @@
       }
     }
   },
+  "traduzir": {
+    "answer": {
+      "title": "``📡`` » !traduzir",
+      "color": "#8146DC",
+      "fields": [
+        { "name": "**Tradução:**", "inline": true },
+        { "name": "**Idioma:**", "inline": true }
+      ]
+    }
+  },
   "error_command": {
     "description": "``❌`` Ocorreu um erro inesperado.",
     "fields": [
