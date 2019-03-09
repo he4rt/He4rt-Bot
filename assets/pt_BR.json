@@ -107,6 +107,13 @@
       }
     }
   },
+  "wipe": {
+    "fail": {
+      "no_permission": {
+        "description": "``❌`` Você não possui permissão para utilizar este comando. ``[MANAGE_GUILD]``"
+      }
+    }
+  },
   "error_command": {
     "description": "``❌`` Ocorreu um erro inesperado.",
     "fields": [
