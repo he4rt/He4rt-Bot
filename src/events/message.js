@@ -1,30 +1,31 @@
-const util = require('../util');
 const Discord = require('discord.js');
+const util = require('../util');
 
-module.exports = async (client, message) => {
-  if (message.author.bot) return;
-  client.axios.post('/users/'+message.author.id+'/levelup')
-  .then(res => {
-    if(res.data.is_levelup) {
-      const level = new Discord.RichEmbed()
-        .setTitle('🆙 **'+ message.author.username + '** subiu para o nível ' + res.data.level + '!')
-        .setThumbnail(message.author.avatarURL)
-        .setFooter(
-          '2019 © He4rt Developers',
-          'https://heartdevs.com/wp-content/uploads/2018/12/logo.png'
-        )
-        .setTimestamp();
-      
-      //message.channel.send(level)
-      console.log('[#LOG]', message.author.username + " subiu para o nível " + res.data.level + "!")
-    } else {
-      return null;
-    }
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
-  
+const runLevelUp = async (client, message) => {
+  const { data } = await client.axios.post(
+    `/users/${message.author.id}/levelup`
+  );
+  if (!data.is_levelup) {
+    return;
+  }
+  const level = new Discord.RichEmbed()
+    .setTitle(
+      `🆙 **${message.author.username}** subiu para o nível ${data.level}!`
+    )
+    .setThumbnail(message.author.avatarURL)
+    .setFooter(
+      '2019 © He4rt Developers',
+      'https://heartdevs.com/wp-content/uploads/2018/12/logo.png'
+    )
+    .setTimestamp();
+
+  // message.channel.send(level)
+  console.log(
+    '[#LOG]',
+    `${message.author.username} subiu para o nível ${data.level}!`
+  );
+};
+const runCommand = async (client, message) => {
   if (
     message.channel.id === process.env.SUGGESTION_CHAT ||
     message.channel.id === process.env.SEARCH_CHAT
@@ -32,7 +33,7 @@ module.exports = async (client, message) => {
     message.react('✅');
     message.react('❌');
   }
-  if (!util.isCommand(message)) return null;
+  if (!util.isCommand(message)) return;
 
   const args = message.content
     .slice(process.env.COMMAND_PREFIX.length)
@@ -41,7 +42,7 @@ module.exports = async (client, message) => {
   const command = args.shift().toLowerCase();
 
   const cmd = client.commands.get(command);
-  if (!cmd) return null;
+  if (!cmd) return;
 
   console.log(
     '[#LOG]',
@@ -60,7 +61,8 @@ module.exports = async (client, message) => {
   } catch (err) {
     console.error(err);
     if (cmd.fail) {
-      return cmd.fail(err, client, message, args);
+      await cmd.fail(err, client, message, args);
+      return;
     }
     const embed =
       util.translate(`${command}.fail.${err.message}`) ||
@@ -72,10 +74,17 @@ module.exports = async (client, message) => {
     if (!embed.color) {
       embed.setColor('#36393E');
     }
-    return message.reply(embed).then(msg => msg.delete(15000));
+    await message.reply(embed).then(msg => msg.delete(15000));
+    return;
   } finally {
     if (cmd.after) {
       await cmd.after(client, message, args);
     }
   }
+};
+
+module.exports = async (client, message) => {
+  if (message.author.bot) return;
+
+  await Promise.all([runLevelUp(client, message), runCommand(client, message)]);
 };
