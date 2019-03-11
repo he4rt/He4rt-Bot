@@ -78,10 +78,11 @@ const init = async () => {
 };
 init();
 twitchclient.connect();
-
-twitchclient.on('connected', (address, port) => {
-  console.log('[#TWITCH]', `Conectado com sucesso! ${address}:${port}`);
-});
+if (process.env.NODE_ENV === 'production') {
+  twitchclient.on('connected', (address, port) => {
+    console.log('[#TWITCH]', `Conectado com sucesso! ${address}:${port}`);
+  });
+}
 
 let laststatus = 'default';
 function runChannels() {
