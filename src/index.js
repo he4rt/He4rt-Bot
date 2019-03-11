@@ -5,6 +5,7 @@ const tmi = require('tmi.js');
 const _ = require('lodash');
 const axios = require('axios');
 const sqlite3 = require('sqlite3').verbose();
+
 const client = new Discord.Client();
 require('dotenv').config();
 
@@ -77,8 +78,8 @@ const init = async () => {
   client.login(process.env.AUTH_TOKEN);
 };
 init();
-twitchclient.connect();
 if (process.env.NODE_ENV === 'production') {
+  twitchclient.connect();
   twitchclient.on('connected', (address, port) => {
     console.log('[#TWITCH]', `Conectado com sucesso! ${address}:${port}`);
   });
