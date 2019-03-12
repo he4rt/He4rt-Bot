@@ -28,47 +28,64 @@ const status = {
 };
 
 module.exports = {
-  async run(client, message) {
+  async run(client, message, args) {
     const member = message.mentions.users.first() || message.author;
     const userID = member.id;
 
     const { data: user } = await client.axios.get(`/users/${userID}`);
 
-    const engRoles =
-      client.guilds
-        .get(process.env.GUILD_ID)
-        .members.get(member.id)
-        .roles.filter(role => hiddenRolesEng.includes(role.id))
-        .map(role => `<@&${role.id}>`)
-        .join(', ') || '`Nenhuma`';
-    const devRoles =
-      client.guilds
-        .get(process.env.GUILD_ID)
-        .members.get(member.id)
-        .roles.filter(role => hiddenRolesDev.includes(role.id))
-        .map(role => `<@&${role.id}>`)
-        .join(', ') || '`Nenhuma`';
+    if(args.length){
+        console.log("puta merda")
+        let options = ['about','git','name','nickname','language']
+        let filtered = options.filter( (val) => val === args[0])
+        if(filtered.length){
+            await client.axios.put(`/users/${userID}`,{
+                [args[0]]: args.slice(1).join(" ")
+            })
+            const answer = await message.channel.send("Seu perfil foi atualizado com sucesso! Use o comando !profile para acessar suas informações!");
+            answer.delete(8000)
+           
+        }else{
+            const answer = await message.channel.send("Comando invalido!");
+            answer.delete(8000)
+        }
+    }else{
+        const engRoles =
+        client.guilds
+            .get(process.env.GUILD_ID)
+            .members.get(member.id)
+            .roles.filter(role => hiddenRolesEng.includes(role.id))
+            .map(role => `<@&${role.id}>`)
+            .join(', ') || '`Nenhuma`';
+        const devRoles =
+        client.guilds
+            .get(process.env.GUILD_ID)
+            .members.get(member.id)
+            .roles.filter(role => hiddenRolesDev.includes(role.id))
+            .map(role => `<@&${role.id}>`)
+            .join(', ') || '`Nenhuma`';
 
-    const answer = util.translate('perfil.answer', [
-      user.name ? `${member.username} (${user.name})` : `${member.username}`,
-      user.about || 'Desconhecido',
-      user.git || 'Desconhecido',
-      status[member.presence.status] || 'Desconhecido',
-      user.level || 'Desconhecido',
-      user.current_exp || 'Desconhecido',
-      `<:hcoin:548969665020297216> ${user.money}`,
-      devRoles || 'Desconhecido',
-      engRoles || 'Desconhecido',
-      `${moment(member.joinedAt).format('LLLL')} **#${user.id}**`,
-    ]);
-    answer.setThumbnail(member.avatarURL);
-    answer.setFooter(
-      `Comando utilizado por: ${message.author.tag}`,
-      'https://heartdevs.com/wp-content/uploads/2018/12/logo.png'
-    );
-    answer.setTimestamp();
+        const answer = util.translate('perfil.answer', [
+        user.name ? `${member.username} (${user.name})` : `${member.username}`,
+        user.about || 'Desconhecido',
+        user.git || 'Desconhecido',
+        status[member.presence.status] || 'Desconhecido',
+        user.level || 'Desconhecido',
+        user.current_exp || 'Desconhecido',
+        `<:hcoin:548969665020297216> ${user.money}`,
+        devRoles || 'Desconhecido',
+        engRoles || 'Desconhecido',
+        `${moment(member.joinedAt).format('LLLL')} **#${user.id}**`,
+        ]);
+        answer.setThumbnail(member.avatarURL);
+        answer.setFooter(
+        `Comando utilizado por: ${message.author.tag}`,
+        'https://heartdevs.com/wp-content/uploads/2018/12/logo.png'
+        );
+        answer.setTimestamp();
 
-    await message.channel.send(answer);
+        await message.channel.send(answer);
+    }   
   },
 
   get command() {
