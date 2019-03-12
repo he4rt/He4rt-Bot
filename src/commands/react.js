@@ -2,12 +2,16 @@ const Discord = require('discord.js');
 
 module.exports = {
   run: async (client, message, args) => {
-    
-    if(args[0] < 1 || args[0].includes(",") || args[0].includes("-") || args[0].includes("*") || isNaN(args[0])) return message.channel.send("Tem q ser maior que 0");
-    
-    const page = args[0] ? args[0] : 1
-    let count = args[0] ? args[0] : 0
-    let pag = page;
+
+    let page = 1;
+
+    if(args.length){
+      page = parseInt(args[0])
+      if(!Number.isInteger(page)){
+        return message.channel.send("Escolha um número pra paginação");
+      }
+    }
+    let count = args[0] ? args[0] : 1
     count = count * 10
     //console.log(count)
     client.axios.get('/ranking?page='+ page)
@@ -18,9 +22,13 @@ module.exports = {
       for(let i in ranking.data){
         let rank = ranking.data[i]
         let user =  client.guilds
-        .get("452926217558163456")
-        .members.get(ranking.data[i].discord_id).user
-        value.push( (1 + parseInt(i) + (count - 10)  ) + " | "+ user.username + " | Level: " + rank.level  + " | Exp: " + rank.current_exp)
+        .get(process.env.GUILD_ID)
+        .members.get(ranking.data[i].discord_id)
+        if(user){
+          value.push( (1 + parseInt(i) + (count - 10)  ) + " | "+ user.user.username + " | Level: " + rank.level  + " | Exp: " + rank.current_exp)
+        }else{
+          value.push( (1 + parseInt(i) + (count - 10)  ) + " | Usuário Banido | Level: " + rank.level  + " | Exp: " + rank.current_exp)
+        }
       }
       
       
@@ -28,7 +36,6 @@ module.exports = {
       .setTitle('``🏆`` » !ranking')
       .addField("Pagina #"+ page + " de " + ranking.last_page, value, true)
       .setTimestamp()
-     console.log(value)
     
       message.channel.send("<@" + message.author.id + ">", {embed}).then(msg => {
         msg.react('⬅').then(r => {
@@ -42,7 +49,7 @@ module.exports = {
           
           let t = res.data.current_page
 
-          nextVerify.on('collect', r=> {
+          nextVerify.on('collect', r => {
 
             let count = res.data.current_page ? args[0] : 0
     
@@ -54,9 +61,13 @@ module.exports = {
               for(let i in ranking.data){
                 let rank = ranking.data[i]
                 let user =  client.guilds
-                .get("452926217558163456")
-                .members.get(ranking.data[i].discord_id).user
-                value.push( (1 + parseInt(i) + (t * 10)  ) + " | "+ user.username + " | Level: " + rank.level  + " | Exp: " + rank.current_exp)
+                .get(process.env.GUILD_ID)
+                .members.get(ranking.data[i].discord_id)
+                if(user){
+                  value.push( (1 + parseInt(i) + (t * 10)  ) + " | "+ user.user.username + " | Level: " + rank.level  + " | Exp: " + rank.current_exp)
+                }else{
+                  value.push( (1 + parseInt(i) + (t * 10)  ) + " | Desconhecido | Level: 0 | Exp: 0")
+                }
               }
 
               const embed2 = new Discord.RichEmbed()
@@ -74,8 +85,6 @@ module.exports = {
             t = res.data.current_page
             
             backVerify.on('collect', r=> {
-            console.log("Fazendo request para pag " + pag)
-
             client.axios.get('/ranking?page='+ (t - 1))
             .then(res => {
               let count2 = res.data.current_page * 10;
@@ -85,11 +94,15 @@ module.exports = {
               for(let i in ranking.data){
                 let rank = ranking.data[i]
                 let user =  client.guilds
-                .get("452926217558163456")
-                .members.get(ranking.data[i].discord_id).user
-                value.push( (1 + parseInt(i) + (count2 - 10)  ) + " | "+ user.username + " | Level: " + rank.level  + " | Exp: " + rank.current_exp)
+                .get(process.env.GUILD_ID)
+                .members.get(ranking.data[i].discord_id)
+                if(user){
+                  value.push( (1 + parseInt(i) + (count2 - 10)  ) + " | "+ user.user.username + " | Level: " + rank.level  + " | Exp: " + rank.current_exp)
+                }else{
+                  value.push( (1 + parseInt(i) + (count2 - 10)  ) + " | Desconhecido | Level: " + rank.level  + " | Exp: " + rank.current_exp)
+                }
+                
               }
-              console.log(value)
               const embed2 = new Discord.RichEmbed()
               .setTitle('``🏆`` » !ranking')
               .addField("Pagina #"+ res.data.current_page + " de " + ranking.last_page, value, true)
