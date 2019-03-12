@@ -47,6 +47,8 @@ const createEmbeds = ({ devRoles, engRoles }) => {
   return { name, nick, about, git, languages, english };
 };
 const createEmbedResponse = ({ author, collectors, client }) =>
+
+  
   new Discord.RichEmbed()
     .setTitle(`**Apresentação** » ${author.username}`)
     .setThumbnail(author.avatarURL)
@@ -217,6 +219,14 @@ module.exports = {
     // TODO: validar git se tiver inferir em algum canto
     await message.author.send(embeds.git);
     collectors.git = await collectMessage(message);
+
+    // Socorro eu quero morrer pq sim
+    client.axios.put(`/users/${message.author.id}`,{
+      "name" : collectors.name.collected.first().content,
+      "nickname" : collectors.nick.collected.first().content,
+      "git" : collectors.git.collected.first().content,
+      "about" : collectors.about.collected.first().content
+    })
 
     const languageMessage = await sendLanguageMessage(message.author, embeds);
     await collectLanguagesReactions({
