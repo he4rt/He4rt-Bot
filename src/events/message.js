@@ -19,7 +19,7 @@ const runLevelUp = async (client, message) => {
     )
     .setTimestamp();
 
-  // message.channel.send(level)
+  message.channel.send(level)
   console.log(
     '[#LOG]',
     `${message.author.username} subiu para o nível ${data.level}!`
