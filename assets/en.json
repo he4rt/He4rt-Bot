@@ -1,0 +1,163 @@
+{
+  "continuar": {
+    "name": {
+      "title": "**What's your name?** (Example: Daniel Reis)",
+      "color": "#36393E"
+    },
+    "nick": {
+      "title": "**What's your nickname?** (Example: DanielHe4rt)",
+      "color": "#36393E"
+    },
+    "about": {
+      "title": "**Tell us a little about yourself:** (Example: My name is Gustavo...)",
+      "color": "#36393E"
+    },
+    "git": {
+      "title": "**What's your Git/Github?** (Example: https://github.com/DanielHe4rt)",
+      "color": "#36393E"
+    }
+  },
+  "tempban": {
+    "fail": {
+      "permission": {
+        "description": "``❌`` You're not authorized to use this command. ``[BAN_MEMBERS]``"
+      },
+      "no_user": {
+        "description": "You must inform a user"
+      },
+      "no_time": {
+        "description": "You must inform a duration for the punishment (in minutes)"
+      },
+      "no_reason": {
+        "description": "You must inform a reason"
+      },
+      "default": {
+        "description": "``❌`` Something went wrong trying to punish this user."
+      }
+    }
+  },
+  "twitter": {
+    "fail": {
+      "no_permission": {
+        "description": "``❌`` You're not authorized to use this command. ``[MANAGE_GUILD]``"
+      }
+    }
+  },
+  "anunciar-img": {
+    "fail": {
+      "no_permission": {
+        "description": "``❌`` You're not authorized to use this command. ``[MANAGE_GUILD]``"
+      }
+    }
+  },
+  "anunciar": {
+    "fail": {
+      "no_permission": {
+        "description": "``❌`` You're not authorized to use this command. ``[MANAGE_GUILD]``"
+      }
+    }
+  },
+  "ban": {
+    "fail": {
+      "no_permission": {
+        "description": "``❌`` You're not authorized to use this command. ``[BAN_MEMBERS]``"
+      },
+      "invalid_syntax": {
+        "title": "``📌`` » !ban",
+        "description": "To punish a user, try:\n- ``!ban <@user> <reason>``.",
+        "color": "#ff1919"
+      },
+      "default": {
+        "description": "``❌`` Something went wrong trying to punish this user"
+      }
+    }
+  },
+  "apresentar": {
+    "fail": {
+      "registered": {
+        "description": "``❌`` You've already introduced yourself."
+      }
+    }
+  },
+  "calcular": {
+    "fail": {
+      "default": {
+        "description": "``❌`` Try: ``!calcular [equation]``."
+      }
+    }
+  },
+  "unban": {
+    "fail": {
+      "no_permission": {
+        "description": "``❌`` You're not authorized to use this command. ``[MANAGE_GUILD]``"
+      },
+      "invalid_syntax": {
+        "description": "To unban a user, try:\n- ``!unban <@user> <reason>``."
+      }
+    }
+  },
+  "chat": {
+    "fail": {
+      "no_permission": {
+        "description": "``❌`` You're not authorized to use this command. ``[MANAGE_MESSAGES]``"
+      },
+      "no_state": {
+        "description": "To pause or resume the chat, use:\n- ``!chat off``;\n- ``!chat on``.",
+        "color": "#ff1919"
+      }
+    }
+  },
+  "wipe": {
+    "fail": {
+      "no_permission": {
+        "description": "``❌`` You're not authorized to use this command. ``[MANAGE_GUILD]``"
+      }
+    }
+  },
+  "traduzir": {
+    "answer": {
+      "title": "``📡`` » !translate",
+      "color": "#8146DC",
+      "fields": [
+        { "name": "**Translation:**", "inline": true },
+        { "name": "**Language:**", "inline": true }
+      ]
+    }
+  },
+  "notificar": {
+    "enable": "``❕`` You will be notified every time there's news.",
+    "disable": "``❕``You won't be notified anymore."
+  },
+  "avatar": {
+    "answer": {
+      "title": "``🖼️`` » !avatar",
+      "description": "**[Click here](${member.avatarURL})** to download the image!",
+      "color": "#8146DC"
+    }
+  },
+  "perfil": {
+    "answer": {
+      "title": "``👥`` » !profile",
+      "color": "#8146DC",
+      "fields": [
+        { "name": "**Name:**", "inline": true },
+        { "name": "**About:**", "inline": true },
+        { "name": "**Git:**", "inline": true },
+        { "name": "**Status:**", "inline": true },
+        { "name": "**Level:**", "inline": true },
+        { "name": "**Experience:**", "inline": true },
+        { "name": "**HCoins:**", "inline": true },
+        { "name": "**Languages:**", "inline": true },
+        { "name": "**English Level:**", "inline": true },
+        { "name": "**Joined in:**", "inline": true }
+      ]
+    }
+  },
+  "error_command": {
+    "description": "``❌`` Oops. Something unexpected happened.",
+    "fields": [
+      { "name": "**Command:**", "inline": true },
+      { "name": "**Message:**", "inline": true }
+    ]
+  }
+}
