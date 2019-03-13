@@ -4,7 +4,7 @@ const {
   regexPath,
   allowPath,
   filtBan,
-  filtAviso,
+  filtNotice,
 } = require('../../assets/filterCfg');
 
 module.exports = {
