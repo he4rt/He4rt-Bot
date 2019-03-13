@@ -11,7 +11,7 @@ module.exports = {
   async filterChat(client, message) {
     const embedMsg = async (time = 60000) => {
       const msg = await message.channel.send(
-        filtAviso(message.author.username, time)
+        filtNotice(message.author.username, time)
       );
       msg.delete(20000).catch(err => {
         console.error(err);
