@@ -2,10 +2,8 @@ const { RichEmbed } = require('discord.js');
 
 module.exports = {
   ch: [
-    '554016837671714827',
-    '554042712710578178',
-    '551276731131232257',
-    '551277058047868950',
+    'CH ID',
+    'CH ID'
   ],
   allowPath: /((twitch\.tv)|(youtube.com)|(github.com))/gi,
   regexPath: /((HTTPS:\/\/)|(HTTP:\/\/)|(www\.))/gi,
@@ -26,7 +24,7 @@ module.exports = {
       )
       .setTimestamp();
   },
-  filtAviso(name = '', min = 60000) {
+  filtNotice(name = '', min = 60000) {
     return new RichEmbed()
       .setTitle(` 📣 NOTICE `)
       .setColor('#8146DC')
@@ -37,8 +35,8 @@ module.exports = {
           .slice(
             17,
             25
-          )} Hrs* **${name}** Evite restricoes postando os links em 
-          #links BETA`
+          )} Hrs* **${name}** Evite restrições postando os links em 
+          #links`
       )
       .setFooter(
         '2019 © He4rt Developers',
