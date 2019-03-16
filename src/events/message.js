@@ -4,7 +4,7 @@ const util = require('../util');
 const runLevelUp = async (client, message) => {
   const { data } = await client.axios.post(
     `/users/${message.author.id}/levelup`
-  );
+  )
   if (!data.is_levelup) {
     return;
   }
@@ -18,8 +18,9 @@ const runLevelUp = async (client, message) => {
       'https://heartdevs.com/wp-content/uploads/2018/12/logo.png'
     )
     .setTimestamp();
-
-  // message.channel.send(level)
+  client.channels
+    .get("552332704381927424")
+    .send(level)
   console.log(
     '[#LOG]',
     `${message.author.username} subiu para o nível ${data.level}!`
@@ -86,5 +87,5 @@ const runCommand = async (client, message) => {
 module.exports = async (client, message) => {
   if (message.author.bot) return;
 
-  await Promise.all([runLevelUp(client, message), runCommand(client, message)]);
+  await Promise.all([runLevelUp(client, message).catch(res => console.log(res)), runCommand(client, message)]);
 };

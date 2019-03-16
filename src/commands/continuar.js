@@ -218,6 +218,14 @@ module.exports = {
     await message.author.send(embeds.git);
     collectors.git = await collectMessage(message);
 
+    // Socorro eu quero morrer pq sim
+    client.axios.put(`/users/${message.author.id}`,{
+      "name" : collectors.name.collected.first().content,
+      "nickname" : collectors.nick.collected.first().content,
+      "git" : collectors.git.collected.first().content,
+      "about" : collectors.about.collected.first().content
+    })
+
     const languageMessage = await sendLanguageMessage(message.author, embeds);
     await collectLanguagesReactions({
       client,
