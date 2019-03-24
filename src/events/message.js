@@ -1,12 +1,33 @@
+const Discord = require('discord.js');
 const util = require('../util');
 
-module.exports = async (client, message) => {
-  if (message.author.bot) return null;
+const filterChat = require('../util/filter');
 
-  if (message.content === '!join') {
-		client.emit('guildMemberAdd', message.member || await message.guild.fetchMember(message.author));
-	}
+const runLevelUp = async (client, message) => {
+  const { data } = await client.axios.post(
+    `/users/${message.author.id}/levelup`
+  );
+  if (!data.is_levelup) {
+    return;
+  }
 
+  const level = new Discord.RichEmbed()
+    .setTitle(
+      `🆙 **${message.author.username}** subiu para o nível ${data.level}!`
+    )
+    .setThumbnail(message.author.avatarURL)
+    .setFooter(
+      '2019 © He4rt Developers',
+      'https://heartdevs.com/wp-content/uploads/2018/12/logo.png'
+    )
+    .setTimestamp();
+  client.channels.get('552332704381927424').send(level);
+  console.log(
+    '[#LOG]',
+    `${message.author.username} subiu para o nível ${data.level}!`
+  );
+};
+const runCommand = async (client, message) => {
   if (
     message.channel.id === process.env.SUGGESTION_CHAT ||
     message.channel.id === process.env.SEARCH_CHAT
@@ -14,7 +35,7 @@ module.exports = async (client, message) => {
     message.react('✅');
     message.react('❌');
   }
-  if (!util.isCommand(message)) return null;
+  if (!util.isCommand(message)) return;
 
   const args = message.content
     .slice(process.env.COMMAND_PREFIX.length)
@@ -22,8 +43,10 @@ module.exports = async (client, message) => {
     .split(/ +/g);
   const command = args.shift().toLowerCase();
 
+  filterChat(client, message);
+
   const cmd = client.commands.get(command);
-  if (!cmd) return null;
+  if (!cmd) return;
 
   console.log(
     '[#LOG]',
@@ -36,21 +59,39 @@ module.exports = async (client, message) => {
       await cmd.validate(client, message, args);
     }
     await cmd.run(client, message, args);
+    if (cmd.success) {
+      await cmd.success(client, message, args);
+    }
   } catch (err) {
+    console.error(err);
     if (cmd.fail) {
-      return cmd.fail(err, client, message, args);
+      await cmd.fail(err, client, message, args);
+      return;
     }
     const embed =
-      util.embed(`${command}.fail.${err.message}`) ||
-      util.embed(`${command}.fail.default`) ||
-      util.embed(`error_command`, [command, err.message]);
-    return message.reply(embed).then(msg => msg.delete(15000));
+      util.translate(`${command}.fail.${err.message}`) ||
+      util.translate(`${command}.fail.default`) ||
+      util.translate(`error_command`, [command, err.message]);
+    if (!embed.title) {
+      embed.setTitle(`\`\`❌\`\` » ${process.env.COMMAND_PREFIX}${command}`);
+    }
+    if (!embed.color) {
+      embed.setColor('#36393E');
+    }
+    await message.reply(embed).then(msg => msg.delete(15000));
+    return;
   } finally {
     if (cmd.after) {
       await cmd.after(client, message, args);
     }
   }
-  if (cmd.success) {
-    await cmd.success(client, message, args);
-  }
+};
+
+module.exports = async (client, message) => {
+  if (message.author.bot) return;
+
+  await Promise.all([
+    runLevelUp(client, message).catch(res => console.log(res)),
+    runCommand(client, message),
+  ]);
 };
