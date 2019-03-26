@@ -61,7 +61,7 @@ const runCommand = async (client, message) => {
     const command = args.shift().toLowerCase();
     
     const cmd = client.commands.get(command);
-    if(message.channel.id !== process.env.COMMANDS_CHAT && !message.member.roles.exists('id', process.env.ADMIN_ROLE) && message.channel.id !== process.env.COMMANDS_CHAT && !message.member.roles.exists('id', process.env.MOD_ROLE)) {
+    if(message.channel.type !== "dm" && message.channel.id !== process.env.COMMANDS_CHAT && !message.member.roles.exists('id', process.env.ADMIN_ROLE) && message.channel.id !== process.env.COMMANDS_CHAT && !message.member.roles.exists('id', process.env.MOD_ROLE)) {
       message.delete().catch(() => {});
       return message.channel.send("``❌`` Use comandos no canal <#542840741588762637>.").then(msg => msg.delete(15000));
     }
@@ -112,11 +112,14 @@ const runCommand = async (client, message) => {
     module.exports = async (client, message, args) => {
       if (message.author.bot) return;
 
-      if(!message.member.roles.has(process.env.APRESENTOU_ROLE)) {
+      if(!client.guilds
+        .get(process.env.GUILD_ID)
+        .members.get(message.author.id)
+        .roles.has(process.env.APRESENTOU_ROLE)) {
         //chance de 10%
         let rdn = (Math.floor(Math.random() * 10)) + 1;
         if(rdn == 1) {
-          message.member.send("``❗`` Utilize !apresentar para se ``apresentar`` para o servidor e desativar esta mensagem!");
+          message.member.send("``❗`` Utilize ``!apresentar`` para se apresentar para o servidor e desativar esta mensagem!");
         }
       }
       
