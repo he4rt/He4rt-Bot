@@ -140,7 +140,6 @@ const runCommand = async (client, message) => {
     for (x = 0; x < palavrasBanidas.length; x++) {
       if(msg.includes(palavrasBanidas[x])) {
         client.channels.get(process.env.REPORT_CHAT).send('<@&546333494654009345>\n``[G-CHAT]`` Mensagem de ' + message.author.username + ': ' + message.content + ' ``(' + palavrasBanidas[x] + ' | ' + message.channel.name + ')``')
-        return;
       }
     }
     

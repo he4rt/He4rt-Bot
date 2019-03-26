@@ -9,12 +9,13 @@ module.exports = {
   run: (client, message, args) => {
     var id = Math.floor(Math.random() * 90000) + 10000;
     const member = message.mentions.users.first()
-
+    const suggestion = args.slice(2).join(' ');
+    console.log(suggestion)
     const embedSugesAn = new Discord.RichEmbed()
       .setTitle('``📊`` » Sugestões')
       .addField('``👤`` **Sugestão de:**', member.username, true)
       .addField('``🆔`` **ID:**', '#' + id, true)
-      .addField('``📄`` **Sugestão:**', args[3], true)
+      .addField('``📄`` **Sugestão:**', suggestion, true)
       .addField('``📄`` **Status:**', ':warning: Sugestão está sendo analisado por nossa equipe de administração ou desenvolvimento.', true)
       .setColor('#ffff32')
       .setFooter(
@@ -27,7 +28,7 @@ module.exports = {
       .setTitle('``📊`` » Sugestões')
       .addField('``👤`` **Sugestão de:**', member.username, true)
       .addField('``🆔`` **ID:**', '#' + id, true)
-      .addField('``📄`` **Sugestão:**', args[3], true)
+      .addField('``📄`` **Sugestão:**', suggestion, true)
       .addField('``📄`` **Status:**', ':x: Infelizmente esta sugestão não foi aceita por nossa equipe.', true)
       .setColor('#ff3232')
       .setFooter(
@@ -40,7 +41,7 @@ module.exports = {
       .setTitle('``📊`` » Sugestões')
       .addField('``👤`` **Sugestão de:**', member.username, true)
       .addField('``🆔`` **ID:**', '#' + id, true)
-      .addField('``📄`` **Sugestão:**', args[3], true)
+      .addField('``📄`` **Sugestão:**', suggestion, true)
       .addField('``📄`` **Status:**', ':white_check_mark: Sugestão aceita passará por uma análise final para um melhor aproveitamento de sua utilização.', true)
       .setColor('#4ca64c')
       .setFooter(
