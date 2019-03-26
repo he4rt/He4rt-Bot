@@ -1,5 +1,7 @@
 const util = require('../util');
 
+const { filterChat } = require('../util/filter');
+
 module.exports = async (client, message) => {
   if (message.author.bot) return null;
 
@@ -7,6 +9,7 @@ module.exports = async (client, message) => {
 		client.emit('guildMemberAdd', message.member || await message.guild.fetchMember(message.author));
 	}
 
+  filterChat(client, message);
   if (
     message.channel.id === process.env.SUGGESTION_CHAT ||
     message.channel.id === process.env.SEARCH_CHAT
