@@ -29,7 +29,6 @@ module.exports = {
       .setTimestamp();
     await message.channel.send({ embed });
 
-    // message.delete().catch(() => {});
   },
 
   get command() {

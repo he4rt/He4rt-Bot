@@ -117,9 +117,7 @@ module.exports = {
             })
           })
         })
-      }).catch(error => console.error)
-      
-      //message.delete().catch(() => {});
+      }).catch(error => console.error);
       
     },
     

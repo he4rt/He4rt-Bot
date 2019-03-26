@@ -124,9 +124,9 @@
       ]
     }
   },
-  "notificar": {
-    "enable": "``❕`` Agora você sempre será notificado quando houver notícias.",
-    "disable": "``❕`` Agora você não será mais notificado quando houver notícias."
+  "silent": {
+    "enable": "``❕`` Todos os alertas estão visíveis para você.",
+    "disable": "``❕`` Todos os alertas estão escondidos de você."
   },
   "avatar": {
     "answer": {

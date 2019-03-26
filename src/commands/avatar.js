@@ -2,7 +2,6 @@ const { translate } = require('../util');
 
 module.exports = {
   async run(client, message) {
-    await message.delete();
 
     const member = message.mentions.users.first() || message.author;
     const answer = translate('avatar.answer');

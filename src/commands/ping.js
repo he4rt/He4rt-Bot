@@ -2,7 +2,6 @@ const Discord = require('discord.js');
 
 module.exports = {
   run: (client, message, args) => {
-    message.delete().catch(() => {});
 
     message.channel.send("``📡`` Latência da API: " + Math.round(client.ping) + "ms.");
   },

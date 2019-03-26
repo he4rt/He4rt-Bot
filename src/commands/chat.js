@@ -1,16 +1,9 @@
 module.exports = {
   async run(client, message, [state]) {
-    message.delete();
     const SEND_MESSAGES = state === 'on';
 
     await message.channel.overwritePermissions(
       client.guilds.get(process.env.GUILD_ID).roles.find('name', '@everyone'),
-      { SEND_MESSAGES }
-    );
-    await message.channel.overwritePermissions(
-      client.guilds
-        .get(process.env.GUILD_ID)
-        .roles.find('id', process.env.MEMBER_ROLE),
       { SEND_MESSAGES }
     );
     if (SEND_MESSAGES) {

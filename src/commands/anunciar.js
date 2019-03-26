@@ -8,7 +8,6 @@ module.exports = {
   },
   run: (client, message, args) => {
     // TODO: verificar o que fazer com possivel erro
-    message.delete().catch(() => {});
 
     const mensg = args.slice(0).join(' ');
     if (!mensg) return null;

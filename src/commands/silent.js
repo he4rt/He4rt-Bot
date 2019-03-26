@@ -4,10 +4,9 @@ const { NOTIFY_ROLE } = process.env;
 
 module.exports = {
   async run(client, message) {
-    message.delete();
 
     const hasRole = !message.member.roles.exists('id', NOTIFY_ROLE);
-    const answer = translate(`notificar.${hasRole ? 'disable' : 'enable'}`);
+    const answer = translate(`silent.${hasRole ? 'disable' : 'enable'}`);
     if (hasRole) {
       await message.member.addRole(NOTIFY_ROLE);
     } else {
@@ -18,10 +17,10 @@ module.exports = {
 
   get command() {
     return {
-      name: 'notificar',
+      name: 'silent',
       category: 'Users',
-      description: 'Adicionar o cargo novidades no usuario.',
-      usage: 'notificar',
+      description: 'Desativar mensagens da equipe.',
+      usage: 'silent',
     };
   },
 };
