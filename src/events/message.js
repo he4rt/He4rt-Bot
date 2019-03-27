@@ -3,6 +3,9 @@ const util = require('../util');
 const isImage = require('is-image');
 
   const runLevelUp = async (client, message) => {
+    if(message.channel.type == "dm" || message.channel.id == process.env.COMMANDS_CHAT || message.channel.id == process.env.GAMES_CHAT) {
+      return;
+    }
     const { data } = await client.axios.post(
       `/users/${message.author.id}/levelup`
     )
