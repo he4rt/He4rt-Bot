@@ -5,7 +5,7 @@ const _ = require('lodash');
 const axios = require('axios');
 const sqlite3 = require('sqlite3').verbose();
 
-const client = new Discord.Client();
+const client = new Discord.Client({forceFetchUsers: true});
 require('dotenv').config();
 
 client.db = new sqlite3.Database(

@@ -48,7 +48,7 @@ module.exports = async (client, message) => {
       (err, result) => {
         if (err) console.error(err);
         else {
-          const members = guild.members.size;
+          const members = guild.memberCount;
 
           let numeroMembrosApresentados = 0;
           const lista = guild.members;
