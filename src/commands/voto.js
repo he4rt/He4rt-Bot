@@ -83,16 +83,9 @@ module.exports = {
                 await m.react("✅");
                 await m.react("❌");
             } else {
-                await m.react("0⃣");
                 await m.react("1⃣");
                 await m.react("2⃣");
                 await m.react("3⃣");
-                await m.react("4⃣");
-                await m.react("5⃣"); 
-                await m.react("6⃣");
-                await m.react("7⃣");
-                await m.react("8⃣");
-                await m.react("9⃣");
             }
         })
         .catch(e => console.log(e));

@@ -6,7 +6,7 @@ module.exports = {
         if(!message.member.hasPermission('ADMINISTRATOR')) {
             return message.channel.send(new Discord.RichEmbed()
                 .setTitle(":x: Você não tem permissão ! :x:")
-                .setDescription("Infelizmente você não tem permissão para utilizar esse")
+                .setDescription("Infelizmente você não tem permissão para utilizar esse comando.")
                 .setFooter(
                     '2019 © He4rt Developers',
                     'https://heartdevs.com/wp-content/uploads/2018/12/logo.png'

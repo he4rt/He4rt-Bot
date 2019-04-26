@@ -9,12 +9,12 @@ module.exports = {
         let cards = ['🎴','🎴','🎴',
                     '🎴','🎴','🎴',
                     '🎴','🎴','🎴']
-        let showCards = cards.map((el, i) => ((i + 1) % 3) === 0 ? `${el}\n\n` : `${el} ` ).join("");
+        let showCards = cards.map((el, i) => ((i + 1) % 3) === 0 ? `${el}` : `${el} ` ).join("");
         let userMoney = 0
 
         if (!value || !number || number < 1 || number > 9 || value < 1) {
             client.axios.get(`/users/${message.author.id}`).then(res => {
-                return message.channel.send("``💸`` Seu saldo: "+res.data.money+" HCoins.")
+                return message.channel.send("``💸`` Seu saldo: "+res.data.money+" <:hcoin:548969665020297216>.")
             })
             return message.channel.send("``🀄`` Como utilizar o comando: ``!cartas <valor> <1-9>``.")
         }
@@ -26,6 +26,10 @@ module.exports = {
                 return message.channel.send("``❗`` Seu saldo é menor que "+value+".")
             }
 
+            if (value > 500) {
+                return message.channel.send("``❗`` O valor máximo de aposta é ``500``.")
+            }
+
             if (number === correct) {
                 let winner = value * 1.5
 
@@ -33,17 +37,17 @@ module.exports = {
                 }).catch(err => {console.log(err)});
 
                 cards[correct-1] = '🃏'
-                showCards = cards.map((el, i) => ((i + 1) % 3) === 0 ? `${el}\n\n` : `${el} ` ).join("");
-                message.channel.send(showCards)
-                return message.channel.send("``💰`` Parabéns <@"+message.author.id+"> você ganhou "+winner+" HCoins")
+                showCards = cards.map((el, i) => ((i + 1) % 3) === 0 ? ` ${el}\n` : ` ${el} :` ).join("");
+                message.channel.send(`\n**[  :slot_machine: | CARDS ]**\n------------------\n${showCards}------------------\n`)
+                return message.channel.send('``💰`` ' + `**${message.author.username}, você ganhou ${winner}** <:hcoin:548969665020297216>.`)
             } else {
                 client.axios.post(`/users/${message.author.id}/money/reduce`, {value: value}).then(res => {
                 }).catch(err => {console.log(err)});
 
                 cards[correct-1] = '🃏'
-                showCards = cards.map((el, i) => ((i + 1) % 3) === 0 ? `${el}\n\n` : `${el} ` ).join("");
-                message.channel.send(showCards)
-                return message.channel.send("``❌`` Tente na próxima <@"+message.author.id+"> você perdeu "+value+" HCoins")
+                showCards = cards.map((el, i) => ((i + 1) % 3) === 0 ? ` ${el}\n` : ` ${el} :` ).join("");
+                message.channel.send(`\n**[  :slot_machine: | CARDS ]**\n------------------\n${showCards}------------------\n`)
+                return message.channel.send('``💰`` ' + `**${message.author.username}, você perdeu ${value}** <:hcoin:548969665020297216>.`)
             }
         })
     },

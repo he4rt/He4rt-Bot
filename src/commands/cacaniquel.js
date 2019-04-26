@@ -82,7 +82,7 @@ function setup() {
   });
 
   const wild = new SlotSymbol('wildcard', {
-    display: '❔',
+    display: '🃏',
     points: 1,
     weight: 2,
     wildcard: true,
@@ -130,16 +130,16 @@ function play(message, betValue, client) {
   if (isWin(game.lines)) {
     const multiplier = game.totalPoints > 1 ? game.totalPoints.toFixed(2) : 1;
 
-    answer += `**Você ganhou x${multiplier} do valor, ${betValue *
-      multiplier}** <:hcoin:569673513854828544>`;
+    answer += '``💰`` ' + `**${message.author.username}, você ganhou x${multiplier} do valor, ${betValue *
+      multiplier}** <:hcoin:548969665020297216>`;
 
     addValue(client, message.author.id, betValue * multiplier - betValue);
   } else {
-    answer += `**Você perdeu ${betValue}** <:hcoin:569673513854828544> **:(**`;
+    answer += '``💰`` ' + `**${message.author.username}, você perdeu ${betValue}** <:hcoin:548969665020297216>`;
     removeValue(client, message.author.id, betValue);
   }
 
-  message.reply(answer);
+  message.channel.send(answer);
 }
 
 module.exports = {
@@ -147,20 +147,20 @@ module.exports = {
     const betValue = parseInt(args[0], 10);
 
     if (isNaN(betValue) || betValue < 1)
-      return message.reply('Você deve apostar um valor maior que 0');
+      return message.channel.send('``❗`` Você deve apostar um valor maior que ``0``.');
 
-    if (betValue > 500) return message.reply('O valor máximo de aposta é 500');
+    if (betValue > 500) return message.channel.send('``❗`` O valor máximo de aposta é ``500``.');
 
     const balance = await getBalance(client, message.author.id);
 
     if (isNaN(balance))
-      return message.reply(
-        `Não foi possível encontrar seu balanço no banco de dados`
+      return message.channel.send(
+        ```❗`` Não foi possível encontrar seu balanço no banco de dados.`
       );
 
     if (betValue > balance)
-      return message.reply(
-        `Você não tem créditos suficientes para essa aposta, seu balanço é de ${balance}`
+      return message.channel.send(
+        ```❗`` Você não tem créditos suficientes para essa aposta, seu balanço é de ${balance}.`
       );
 
     play(message, betValue, client);

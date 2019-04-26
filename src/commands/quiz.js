@@ -23,13 +23,25 @@ const items = [
 
 const config = {
     max: 1,
-    time: 30000,
+    time: 3000,
     errors: ['time']
 }
 const random = items[Math.floor(Math.random() * items.length)]
 
 module.exports = {
     async run(client, message) {
+        if(!message.member.hasPermission('ADMINISTRATOR')) {
+            return message.channel.send(new Discord.RichEmbed()
+                .setTitle(":x: Você não tem permissão ! :x:")
+                .setDescription("Infelizmente você não tem permissão para utilizar esse")
+                .setFooter(
+                    '2019 © He4rt Developers',
+                    'https://heartdevs.com/wp-content/uploads/2018/12/logo.png'
+                )
+                .setColor("RED")
+                .setTimestamp()
+            );
+        }
 
         let tempo = 0;
 
@@ -67,13 +79,16 @@ module.exports = {
             clearInterval(addTime);
             return clearInterval(sendTime);
         } catch (e) {
-            const timeout = new Discord.RichEmbed()
-                .setTitle('``🏆`` EVENTO QUIZ\n**' + 'Quiz finalizado pois não houve acertos.' + '**')
-                .setDescription('**Informações:**\n🔹 Ganhador: ' + 'Ninguém' + '\n🔹 Pergunta: ``' + random.question + '``\n🔹 Premiação: ``XP BOOST``.' + '\n🔹 Tempo de jogo: ``' + tempo + ' segundos``.')
-                .setColor('#FFB900')
-            message.channel.send(timeout);
-            clearInterval(addTime);
-            return clearInterval(sendTime);
+            console.log('aaaaaaaaaaaaa', e)
+            // if(e.message == 'time') {
+                const timeout = new Discord.RichEmbed()
+                    .setTitle('``🏆`` EVENTO QUIZ\n**' + 'Quiz finalizado pois não houve acertos.' + '**')
+                    .setDescription('**Informações:**\n🔹 Ganhador: ' + 'Ninguém' + '\n🔹 Pergunta: ``' + random.question + '``\n🔹 Premiação: ``XP BOOST``.' + '\n🔹 Tempo de jogo: ``' + tempo + ' segundos``.')
+                    .setColor('#FFB900')
+                message.channel.send(timeout);
+                clearInterval(addTime);
+                return clearInterval(sendTime);
+            // }
         }
     },
   
