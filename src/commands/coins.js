@@ -3,6 +3,13 @@ const Discord = require('discord.js')
 module.exports = {
     async run(client, message, args) {
 
+        if(!args[0]) {
+            client.axios.get(`/users/${message.author.id}`).then(res => {
+                message.channel.send("``💸`` Seu saldo: "+res.data.money+" HCoins.")
+            });
+            return;
+        }
+
         if(!message.member.hasPermission('ADMINISTRATOR')) {
             return message.channel.send(new Discord.RichEmbed()
                 .setTitle(":x: Você não tem permissão ! :x:")
@@ -16,12 +23,10 @@ module.exports = {
             );
         }
 
+        
         const member = message.mentions.members.first(); 
         const quantity = args[2]
         if(!args[0] || !args[1] || isNaN(quantity) || quantity < 1) { 
-            client.axios.get(`/users/${message.author.id}`).then(res => {
-                return message.channel.send("``💸`` Seu saldo: "+res.data.money+" HCoins.")
-            })
             return message.channel.send("``🎲`` Como utilizar o comando: ``!coins <@usuário> <add/remove> <valor>``.")
         }
         if (member) {
