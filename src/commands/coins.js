@@ -2,6 +2,20 @@ const Discord = require('discord.js')
 
 module.exports = {
     async run(client, message, args) {
+
+        if(!message.member.hasPermission('ADMINISTRATOR')) {
+            return message.channel.send(new Discord.RichEmbed()
+                .setTitle(":x: Você não tem permissão ! :x:")
+                .setDescription("Infelizmente você não tem permissão para utilizar esse")
+                .setFooter(
+                    '2019 © He4rt Developers',
+                    'https://heartdevs.com/wp-content/uploads/2018/12/logo.png'
+                )
+                .setColor("RED")
+                .setTimestamp()
+            );
+        }
+
         const member = message.mentions.members.first(); 
         const quantity = args[2]
         if(!args[0] || !args[1] || isNaN(quantity) || quantity < 1) { 
