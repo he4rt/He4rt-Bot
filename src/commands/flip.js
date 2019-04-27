@@ -15,6 +15,10 @@ module.exports = {
         try {
 
             betValue = parseInt(value);
+            if(betValue > 500){
+                message.channel.send("``❗`` Valor máximo de aposta: ``500 HCoins``.");
+                return;
+            }
 
         } catch (error) {
             
