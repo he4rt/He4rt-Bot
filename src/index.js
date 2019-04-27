@@ -19,6 +19,7 @@ client.db = new sqlite3.Database(
     }
   }
 );
+
 client.axios = axios.create({
   baseURL: process.env.HE4RT_API,
   timeout: 5000,
@@ -26,7 +27,6 @@ client.axios = axios.create({
 });
 
 client.commands = new Enmap();
-
 
 const init = async () => {
   const cmdFiles = await fs.readdir('src/commands/');

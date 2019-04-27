@@ -10,18 +10,16 @@ module.exports = {
             return;
         }
 
-        var betValue = 0;
+        var betValue = parseInt(value);
 
-        try {
-
-            betValue = parseInt(value);
-
-        } catch (error) {
-            
+        if(betValue === NaN){
             message.channel.send("``❗`` Valor inválido.");
             return;
-
         }
+            if(betValue > 500){
+                message.channel.send("``❗`` Valor máximo de aposta: ``500 HCoins``.");
+                return;
+            }
 
         client.axios.get(`/users/${message.author.id}`).then(res => {
             var userMoney = res.data.money;
