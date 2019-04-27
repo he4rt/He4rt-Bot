@@ -9,16 +9,25 @@ module.exports = {
         var coupon = args[0];
         if(coupon){
  
-            if(coupon == "generate"){
+            if(coupon == "gerar"){
 
                 var prize = args[1];
                 var type = args[2];
 
                 if(!prize || !type){
-                    return  message.channel.send("``❌`` Utilize: !cupom generate <valor> <exp/coin>.");
+                    return  message.channel.send("``❌`` Utilize: !cupom gerar <valor> <1 para exp/2 para coin>.");
                 }
 
+                if(type < 1 || type > 2){
+                    return  message.channel.send("``❌`` Utilize: !cupom gerar <valor> <1 para exp/2 para coin>.");
+                }
 
+                if(prize === NaN) return message.channel.send("``❗`` Valor inválido.");
+                if(type === NaN) return message.channel.send("``❗`` Tipo inválido.");
+
+                client.axios.post(`/coupons`, {value: prize, type_id: type}).then(res => {
+                    return message.channel.send("``✅`` Cupom criado: ``"+res.data.name+"``")
+                }).catch(err => {console.log(err)})
 
             } else {
 
