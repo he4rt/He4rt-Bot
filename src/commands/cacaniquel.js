@@ -88,7 +88,6 @@ function setup() {
     wildcard: true,
   });
 
-
   return new SlotMachine(3, [
     watermelon,
     orange,
@@ -104,6 +103,7 @@ function setup() {
 }
 
 // Chamar a função caso queira conferir as chances
+// eslint-disable-next-line no-unused-vars
 function logChances() {
   const machine = setup();
 
@@ -130,12 +130,16 @@ function play(message, betValue, client) {
   if (isWin(game.lines)) {
     const multiplier = game.totalPoints > 1 ? game.totalPoints.toFixed(2) : 1;
 
-    answer += '``💰`` ' + `**${message.author.username}, você ganhou x${multiplier} do valor, ${betValue *
+    answer += `\\💰**${
+      message.author.username
+    }, você ganhou x${multiplier} do valor, ${betValue *
       multiplier}** <:hcoin:548969665020297216>`;
 
     addValue(client, message.author.id, betValue * multiplier - betValue);
   } else {
-    answer += '``💰`` ' + `**${message.author.username}, você perdeu ${betValue}** <:hcoin:548969665020297216>`;
+    answer += `\\💰**${
+      message.author.username
+    }, você perdeu ${betValue}** <:hcoin:548969665020297216>`;
     removeValue(client, message.author.id, betValue);
   }
 
@@ -147,23 +151,27 @@ module.exports = {
     const betValue = parseInt(args[0], 10);
 
     if (isNaN(betValue) || betValue < 1)
-      return message.channel.send('``❗`` Você deve apostar um valor maior que ``0``.');
+      return message.channel.send(
+        '\\❗ Você deve apostar um valor maior que ``0``.'
+      );
 
-    if (betValue > 500) return message.channel.send('``❗`` O valor máximo de aposta é ``500``.');
+    if (betValue > 500)
+      return message.channel.send('``❗`` O valor máximo de aposta é ``500``.');
 
-    const balance = await getBalance(client, message.author.id);
+    const nBalance = await getBalance(client, message.author.id);
+    const balance = parseInt(nBalance, 10);
 
     if (isNaN(balance))
       return message.channel.send(
-        ```❗`` Não foi possível encontrar seu balanço no banco de dados.`
+        `\\❗ Não foi possível encontrar seu balanço no banco de dados.`
       );
 
-    if (betValue > balance)
+    if (betValue > balance) {
       return message.channel.send(
-        ```❗`` Você não tem créditos suficientes para essa aposta, seu balanço é de ${balance}.`
+        `\\❗ Você não tem créditos suficientes para essa aposta, seu balanço é de ${balance}.`
       );
-
-    play(message, betValue, client);
+    }
+    return play(message, betValue, client);
   },
 
   get command() {
