@@ -1,4 +1,5 @@
 const Discord = require('discord.js');
+const categories = require("../userCategory");
 
 module.exports = {
   run: async (client, message, args) => {
@@ -124,7 +125,7 @@ module.exports = {
     get command() { 
       return {
         name: 'react',
-        category: 'Users',
+        category: categories.USER,
         description: 'Lista o mapeamento dos usuários mais ativos',
         usage: 'react',
       };
