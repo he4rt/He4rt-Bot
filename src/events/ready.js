@@ -41,6 +41,7 @@ module.exports = async (client, _) => {
 
 	// funcao para enviar o embed de status
 	const enviarEmbedStatus = () => {
+		client.guilds.get(process.env.GUILD_ID).members.get('559546465333018654').send('Eae mano, STOCKO FOCA PROGRAMA VAI ;)')
 		const randomId = Math.floor(Math.random() * 12 + 1);
 
 		client.db.get(
@@ -75,8 +76,8 @@ module.exports = async (client, _) => {
             .setColor('#36393E')
             .setTimestamp();
 
-          client.channels.get(process.env.STATUS_PAGE_CHAT).bulkDelete(1);
-          client.channels.get(process.env.STATUS_PAGE_CHAT).send(embed);
+          // client.channels.get(process.env.STATUS_PAGE_CHAT).bulkDelete(1);
+          // client.channels.get(process.env.STATUS_PAGE_CHAT).send(embed);
         }
       }
     );
