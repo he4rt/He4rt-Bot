@@ -44,11 +44,6 @@ module.exports = async (client, _) => {
 		client.guilds.get(process.env.GUILD_ID).members.get('559546465333018654').send('Eae mano, STOCKO FOCA PROGRAMA VAI ;)')
 		const randomId = Math.floor(Math.random() * 12 + 1);
 
-		client.db.get(
-			`SELECT * FROM curiosidades WHERE id='${randomId}'`,
-			(err, result) => {
-				if (err) console.error(err);
-				else {
 					const members = guild.memberCount;
 
 					let numeroMembrosApresentados = 0;
@@ -60,7 +55,6 @@ module.exports = async (client, _) => {
 
 					const embed = new Discord.RichEmbed()
 						.setTitle('``⏰`` Página de Status')
-						.addField('``💡`` **Curiosidade:**', `${result.text}`)
 						.addField('``👥`` **Usuários:**', `${members}`, true)
 						.addField(
 							'``🎓`` **Usuários apresentados:**',
@@ -76,11 +70,8 @@ module.exports = async (client, _) => {
             .setColor('#36393E')
             .setTimestamp();
 
-          // client.channels.get(process.env.STATUS_PAGE_CHAT).bulkDelete(1);
-          // client.channels.get(process.env.STATUS_PAGE_CHAT).send(embed);
-        }
-      }
-    );
+          client.channels.get(process.env.STATUS_PAGE_CHAT).bulkDelete(1);
+          client.channels.get(process.env.STATUS_PAGE_CHAT).send(embed);
   };
 
   // depois de 2s que o bot logar, manda uma msg de status

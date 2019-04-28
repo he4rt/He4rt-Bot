@@ -2,22 +2,9 @@ const Discord = require('discord.js');
 const fs = require('fs-extra');
 const Enmap = require('enmap');
 const axios = require('axios');
-const sqlite3 = require('sqlite3').verbose();
 
 const client = new Discord.Client({ forceFetchUsers: true });
 require('dotenv').config();
-
-client.db = new sqlite3.Database(
-	'assets/curiosidades.db',
-	sqlite3.OPEN_READWRITE,
-	err => {
-		if (err) {
-			console.error(err.message);
-		} else {
-			console.log('[Connected to the database.]');
-		}
-	}
-);
 
 client.axios = axios.create({
 	baseURL: process.env.HE4RT_API,
