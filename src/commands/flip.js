@@ -55,6 +55,7 @@ module.exports = {
                 const collector = msg.createReactionCollector(filter, { time: 15000 });
                 collector.on('collect', r => {
 
+                    collector.stop();
                 
                     var member = message.member;
 
