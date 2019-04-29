@@ -56,7 +56,7 @@ module.exports = async (client, _) => {
 					const embed = new Discord.RichEmbed()
 						.setTitle('``⏰`` Página de Status')
 						.addField('``👥`` **Usuários:**', `${members}`, true)
-						.addField(
+						.addField(	
 							'``🎓`` **Usuários apresentados:**',
 							`${numeroMembrosApresentados}`,
 							true
