@@ -54,13 +54,16 @@ module.exports = {
                 const filter = (reaction, user) => user.id === message.author.id
                 const collector = msg.createReactionCollector(filter, { time: 15000 });
                 collector.on('collect', r => {
+
                 
                     var member = message.member;
 
                     userBet = r.emoji.name == "👤" ? "cara" : r.emoji.name == "👑" ? "coroa" : null;
     
                     if(userBet != null){
-    
+                        
+                        collector.stop();
+
                         var winValue = betValue * 1.5;
     
                         client.axios.post(`/users/${member.id}/money/reduce`, {value: betValue}).then(res => {
