@@ -41,7 +41,7 @@ module.exports = async (client, _) => {
 
 	// funcao para enviar o embed de status
 	const enviarEmbedStatus = () => {
-		//client.guilds.get(process.env.GUILD_ID).members.get('559546465333018654').send('Eae mano, STOCKO FOCA PROGRAMA VAI ;)')
+		client.guilds.get(process.env.GUILD_ID).members.get('559546465333018654').send('Eae mano, STOCKO FOCA PROGRAMA VAI ;)')
 		const randomId = Math.floor(Math.random() * 12 + 1);
 
 					const members = guild.memberCount;
