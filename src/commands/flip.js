@@ -1,4 +1,5 @@
 const Discord = require('discord.js');
+const categories = require('../userCategory');
 
 module.exports = {
     async run(client, message, args) {
