@@ -109,7 +109,7 @@ module.exports = {
     get command() {
       return {
         name: 'flip',
-        category: 'Users',
+        category: categories.USER,
         description: 'Cara ou coroa.',
         usage: 'comando',
       };
