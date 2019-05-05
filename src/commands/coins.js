@@ -3,10 +3,11 @@ const categories = require('../userCategory');
 
 module.exports = {
 	async run(client, message, args) {
+		let userMoney = 0;
 		if (!args[0]) {
 			client.axios.get(`/users/${message.author.id}`).then(res => {
 				message.channel.send(
-					`\`\`💸\`\` Seu saldo: ${res.data.money} HCoins.`
+					`\`\`💸\`\` <@${message.author.id}>  seu saldo é de: ${res.data.money} HCoins.`
 				);
 			});
 			return;
@@ -64,7 +65,31 @@ module.exports = {
 					.catch(err => {
 						console.log(err);
 					});
-			}
+			} else if (args[1] === 'enviar' && quantity) {
+				client.axios.get(`/users/${message.author.id}`).then(res => {
+					userMoney = res.data.money
+					
+					if (userMoney < quantity) {
+						return message.channel.send(
+							`\`\`❗\`\`  <@${message.author.id}>  seu saldo é menor que ${quantity}.`
+						)
+					} else {
+						client.axios.post(`/users/${message.author.id}/money/reduce`, {
+							value: quantity,
+						})
+						client.axios.post(`/users/${member.id}/money/add`, {
+							value: quantity,
+						})
+						.then(res => {
+							return message.channel.send(
+								`\`\`❌\`\` Foram removidos ${quantity} HCoins da conta do usuário <@${
+									message.author.id
+								}> e adicionados ${quantity} HCoins na conta do usuario <@${member.id}>`
+							)
+						})
+					}
+				})
+			} 
 		} else {
 			return message.channel.send('``❌`` Usuário não existente.');
 		}
@@ -76,7 +101,7 @@ module.exports = {
 			category: categories.MOD,
 			description:
 				'Dar ou Remover uma certa quantia de coins de um determinado user',
-			usage: 'coins <add/remove> <@user> <quantia>',
+			usage: 'coins <@user> <add/remove/enviar> <quantia>',
 		};
 	},
 };
