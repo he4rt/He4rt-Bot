@@ -79,7 +79,7 @@ module.exports = {
 				`<:hcoin:548969665020297216> ${user.money}`,
 				devRoles || 'Desconhecido',
 				engRoles || 'Desconhecido',
-				`${moment(member.joinedAt).format('LLLL')} **#${user.id}**`,
+				`${moment(client.guilds.get(process.env.GUILD_ID).members.get(message.author.id).joinedTimestamp).format('LLLL')} **#${user.id}**`,
 			]);
 			answer.setThumbnail(member.avatarURL);
 			answer.setFooter(
@@ -87,7 +87,6 @@ module.exports = {
 				'https://heartdevs.com/wp-content/uploads/2018/12/logo.png'
 			);
 			answer.setTimestamp();
-
 			await message.channel.send(answer);
 		}
 	},

@@ -137,7 +137,7 @@
   },
   "perfil": {
     "answer": {
-      "title": "``👥`` » !perfil",
+      "title": "``👥`` » !profile",
       "color": "#8146DC",
       "fields": [
         { "name": "**Nome:**", "inline": true },
