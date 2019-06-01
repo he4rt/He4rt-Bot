@@ -69,7 +69,7 @@ const items = [
 
 const config = {
 	max: 1,
-	time: 3000,
+	time: 50000,
 	errors: ['time'],
 };
 
