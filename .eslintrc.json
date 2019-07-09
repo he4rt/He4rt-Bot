@@ -6,7 +6,10 @@
   "extends": ["airbnb-base", "prettier"],
   "plugins": ["prettier"],
   "rules": {
-    "prettier/prettier": ["error"]
+    "no-plusplus": "warn",
+    "prettier/prettier": ["error"],
+    "linebreak-style": ["off", "windows"],
+    "no-restricted-globals": "off"
   },
   "parserOptions": {
     "ecmaVersion": 2018,

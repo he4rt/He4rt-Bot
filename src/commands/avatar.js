@@ -1,32 +1,20 @@
-const Discord = require('discord.js');
+const { translate } = require('../util');
+const categories = require('../userCategory');
 
 module.exports = {
-  run: (client, message, args) => {
-    // TODO: verificar o que fazer com possivel erro
-    message.delete().catch(() => {});
+	async run(client, message) {
+		const member = message.mentions.users.first() || message.author;
+		const answer = translate('avatar.answer');
+		answer.setImage(member.avatarURL);
+		await message.channel.send(answer);
+	},
 
-    const member = message.mentions.users.first() || message.author;
-    const avatar = new Discord.RichEmbed()
-      .setTitle('``🖼️`` » !avatar')
-      .setDescription(
-        `**[Clique aqui](${member.avatarURL})** para baixar a imagem!`
-      )
-      .setImage(member.avatarURL)
-      .setColor('#8146DC')
-      .setFooter(
-        `Comando utilizado por: ${message.author.tag}`,
-        'https://heartdevs.com/wp-content/uploads/2018/12/logo.png'
-      )
-      .setTimestamp();
-    message.channel.send(avatar);
-  },
-
-  get command() {
-    return {
-      name: 'avatar',
-      category: 'Users',
-      description: 'Irá mostrar o avatar de um usuario.',
-      usage: 'avatar',
-    };
-  },
+	get command() {
+		return {
+			name: 'avatar',
+			category: categories.USER,
+			description: 'Irá mostrar o avatar de um usuario.',
+			usage: 'avatar',
+		};
+	},
 };

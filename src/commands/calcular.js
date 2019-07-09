@@ -1,48 +1,36 @@
 const Discord = require('discord.js');
 const math = require('mathjs');
+const categories = require('../userCategory');
 
 module.exports = {
-  run: (client, message, args) => {
-    // TODO: verificar o que fazer com possivel erro
-    message.delete().catch(() => {});
+	validate(client, message, args) {
+		if (args.join('') === '') {
+			throw new Error('invalid_syntax');
+		}
+	},
+	async run(client, message, args) {
+		const question = args.join(' ');
+		const answer = math.eval(question);
 
-    const input = args.join(' ');
-    if (!input) {
-      return message.channel
-        .send('``❌`` Utilize ``!calcular [cálculo]``.')
-        .then(msg => msg.delete(8000));
-    }
+		const embed = new Discord.RichEmbed()
+			.setTitle('``➗`` » !calcular')
+			.setColor('#8146DC')
+			.addField('**Cálculo:**', question)
+			.addField('**Resposta:**', answer)
+			.setFooter(
+				`Comando utilizado por: ${message.author.tag}`,
+				'https://heartdevs.com/wp-content/uploads/2018/12/logo.png'
+			)
+			.setTimestamp();
+		return message.channel.send(embed);
+	},
 
-    const question = args.join(' ');
-    let answer;
-
-    try {
-      answer = math.eval(question);
-    } catch (err) {
-      return message.channel
-        .send('``❌`` Utilize ``!calcular [cálculo]``.')
-        .then(msg => msg.delete(8000));
-    }
-
-    const embed = new Discord.RichEmbed()
-      .setTitle('``➗`` » !calcular')
-      .setColor('#8146DC')
-      .addField('**Cálculo:**', question)
-      .addField('**Resposta:**', answer)
-      .setFooter(
-        `Comando utilizado por: ${message.author.tag}`,
-        'https://heartdevs.com/wp-content/uploads/2018/12/logo.png'
-      )
-      .setTimestamp();
-    return message.channel.send(embed);
-  },
-
-  get command() {
-    return {
-      name: 'calcular',
-      category: 'Users',
-      description: 'Irá mostrar o avatar de um usuario.',
-      usage: 'calcular',
-    };
-  },
+	get command() {
+		return {
+			name: 'calcular',
+			category: categories.USER,
+			description: 'Irá mostrar o avatar de um usuario.',
+			usage: 'calcular',
+		};
+	},
 };
