@@ -25,8 +25,8 @@ npm install
 To achieve the 1.0 version we need to complete all the tasks below:
   - Greetings System :heavy_check_mark:
   - Announcement System :heavy_check_mark:
-  - Reputation System :x:
-  - Translation System :x:
+  - Reputation System :heavy_check_mark:
+  - Translation System :heavy_check_mark:
   - Daily Quests :x:
   - Own Currency :x: 
   - Trade System :x:
