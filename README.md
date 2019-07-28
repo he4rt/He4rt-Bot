@@ -7,7 +7,7 @@
 <h3 align="center">
   <img src="https://heartdevs.com/wp-content/uploads/2018/12/logo.png" width="215"><br>
     Discord bot made for help with the He4rt Developers server management.
-	<a href="https://discord.gg/J78z3FV" target="_blank">
+	<a href="https://discord.io/he4rt" target="_blank">
 	<img src="https://discordapp.com/api/guilds/452926217558163456/embed.png" alt="Discord server"/></a><br>
 </h3> 
 
@@ -22,11 +22,11 @@ npm install
 
 ## :ballot_box_with_check: To-do List
 
-To achieve the 1.0 version we need to complete all the tasks above:
+To achieve the 1.0 version we need to complete all the tasks below:
   - Greetings System :heavy_check_mark:
   - Announcement System :heavy_check_mark:
-  - Reputation System :x:
-  - Translation System :x:
+  - Reputation System :heavy_check_mark:
+  - Translation System :heavy_check_mark:
   - Daily Quests :x:
   - Own Currency :x: 
   - Trade System :x:
