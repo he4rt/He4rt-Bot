@@ -66,7 +66,7 @@ module.exports = {
 							.setTitle('``❌`` » !cupom')
 							.setColor('#8146DC')
 							.setDescription(
-								'Alguém já utilizou esse cupom ou ele não existe.'
+								'Você já utilizou esse cupom ou ele não existe.'
 							)
 							.setFooter(
 								`Comando utilizado por: ${message.author.tag}`,
