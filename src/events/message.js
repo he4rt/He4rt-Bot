@@ -119,60 +119,6 @@ const runCommand = async (client, message) => {
 module.exports = async (client, message) => {
 	if (message.author.bot) return;
 
-	// if(!client.guilds
-	//   .get(process.env.GUILD_ID)
-	//   .members.get(message.member.id)
-	//   .roles.has(process.env.APRESENTOU_ROLE)) {
-	//   //chance de 10%
-	//   let rdn = (Math.floor(Math.random() * 10)) + 1;
-	//   if(rdn == 1) {
-	//     message.member.send("``❗`` Utilize ``!apresentar`` para se apresentar para o servidor e desativar esta mensagem!");
-	//   }
-	// }
-
-	const palavrasBanidas = [
-		'preto',
-		'fudido',
-		'negro',
-		'ddos',
-		'macaco',
-		'gorila',
-		'picolé de asfalto',
-		'baiano',
-		'nordestino',
-		'gordo',
-		'vesgo',
-		'piche',
-		'maguila',
-		'vadia',
-		'puta',
-		'piranha',
-		'vagabunda',
-		'fdp',
-		'idiota',
-		'desgraçado',
-		'buceta',
-		'bucetao',
-		'gozar',
-		'gozou',
-		'gozada',
-		'penis',
-		'xoxota',
-		'xota',
-		'cacete',
-		'cacetao',
-		'rola',
-		'fuder',
-		'porra',
-		'fude',
-		'toma',
-		'corno',
-		'chifrudo',
-		'chifre',
-		'xifre',
-		'caralho',
-	];
-
 	if (message.content.toLowerCase() === 'boa noite') {
 		message.react('💤');
 		message.channel.send('noite!');
@@ -184,32 +130,6 @@ module.exports = async (client, message) => {
 	if (message.content.toLowerCase() === 'boa tarde') {
 		message.react('🌞');
 		message.channel.send('tarde!');
-	}
-
-	const msg = message.content.toLowerCase();
-	// var Attachment = (message.attachments).array();
-
-	// // Attachment.forEach(function(attachment) {
-	// //   if(isImage(attachment.url)) {
-	// //     console.log(isImage(attachment.url))
-	// //     return client.channels.get('546136913699143691').send('imagem do crack')
-	// //   } else {
-	// //     return client.channels.get('546136913699143691').send('Desconhecido')
-	// //   }
-	// // })
-
-	for (let x = 0; x < palavrasBanidas.length; x++) {
-		if (msg.includes(palavrasBanidas[x])) {
-			client.channels
-				.get(process.env.REPORT_CHAT)
-				.send(
-					`<@&546333494654009345>\n\`\`[G-CHAT]\`\` Mensagem de ${
-						message.author.username
-					}: ${message.content} \`\`(${palavrasBanidas[x]} | ${
-						message.channel.name
-					})\`\``
-				);
-		}
 	}
 
 	await Promise.all([
