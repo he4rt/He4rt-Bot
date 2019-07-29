@@ -22,7 +22,7 @@ npm install
 
 ## :ballot_box_with_check: To-do List
 
-To achieve the 1.0 version we need to complete all the tasks below:
+To achieve the 1.0 version we need to complete all the tasks above:
   - Greetings System :heavy_check_mark:
   - Announcement System :heavy_check_mark:
   - Reputation System :x:
