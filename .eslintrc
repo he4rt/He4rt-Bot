@@ -7,6 +7,7 @@
 	"plugins": ["prettier"],
 	"rules": {
 		"no-plusplus": "warn",
+		"no-unused-vars": "error",
 		"prettier/prettier": ["error"],
 		"linebreak-style": ["off", "windows"],
 		"no-restricted-globals": "off"
