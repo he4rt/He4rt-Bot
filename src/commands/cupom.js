@@ -3,27 +3,26 @@ const categories = require('../userCategory');
 
 module.exports = {
 	async run(client, message, args) {
-		if (!message.member.hasPermission('ADMINISTRATOR')) {
-			return message.channel.send(
-				new Discord.RichEmbed()
-					.setTitle(':x: Você não tem permissão ! :x:')
-					.setDescription(
-						'Infelizmente você não tem permissão para utilizar esse comando'
-					)
-					.setFooter(
-						'2019 © He4rt Developers',
-						'https://heartdevs.com/wp-content/uploads/2018/12/logo.png'
-					)
-					.setColor('RED')
-					.setTimestamp()
-			);
-		}
-
 		const { member } = message;
 
 		const coupon = args[0];
 		if (coupon) {
 			if (coupon === 'gerar') {
+				if (!message.member.hasPermission('ADMINISTRATOR')) {
+					return message.channel.send(
+						new Discord.RichEmbed()
+							.setTitle(':x: Você não tem permissão ! :x:')
+							.setDescription(
+								'Infelizmente você não tem permissão para utilizar esse comando'
+							)
+							.setFooter(
+								'2019 © He4rt Developers',
+								'https://heartdevs.com/wp-content/uploads/2018/12/logo.png'
+							)
+							.setColor('RED')
+							.setTimestamp()
+					);
+				}
 				const prize = args[1];
 				const type = args[2];
 
