@@ -82,7 +82,7 @@ module.exports = {
 				new Discord.RichEmbed()
 					.setTitle(':x: Você não tem permissão ! :x:')
 					.setDescription(
-						'Infelizmente você não tem permissão para utilizar esse'
+						'Infelizmente você não tem permissão para utilizar esse comando'
 					)
 					.setFooter(
 						'2019 © He4rt Developers',
