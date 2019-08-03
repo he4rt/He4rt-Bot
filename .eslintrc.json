@@ -9,7 +9,8 @@
     "no-plusplus": "warn",
     "prettier/prettier": ["error"],
     "linebreak-style": ["off", "windows"],
-    "no-restricted-globals": "off"
+    "no-restricted-globals": "off",
+    "no-console": "off"
   },
   "parserOptions": {
     "ecmaVersion": 2018,
