@@ -1,3 +1,4 @@
+/* eslint-disable global-require,import/no-dynamic-require */
 const { Client } = require('discord.js');
 const { create } = require('axios');
 const { config } = require('dotenv');
@@ -22,37 +23,41 @@ const initialize = async () => {
 	log(`Found ${evts.length - 1} event files`);
 
 	cmds.forEach(commandFile => {
-		const commandClass = require(`./commands/${commandFile}`);
-		const Command = new commandClass();
+		const CommandClass = require(`./commands/${commandFile}`);
+		const Command = new CommandClass();
 
 		if (!Command.name) {
 			return;
 		}
 
-		if (!Command.execute.bind(Command)) {
-			return log(
+		if (!Command.execute) {
+			log(
 				`Command '${Command.name}' doesnt implements the execute function`,
-				logTypes.WARN,
+				logTypes.ERROR,
 			);
+			return;
 		}
+
+		Command.execute.bind(Command);
 
 		commands.push(Command);
 		log(`Loaded command: ${Command.name}`);
 	});
 
 	evts.forEach(eventFile => {
-		const eventClass = require(`./events/${eventFile}`);
-		const { name, execute } = new eventClass();
+		const EventClass = require(`./events/${eventFile}`);
+		const { name, execute } = new EventClass();
 
 		if (!name) {
 			return;
 		}
 
 		if (!execute) {
-			return log(
+			log(
 				`Event '${name}' doesnt implements the execute function`,
-				logTypes.WARN,
+				logTypes.ERROR,
 			);
+			return;
 		}
 
 		client.on(name, execute);

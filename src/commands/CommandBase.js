@@ -7,17 +7,17 @@ class CommandBase {
 		this.description = description;
 	}
 
-	help() {
+	help = () => {
 		const { name, allowedRoles, description } = this;
 		return {
 			name,
 			allowedRoles,
 			description,
 		};
-	}
+	};
 
-	checkRoles(user) {
-		if (!this.allowedRoles) {
+	checkRoles = user => {
+		if (!this.allowedRoles || this.allowedRoles.length < 1) {
 			return true;
 		}
 
@@ -31,9 +31,7 @@ class CommandBase {
 
 		const matchingRoles = this.allowedRoles.map(x => user.roles.has(x));
 		return matchingRoles === this.allowedRoles;
-	}
-
-	execute: () => null;
+	};
 }
 
 module.exports = CommandBase;
