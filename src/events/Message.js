@@ -15,20 +15,29 @@ class Message extends EventBase {
 			return;
 		}
 
-		const [command, ...params] = content
+		const [commandName, ...params] = content
 			.slice(1, content.length)
 			.split(' ');
 
-		const { execute, checkRoles, name } = commands.find(
-			x => x.name === command.toLowerCase(),
+		const command = commands.find(
+			x => x.name === commandName.toLowerCase(),
 		);
+
+		if (!command) {
+			return;
+		}
 
 		await message.delete();
 
-		if (!execute) {
-			log(`Execute not found for command: ${name}`, logTypes.ERROR);
+		if (!command.execute) {
+			log(
+				`Execute not found for command: ${command.name}`,
+				logTypes.ERROR,
+			);
 			return;
 		}
+
+		const { execute, checkRoles, name } = command;
 
 		if (!checkRoles(member)) {
 			await message.reply(

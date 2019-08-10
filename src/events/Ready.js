@@ -18,16 +18,15 @@ class Ready extends EventBase {
 			.length;
 
 		const embed = new RichEmbed()
-			.setTitle('``⏰`` Página de Status')
-			.addField('``👥`` **Usuários:**', `${memberCount}`, true)
+			.setTitle('\\⏰ Página de Status')
+			.addField('\\👥 **Usuários:**', `${memberCount}`, true)
 			.addField(
-				'``🎓`` **Usuários apresentados:**',
+				'\\🎓 **Usuários apresentados:**',
 				`${presentedMembers}`,
 				true,
 			)
-			// TODO Fix that field
 			.addField(
-				'``📡`` **Latência da API:**',
+				'\\📡 **Latência da API:**',
 				`${Math.round(ping)}ms`,
 				true,
 			)
@@ -49,7 +48,7 @@ class Ready extends EventBase {
 			},
 		});
 
-		log('Connected!')
+		log('Connected!');
 
 		this.sendStatus();
 	};
