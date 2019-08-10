@@ -9,13 +9,13 @@ require('dotenv').config();
 client.axios = axios.create({
 	baseURL: process.env.HE4RT_API,
 	timeout: 5000,
-	headers: { Authorization: `Basic ${process.env.HE4RT_TOKEN}` },
+	headers: { 'Api-Key': process.env.HE4RT_TOKEN },
 });
 
 client.devwars = axios.create({
 	baseURL: process.env.DEVWARS_API,
 	timeout: 5000,
-	headers: { Authorization: `Basic ${process.env.HE4RT_TOKEN}` },
+	headers: { 'Api-Key': process.env.DEVWARS_TOKEN },
 });
 
 client.commands = new Enmap();

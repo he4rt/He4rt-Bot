@@ -9,8 +9,13 @@ const runLevelUp = async (client, message) => {
 	) {
 		return;
 	}
+	const donator = message.member.roles.find(
+		r => r.id === process.env.DONATOR_ROLE
+	);
+
 	const { data } = await client.axios.post(
-		`/users/${message.author.id}/levelup`
+		`/users/${message.author.id}/levelup`,
+		{ donator }
 	);
 
 	if (!data.is_levelup) return; // Check if is level up

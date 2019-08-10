@@ -3,13 +3,20 @@ const categories = require('../userCategory');
 module.exports = {
 	async run(client, message) {
 		const { member } = message;
+		const donatorRole = member.roles.find(
+			r => r.id === process.env.DONATOR_ROLE
+		);
 		client.axios
-			.post(`/users/${member.id}/daily`)
+			.post(`/users/${member.id}/daily`, {
+				donator: !!donatorRole,
+			})
 			.then(res => {
-				message.channel.send(
+				return message.channel.send(
 					`\`\`🏆\`\` Você ganhou \`\`${
 						res.data.daily
-					}\`\` HCoins de bônus diário! Para ver seu saldo, digite \`\`!coins\`\`.`
+					}\`\` HCoins de bônus diário! Para ver seu saldo, digite \`\`!coins\`\`. ${
+						donatorRole ? '(DoubleCoins ✅)' : ''
+					}`
 				);
 			})
 			.catch(err => {
