@@ -7,7 +7,7 @@
 <h3 align="center">
   <img src="https://heartdevs.com/wp-content/uploads/2018/12/logo.png" width="215"><br>
     Discord bot made for help with the He4rt Developers server management.
-	<a href="https://discord.gg/J78z3FV" target="_blank">
+	<a href="https://discord.io/he4rt" target="_blank">
 	<img src="https://discordapp.com/api/guilds/452926217558163456/embed.png" alt="Discord server"/></a><br>
 </h3> 
 
