@@ -12,6 +12,12 @@ client.axios = axios.create({
 	headers: { Authorization: `Basic ${process.env.HE4RT_TOKEN}` },
 });
 
+client.devwars = axios.create({
+	baseURL: process.env.DEVWARS_API,
+	timeout: 5000,
+	headers: { Authorization: `Basic ${process.env.HE4RT_TOKEN}` },
+});
+
 client.commands = new Enmap();
 
 const init = async () => {
