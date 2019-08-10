@@ -12,23 +12,25 @@ const runLevelUp = async (client, message) => {
 	const { data } = await client.axios.post(
 		`/users/${message.author.id}/levelup`
 	);
-	if (!data.is_levelup) {
-		return;
+
+	if (!data.is_levelup) return; // Check if is level up
+
+	const lvl = parseInt(data.level, 10);
+
+	if (lvl === 10) {
+		message.member.addRole(process.env.BEGINNER_ROLE); // Iniciante
 	}
-	if (data.level === '10') {
-		message.member.addRole(`547569615421833247`); // Iniciante
+	if (lvl === 20) {
+		message.member.addRole(process.env.INTERMEDIATE_ROLE); // Intermediario
 	}
-	if (data.level === '20') {
-		message.member.addRole(`547569827259088944`); // Intermediario
+	if (lvl === 30) {
+		message.member.addRole(process.env.ADVANCED_ROLE); // Avançado
 	}
-	if (data.level === '30') {
-		message.member.addRole(`547569825229307916`); // Avançado
+	if (lvl === 40) {
+		message.member.addRole(process.env.SUPREME_ROLE); // Supremo
 	}
-	if (data.level === '40') {
-		message.member.addRole(`547569826324021248`); // Supremo
-	}
-	if (data.level === '50') {
-		message.member.addRole(`512389942354378772`); // He4rt
+	if (lvl === 50) {
+		message.member.addRole(process.env.HE4RT_ROLE); // He4rt
 	}
 	const level = new Discord.RichEmbed()
 		.setTitle(
@@ -36,6 +38,7 @@ const runLevelUp = async (client, message) => {
 				data.level
 			}!`
 		)
+		.setColor('')
 		.setThumbnail(message.author.avatarURL)
 		.setFooter(
 			'2019 © He4rt Developers',
