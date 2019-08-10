@@ -18,7 +18,7 @@ const logTypes = {
 const log = (message, { color, content } = logTypes.DEBUG) => {
 	const tag = color(`[${content}]:`);
 	const clock = color(new Date().toLocaleTimeString());
-	const msg = color(` | ${message.toString() || message}`);
+	const msg = color(`| ${message.toString() || message}`);
 
 	console.log(`${tag} ${clock} ${msg}`);
 };
