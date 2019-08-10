@@ -9,10 +9,12 @@
 		"no-unused-vars": "error",
 		"prettier/prettier": ["error"],
 		"linebreak-style": ["off", "windows"],
-		"no-restricted-globals": "off"
+		"no-restricted-globals": "off",
+		"import/prefer-default-export": "off"
 	},
 	"parserOptions": {
 		"ecmaVersion": 2019,
 		"sourceType": "module"
-	}
+	},
+	"parser": "babel-eslint"
 }
