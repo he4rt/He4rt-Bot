@@ -21,13 +21,6 @@ const hiddenRolesEng = [
 	'546148708077666315',
 ];
 
-const status = {
-	online: '<:online:552507515917565954> Online',
-	idle: '<:idle:552507516106309632> Ausente',
-	dnd: '<:dnd:552507516324544532> Ocupado',
-	offline: '<:offline:552507516332933120> Offline',
-};
-
 module.exports = {
 	async run(client, message, args) {
 		const member = message.mentions.users.first() || message.author;
@@ -73,13 +66,16 @@ module.exports = {
 					: `${member.username}`,
 				user.about || 'Desconhecido',
 				user.git || 'Desconhecido',
-				status[member.presence.status] || 'Desconhecido',
 				user.level || 'Desconhecido',
 				user.current_exp || 'Desconhecido',
 				`<:hcoin:548969665020297216> ${user.money}`,
 				devRoles || 'Desconhecido',
 				engRoles || 'Desconhecido',
-				`${moment(client.guilds.get(process.env.GUILD_ID).members.get(message.author.id).joinedTimestamp).format('LLLL')} **#${user.id}**`,
+				`${moment(
+					client.guilds
+						.get(process.env.GUILD_ID)
+						.members.get(message.author.id).joinedTimestamp
+				).format('LLLL')} **#${user.id}**`,
 			]);
 			answer.setThumbnail(member.avatarURL);
 			answer.setFooter(
