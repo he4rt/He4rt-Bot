@@ -16,8 +16,8 @@ class CommandBase {
 		};
 	};
 
-	checkRoles = user => {
-		if (!this.allowedRoles || this.allowedRoles.length < 1) {
+	checkRoles = (user, allowedRoles = this.allowedRoles) => {
+		if (!allowedRoles || allowedRoles.length < 1) {
 			return true;
 		}
 
@@ -29,8 +29,8 @@ class CommandBase {
 			return false;
 		}
 
-		const matchingRoles = this.allowedRoles.map(x => user.roles.has(x));
-		return matchingRoles === this.allowedRoles;
+		const matchingRoles = allowedRoles.map(x => user.roles.has(x));
+		return matchingRoles.every(x => x === true);
 	};
 }
 
