@@ -12,7 +12,7 @@ const commands = [];
 const axios = create({
 	baseURL: process.env.HE4RT_API,
 	timeout: 5000,
-	headers: { Authorization: `Basic ${process.env.HE4RT_TOKEN}` },
+	headers: { 'Api-Key': process.env.HE4RT_TOKEN },
 });
 
 const initialize = async () => {
