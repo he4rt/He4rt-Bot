@@ -6,8 +6,8 @@
 	"scripts": {
 		"lint": "eslint --fix src/**/*.js",
 		"dev": "nodemon src/index.js",
-		"start": "NODE_ENV=production node src/index.js",
-		"start-windows": "node src/index.js NODE_ENV=production"
+		"start": "node src/index.js",
+		"start-windows": "node src/index.js"
 	},
 	"repository": {
 		"type": "git",
