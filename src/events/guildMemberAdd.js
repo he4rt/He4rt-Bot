@@ -1,45 +1,7 @@
 const Discord = require('discord.js');
-// const Canvas = require('canvas');
-// const snekfetch = require('snekfetch');
-// const { registerFont } = require('canvas');
 
 module.exports = async (client, member) => {
-	// registerFont('assets/Montserrat-SemiBold.ttf', { family: 'Montserrat' });
-	// const addText = (canvas, text) => {
-	// 	const ctx = canvas.getContext('2d');
-	// 	let fontSize = 90;
-	// 	do {
-	// 		ctx.font = `${(fontSize -= 10)}px Montserrat`;
-	// 	} while (ctx.measureText(text).width > canvas.width - 300);
-	// 	return ctx.font;
-	// };
-	// const canvas = Canvas.createCanvas(512, 250);
-	// const ctx = canvas.getContext('2d');
-	// const wallpaper = await Canvas.loadImage('./wallpaper.png');
 
-	// ctx.drawImage(wallpaper, 0, 0, canvas.width, canvas.height);
-
-	// ctx.font = '30px Montserrat';
-	// ctx.fillStyle = '#ffffff';
-	// ctx.fillText(`${member.displayName}`, 188, 120);
-
-	// ctx.beginPath();
-	// ctx.arc(103, 118, 77, 0, Math.PI * 2, true);
-	// ctx.closePath();
-	// ctx.clip();
-
-	// // TODO use node-fetch
-	// const { body: buffer } = await snekfetch.get(member.user.displayAvatarURL);
-	// const avatar = await Canvas.loadImage(buffer);
-	// ctx.drawImage(avatar, 25, 25, 170, 170);
-
-	// const attachment = new Discord.Attachment(
-	// 	canvas.toBuffer(),
-	// 	'welcome-user.png'
-	// );
-
-	member.addRole(member.guild.roles.find('id', process.env.MEMBER_ROLE));
-	console.log(member.user);
 	client.axios
 		.post(`/users?discord_id=${member.user.id}`)
 		.catch(err => console.log(err));
