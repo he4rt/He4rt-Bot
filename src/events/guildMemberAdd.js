@@ -4,7 +4,7 @@ module.exports = async (client, member) => {
 
 	client.axios
 		.post(`/users`, { discord_id: member.user.id })
-		.catch(err => console.log(err));
+		.catch(err => console.log(err.response.data));
 
 	// Mandar DM pra pessoa que entrou
 
