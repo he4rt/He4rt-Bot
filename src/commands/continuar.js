@@ -121,6 +121,7 @@ const sendLanguageMessage = async (author, embeds) => {
 	await message.react('5⃣');
 	await message.react('6⃣');
 	await message.react('7⃣');
+	await message.react('🎨');
 	await message.react('✅');
 	return message;
 };
