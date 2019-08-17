@@ -59,7 +59,7 @@ class GuildMemberAdd extends EventBase {
 		client.channels
 			.get(process.env.WELCOME_CHAT)
 			.send(`<:he4rt:546395281093034015> | ${member}`, {
-				files: ["welcome.png"],
+				files: ['welcome.png'],
 			});
 	};
 }
