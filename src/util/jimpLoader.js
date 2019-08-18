@@ -17,23 +17,28 @@ const jimpLoader = async () => {
 
 		const images = await Promise.all(
 			imageLocations.map(async x => ({
-				name: x.substring(x.lastIndexOf('/'), x.length),
+				name: x.substring(x.lastIndexOf('\\') + 1, x.length),
 				res: await jimp.read(x),
 			})),
 		);
 
 		const fonts = await Promise.all(
 			fontLocations.map(async x => ({
-				name: x.substring(x.lastIndexOf('/'), x.length),
+				name: x.substring(x.lastIndexOf('\\') + 1, x.length),
 				res: await jimp.loadFont(x),
 			})),
 		);
 
 		const langImages = await Promise.all(
-			langImagesLocations.map(async x => ({
-				name: x.substring(x.lastIndexOf('/'), x.length),
-				res: await jimp.read(x),
-			})),
+			langImagesLocations.map(async x => {
+				const name = x.substring(x.lastIndexOf('\\') + 1, x.length);
+				const idName = `${name.substring(0, name.length - 4).toUpperCase()}_LANG_ROLE`;
+				return {
+					name,
+					res: await jimp.read(x),
+					id: process.env[idName],
+				};
+			}),
 		);
 
 		log(`Loaded ${images.length + langImages.length} Images`);
