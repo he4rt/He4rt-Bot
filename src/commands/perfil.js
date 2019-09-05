@@ -21,13 +21,6 @@ const hiddenRolesEng = [
 	'546148708077666315',
 ];
 
-const status = {
-	online: '<:online:552507515917565954> Online',
-	idle: '<:idle:552507516106309632> Ausente',
-	dnd: '<:dnd:552507516324544532> Ocupado',
-	offline: '<:offline:552507516332933120> Offline',
-};
-
 module.exports = {
 	async run(client, message, args) {
 		const member = message.mentions.users.first() || message.author;
@@ -36,10 +29,9 @@ module.exports = {
 		const { data: user } = await client.axios.get(`/users/${userID}`);
 
 		if (args.length) {
-			console.log('puta merda');
 			const options = ['about', 'git', 'name', 'nickname', 'language'];
 			const filtered = options.filter(val => val === args[0]);
-			if (filtered.length) {
+			if (filtered.length && options.includes(args[0])) {
 				await client.axios.put(`/users/${userID}`, {
 					[args[0]]: args.slice(1).join(' '),
 				});
@@ -73,7 +65,6 @@ module.exports = {
 					: `${member.username}`,
 				user.about || 'Desconhecido',
 				user.git || 'Desconhecido',
-				status[member.presence.status] || 'Desconhecido',
 				user.level || 'Desconhecido',
 				user.current_exp || 'Desconhecido',
 				`<:hcoin:548969665020297216> ${user.money}`,
