@@ -72,9 +72,8 @@ module.exports = {
 				devRoles || 'Desconhecido',
 				engRoles || 'Desconhecido',
 				`${moment(
-					client.guilds
-						.get(process.env.GUILD_ID)
-						.members.get(message.author.id).joinedTimestamp
+					client.guilds.get(process.env.GUILD_ID).members.get(userID)
+						.joinedTimestamp
 				).format('LLLL')} **#${user.id}**`,
 			]);
 			answer.setThumbnail(member.avatarURL);
