@@ -32,7 +32,7 @@ module.exports = {
 			console.log('puta merda');
 			const options = ['about', 'git', 'name', 'nickname', 'language'];
 			const filtered = options.filter(val => val === args[0]);
-			if (filtered.length) {
+			if (filtered.length && options.includes(args[0])) {
 				await client.axios.put(`/users/${userID}`, {
 					[args[0]]: args.slice(1).join(' '),
 				});
