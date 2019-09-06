@@ -28,11 +28,11 @@ module.exports = {
 
 		const { data: user } = await client.axios.get(`/users/${userID}`);
 
-		if (args.length) {
+		const options = ['about', 'git', 'name', 'nickname', 'language'];
+		if (args.length && options.includes(args[0])) {
 			console.log('puta merda');
-			const options = ['about', 'git', 'name', 'nickname', 'language'];
 			const filtered = options.filter(val => val === args[0]);
-			if (filtered.length && options.includes(args[0])) {
+			if (filtered.length) {
 				await client.axios.put(`/users/${userID}`, {
 					[args[0]]: args.slice(1).join(' '),
 				});
