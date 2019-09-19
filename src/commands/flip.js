@@ -17,10 +17,15 @@ module.exports = {
             message.channel.send("``❗`` Valor inválido.");
             return;
         }
-            if(betValue > 500){
-                message.channel.send("``❗`` Valor máximo de aposta: ``500 HCoins``.");
-                return;
-            }
+        if(betValue > 500){
+            message.channel.send("``❗`` Valor máximo de aposta: ``500 HCoins``.");
+            return;
+        }
+        
+        if(betValue > 0){
+            message.channel.send("``❗`` Valor mínimo de aposta: ``1 HCoin``.");
+            return;
+        }
 
         client.axios.get(`/users/${message.author.id}`).then(res => {
             var userMoney = res.data.money;
