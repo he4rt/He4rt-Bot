@@ -22,7 +22,7 @@ module.exports = {
             return;
         }
         
-        if(betValue > 0){
+        if(betValue <= 0){
             message.channel.send("``❗`` Valor mínimo de aposta: ``1 HCoin``.");
             return;
         }
