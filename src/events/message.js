@@ -139,6 +139,11 @@ module.exports = async (client, message) => {
 		message.react('🌞');
 		message.channel.send('tarde!');
 	}
+	if (message.channel.id === process.env.APPRENTICESHIP_CHAT) {
+		message.react(client.emojis.get('551856304759504910'));
+		message.react(client.emojis.get('551856305007231033'));
+		message.react(client.emojis.get('547614831432302631'));
+	}
 
 	await Promise.all([
 		runLevelUp(client, message).catch(res =>
