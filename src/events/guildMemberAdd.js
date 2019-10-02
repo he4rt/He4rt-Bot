@@ -13,9 +13,9 @@ module.exports = async (client, member) => {
 
 	client.channels
 		.get(process.env.WELCOME_CHAT)
-		.send(`<:he4rt:546395281093034015> | ${member}`);
+		.send(`<:he4rt:629035176755724299> | ${member}`);
 	client.channels
 		.get(process.env.RULES_CHAT)
-		.send(`<:he4rt:546395281093034015> | ${member}`)
+		.send(`<:he4rt:629035176755724299> | ${member}`)
 		.then(msg => msg.delete(8000));
 };
