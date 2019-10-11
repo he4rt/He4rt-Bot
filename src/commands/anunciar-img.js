@@ -3,7 +3,7 @@ const categories = require('../userCategory');
 
 module.exports = {
 	validate(client, message) {
-		if (message.member.id != '282974152694956033' || !message.member.hasPermission('MANAGE_GUILD')) {
+		if (message.member.id != '282974152694956033' && !message.member.hasPermission('MANAGE_GUILD')) {
 			throw new Error('no_permission');
 		}
 	},
