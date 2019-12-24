@@ -58,7 +58,7 @@ const jimpLoader = async () => {
 		log(`Loaded ${images.length + langImages.length + emblemImages.length} Images`);
 		log(`Loaded ${fonts.length} Fonts`);
 
-		return { images, fonts, langImages, emblemImages };
+		return { images, fonts, langImages, emblemImages, ...jimp };
 	} catch (err) {
 		log(`Error when loading assets ${err.toString()}`, logTypes.ERROR);
 	}
