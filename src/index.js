@@ -1,54 +1,75 @@
-const Discord = require('discord.js');
-const fs = require('fs-extra');
-const Enmap = require('enmap');
-const axios = require('axios');
+const jimp = require('jimp');
+const { Client } = require('discord.js');
+const { create } = require('axios');
+const { config } = require('dotenv');
+const { readdir } = require('fs-extra');
+const { log, logTypes } = require('./util/log');
+const { jimpLoader } = require('./util/jimpLoader');
 
-const client = new Discord.Client({ forceFetchUsers: true });
-require('dotenv').config();
+const client = new Client({ forceFetchUsers: true });
+const cfg = config();
+const commands = [];
 
-client.axios = axios.create({
+const axios = create({
 	baseURL: process.env.HE4RT_API,
 	timeout: 5000,
-	headers: { Authorization: `Basic ${process.env.HE4RT_TOKEN}` },
+	headers: { 'Api-Key': process.env.HE4RT_TOKEN },
 });
 
-client.commands = new Enmap();
+const initialize = async () => {
+	const jmp = await jimpLoader();
+	module.exports.jimpLoads = jmp;
 
-const init = async () => {
-	const cmdFiles = await fs.readdir('src/commands/');
-	console.log(
-		'[#LOG]',
-		`Carregando o total de ${cmdFiles.length - 1} comandos.`
-	);
-	cmdFiles.shift();
-	cmdFiles.forEach(f => {
-		try {
-			// eslint-disable-next-line
-			const props = require(`./commands/${f}`);
-			if (f.split('.').slice(-1)[0] !== 'js') return;
-			if (props.init) {
-				props.init(client);
-			}
-			client.commands.set(props.command.name, props);
-		} catch (e) {
-			console.log(`[#ERROR] Impossivel executar comando ${f}: ${e}`);
+	const cmds = await readdir('src/commands/');
+	const evts = await readdir('src/events/');
+
+	log(`Found ${cmds.length - 1} command files`);
+	log(`Found ${evts.length - 1} event files`);
+
+	cmds.forEach(commandFile => {
+		const CommandClass = require(`./commands/${commandFile}`);
+		const Command = new CommandClass();
+
+		if (!Command.name) {
+			return;
 		}
+
+		if (!Command.execute) {
+			log(`Command '${Command.name}' doesnt implements the execute function`, logTypes.ERROR);
+			return;
+		}
+
+		Command.execute.bind(Command);
+
+		commands.push(Command);
+		log(`Loaded command: ${Command.name}`);
 	});
 
-	const evtFiles = await fs.readdir('src/events/');
-	console.log('[#LOG]', `Carregando o total de ${evtFiles.length} eventos.`);
-	evtFiles.forEach(f => {
-		const eventName = f.split('.')[0];
-		// eslint-disable-next-line
-		const event = require(`./events/${f}`);
+	evts.forEach(eventFile => {
+		const EventClass = require(`./events/${eventFile}`);
+		const { name, execute } = new EventClass();
 
-		client.on(eventName, event.bind(null, client));
+		if (!name) {
+			return;
+		}
+
+		if (!execute) {
+			log(`Event '${name}' doesnt implements the execute function`, logTypes.ERROR);
+			return;
+		}
+
+		client.on(name, execute);
+		log(`Loaded event: ${name}`);
 	});
 
-	client.on('error', err => console.error('[#ERROR]', err));
-
-	client.login(process.env.AUTH_TOKEN);
+	await client.login(process.env.AUTH_TOKEN);
 };
-init();
 
-module.exports = client.commands;
+initialize();
+
+module.exports = {
+	commands,
+	client,
+	axios,
+	cfg,
+};
