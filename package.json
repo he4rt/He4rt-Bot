@@ -24,7 +24,7 @@
   "homepage": "https://github.com/DanielHe4rt/He4rtBOT-Discord#readme",
   "dependencies": {
     "@vitalets/google-translate-api": "^2.7.0",
-    "axios": "^0.18.0",
+    "axios": "^0.18.1",
     "canvas": "^2.3.1",
     "discord.js": "^11.4.2",
     "dotenv": "^6.2.0",
