@@ -5,7 +5,7 @@
     "jest": true
   },
   "extends": [
-    "airbnb-base",
+    "standard",
     "plugin:@typescript-eslint/recommended",
     "plugin:prettier/recommended"
   ],
@@ -20,5 +20,7 @@
     "sourceType": "module"
   },
   "plugins": ["@typescript-eslint"],
-  "rules": {}
+  "rules": {
+    "class-methods-use-this": "off"
+  }
 }
