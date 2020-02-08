@@ -1,0 +1,9 @@
+{
+  "roots": ["<rootDir>/src"],
+  "coverageDirectory": "coverage",
+  "testEnvironment": "node",
+  "collectCoverageFrom": ["**/src/**/*.ts", "!**/src/main/**"],
+  "transform": {
+    "^.+\\.ts$": "ts-jest"
+  }
+}
