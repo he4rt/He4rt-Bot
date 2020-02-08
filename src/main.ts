@@ -1,5 +1,3 @@
-function main(): void {
-  // eslint-disable-next-line
-  console.log("hello world");
-}
-main();
+// eslint-disable-next-line @typescript-eslint/no-empty-function
+function main(): void {}
+main()
