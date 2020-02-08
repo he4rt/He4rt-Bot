@@ -1,19 +1,31 @@
 {
   "env": {
+    "browser": false,
     "es6": true,
-    "node": true
+    "jest": true
   },
-  "extends": ["airbnb-base", "prettier"],
-  "plugins": ["prettier"],
-  "rules": {
-    "no-plusplus": "warn",
-    "prettier/prettier": ["error"],
-    "linebreak-style": ["off", "windows"],
-    "no-restricted-globals": "off",
-    "no-console": "off"
+  "extends": [
+    "standard",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended"
+  ],
+  "globals": {
+    "Atomics": "readonly",
+    "SharedArrayBuffer": "readonly"
   },
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "ecmaVersion": 2018,
+    "project": "./tsconfig.json",
+    "ecmaVersion": 2019,
     "sourceType": "module"
+  },
+  "plugins": ["@typescript-eslint"],
+  "rules": {
+    "class-methods-use-this": "off",
+    "prettier/prettier": "error",
+    "@typescript-eslint/semi": "off",
+    "@typescript-eslint/member-delimiter-style": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/no-unused-vars": "off"
   }
 }
