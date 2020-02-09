@@ -1,13 +1,35 @@
 {
   "name": "rewardy",
   "version": "1.0.0",
-  "main": "index.js",
   "license": "MIT",
+  "main": "index.js",
   "scripts": {
+    "lint": "eslint --fix --ext .js,.ts,.tsx .",
     "start": "node_modules/.bin/ts-node src/main",
     "test": "jest --colors --noStackTrace --passWithNoTests"
   },
+  "lint-staged": {
+    "*.yml": [
+      "yarn prettier --write",
+      "git add"
+    ],
+    "*.{ts,tsx,js}": [
+      "yarn prettier --write",
+      "yarn lint",
+      "git add"
+    ],
+    "package.json": [
+      "yarn prettier --write",
+      "yarn sort-package-json",
+      "git add"
+    ]
+  },
+  "dependencies": {
+    "discord.js": "^11.5.1"
+  },
   "devDependencies": {
+    "@commitlint/cli": "^8.3.5",
+    "@commitlint/config-conventional": "^8.3.4",
     "@types/jest": "^24.0.25",
     "@typescript-eslint/eslint-plugin": "^2.14.0",
     "@typescript-eslint/parser": "^2.14.0",
@@ -23,10 +45,8 @@
     "jest": "^24.9.0",
     "lint-staged": "^9.5.0",
     "prettier": "^1.19.1",
+    "sort-package-json": "^1.39.1",
     "ts-node": "^8.5.4",
     "typescript": "^3.7.4"
-  },
-  "dependencies": {
-    "discord.js": "^11.5.1"
   }
 }
