@@ -1,21 +1,35 @@
-import Command from "@core/Command"
-import Context from "@core/Context"
+import { Message } from "discord.js"
+
+import Command from "@core/Contracts/Command"
+import Context from "@core/Contracts/Context"
 
 export default class Say extends Command {
-  static get description() {
-    return "Faz o bot dizer algo no chat."
+  public get description() {
+    return "Manda uma mensagem pelo bot."
   }
 
-  static get permissions() {
-    // retorna as permissões necessárias?
-    // pra ser usado dps
-    return "test"
+  public get roles(): string[] {
+    return [process.env.ADMIN_ROLE!]
   }
 
-  public async help(): Promise<string> {
+  public get roleValidationMessages() {
+    return {
+      [process.env
+        .ADMIN_ROLE!]: "Apenas administradores podem usar esse comando"
+    }
+  }
+
+  public help(): string {
     return "Como usar: `!say hello world`"
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  public async run(ctx: Context): Promise<void> {}
+  public async run({ args, reply, send }: Context): Promise<void> {
+    if (args.length === 0) {
+      const message = await reply(":x: Voce deve informar uma mensagem")
+      ;(message as Message).delete(5000)
+      return
+    }
+
+    await send(args.join(" ").trim())
+  }
 }
