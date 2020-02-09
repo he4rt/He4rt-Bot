@@ -54,7 +54,7 @@ export default class Rules extends Command {
   }
 
   public get permissions(): string[] {
-    // Somente usuários com a permissão MANAGE_GUIELD podem usar esse comando
+    // Somente usuários com a permissão MANAGE_GUILD podem usar esse comando
     // Se mais de uma permissão for retornada,
     // o usuário só será capaz de usar esse comando
     // caso tenha todas elas
