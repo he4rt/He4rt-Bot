@@ -127,7 +127,7 @@ export default class Say extends Command {
 }
 ```
 
-Por padrão, quando um usuário não tem uma permissão, a mensagem `"Você não está autorizado a usar esse comando :("` é retornada, é possível definir mensagens para cada permissão necessária implementando o método `roleValidationMessages`.
+Por padrão, quando um usuário não tem uma permissão, a mensagem `"Você não está autorizado a usar esse comando :("` é retornada, é possível definir mensagens para cada role necessária implementando o método `roleValidationMessages`.
 
 ```ts
 export default class Say extends Command {
