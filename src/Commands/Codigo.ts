@@ -1,19 +1,19 @@
-import Command from "@core/Command"
-import Context from "@core/Context"
+import Command from "@core/Contracts/Command"
+import Context from "@core/Contracts/Context"
 
 export default class Codigo extends Command {
-  static get description() {
+  public get description() {
     return "Mostra como formatar o código no chat."
   }
 
-  public async help(): Promise<string> {
+  public help(): string {
     return "Como usar: `!codigo`"
   }
 
-  public async run({ message }: Context): Promise<void> {
+  public async run({ send }: Context): Promise<void> {
     const answer =
-      "Formate seu código:\n\\`\\`\\`js\n    CODIGO AQUI\n\\`\\`\\`\nTroque 'js' por sua lang"
+      "Formate seu código:\n\\`\\`\\`js\n    CODIGO AQUI\n\\`\\`\\`\nTroque 'js' por sua lang \n```js\n const foo = 10\n```"
 
-    await message.channel.send(answer)
+    await send(answer)
   }
 }

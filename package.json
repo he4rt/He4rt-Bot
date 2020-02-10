@@ -4,8 +4,16 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "node_modules/.bin/ts-node src/main",
+    "start": "tsc && node dist/main",
     "test": "jest --colors --noStackTrace --passWithNoTests"
+  },
+  "_moduleAliases": {
+    "@types": "dist/@types",
+    "@commands": "dist/Commands",
+    "@events": "dist/Events",
+    "@core": "dist/Core",
+    "@transformers": "dist/Core/Transformers",
+    "@validators": "dist/Core/Validators"
   },
   "devDependencies": {
     "@types/jest": "^24.0.25",
@@ -22,11 +30,13 @@
     "husky": "^4.0.0-beta.5",
     "jest": "^24.9.0",
     "lint-staged": "^9.5.0",
+    "module-alias": "^2.2.2",
     "prettier": "^1.19.1",
     "ts-node": "^8.5.4",
     "typescript": "^3.7.4"
   },
   "dependencies": {
-    "discord.js": "^11.5.1"
+    "discord.js": "^11.5.1",
+    "dotenv": "^8.2.0"
   }
 }
