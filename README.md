@@ -5,28 +5,27 @@
 Crie uma classe dentro da pasta `Commands` e implemente os metódos obrigatórios:
 
 `run` e `help`. O comando sempre será o nome da classe em minúsculo, nesse caso
-
-```ts
 o comando é `!sayhello`.
 
-    import Command from "@core/Contracts/Command"
-    import Context from "@core/Contracts/Context"
+```ts
+import Command from "@core/Contracts/Command"
+import Context from "@core/Contracts/Context"
 
-    export default class SayHello extends Command {
-      // help() sempre deve retornar um exemplo de como o
-      // comando deve ser usado.
-      public help(): string {
-        return "Como usar: `!sayhello <names>`"
-      }
+export default class SayHello extends Command {
+  // help() sempre deve retornar um exemplo de como o
+  // comando deve ser usado.
+  public help(): string {
+    return "Como usar: `!sayhello <names>`"
+  }
 
-      // run() recebe um objecto Context que contem outros
-      // objetos e funções necessárias para interagir com o discord
-      public async run({ send, args }: Context): Promise<void> {
-        const names = args.join(" ").trim()
+  // run() recebe um objecto Context que contem outros
+  // objetos e funções necessárias para interagir com o discord
+  public async run({ send, args }: Context): Promise<void> {
+    const names = args.join(" ").trim()
 
-        await send(`Hello, ${names}`)
-      }
-    }
+    await send(`Hello, ${names}`)
+  }
+}
 ```
 
 ### Objeto Context
