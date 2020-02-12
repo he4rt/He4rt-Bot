@@ -36,7 +36,7 @@ Um objeto context é passado para função `run` de todos os comandos. Esse obje
 // o objeto context normalmente contêm essas propriedades
 {
   command // o comando que foi usado
-  args // os comandos passados com o comando
+  args // os argumentos passados com o comando
   message // a mensagem completa
   send(message) // manda uma mensagem pro canal onde o comando foi usado
   reply(message) // manda uma mensagem marcando a pessoa que usou o comando
