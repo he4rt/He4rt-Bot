@@ -102,7 +102,7 @@ export default class Rules extends Command {
 }
 ```
 
-Caso o método `permissions` retorne mais de uma permissão, o comando pode escolher para a validação ao encontrar uma permissão que o usuário não possui, ou validar todas as permissões.
+Caso o método `permissions` retorne mais de uma permissão, o comando pode escolher parar a validação ao encontrar uma permissão que o usuário não possui, ou validar todas as permissões.
 
 Para validar todas as permissões, implemente o método `validateAllPermissions`
 
