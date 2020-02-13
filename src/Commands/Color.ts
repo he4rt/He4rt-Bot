@@ -1,5 +1,3 @@
-// import { Message } from "discord.js"
-
 import Command from "@core/Contracts/Command"
 import Context from "@core/Contracts/Context"
 
