@@ -14,6 +14,8 @@ export default class Message extends Event {
       return
     }
 
+    if (message.author.bot) return
+
     try {
       const messageTransformer = Ioc.use<MessageTransformer>(
         "Transformers/Message"
