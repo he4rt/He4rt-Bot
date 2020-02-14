@@ -8,7 +8,8 @@ import {
   Collection,
   Snowflake,
   TextChannel,
-  VoiceChannel
+  VoiceChannel,
+  PermissionOverwriteOptions
 } from "discord.js"
 
 export default interface Context {
@@ -30,4 +31,8 @@ export default interface Context {
   member: GuildMember
   textChannels: Collection<Snowflake, TextChannel>
   voiceChannels: Collection<Snowflake, VoiceChannel>
+  setRolePermissions(
+    role: string,
+    permissions: PermissionOverwriteOptions
+  ): Promise<void>
 }

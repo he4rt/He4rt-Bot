@@ -3,7 +3,9 @@ import {
   Client,
   Collection,
   VoiceChannel,
-  TextChannel
+  TextChannel,
+  PermissionOverwriteOptions,
+  GuildChannel
 } from "discord.js"
 
 import Context from "@core/Contracts/Context"
@@ -23,7 +25,15 @@ export default class MessageTransformer {
       reply: message.reply.bind(message),
       member: message.member,
       textChannels: client.channels as Collection<string, TextChannel>,
-      voiceChannels: client.channels as Collection<string, VoiceChannel>
+      voiceChannels: client.channels as Collection<string, VoiceChannel>,
+      setRolePermissions: (
+        roleName: string,
+        permissions: PermissionOverwriteOptions
+      ) =>
+        (message.channel as GuildChannel).overwritePermissions(
+          message.guild.roles.find(({ name }) => name === roleName),
+          permissions
+        )
     }
   }
 }

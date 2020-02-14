@@ -9,12 +9,10 @@ import MessageTransformer from "@core/Transformers/Message"
 
 export default class Message extends Event {
   public async run(message: DiscordMessage): Promise<void> {
-    // move this somewhere else?
-    if (!message.content.startsWith(process.env.COMMAND_PREFIX as string)) {
-      return
-    }
-
-    if (message.author.bot) {
+    if (
+      message.author.bot ||
+      !message.content.startsWith(process.env.COMMAND_PREFIX as string)
+    ) {
       return
     }
 
@@ -37,7 +35,14 @@ export default class Message extends Event {
         return
       }
 
-      await command.run(context)
+      try {
+        command.validate(context.args)
+        await command.run(context)
+      } catch (exception) {
+        if (exception.__internal && exception.message) {
+          await context.send(exception.message)
+        }
+      }
     } catch (exception) {
       if (process.env.DEBUG) {
         console.error(exception)

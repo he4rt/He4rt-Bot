@@ -1,7 +1,6 @@
-import { GuildChannel } from "discord.js"
-
 import Command from "@core/Contracts/Command"
 import Context from "@core/Contracts/Context"
+import InvalidArgsException from "@core/Exceptions/InvalidArgs"
 
 export default class Chat extends Command {
   public get description() {
@@ -23,25 +22,21 @@ export default class Chat extends Command {
     return "Como usar: `!chat <on/off>`"
   }
 
-  public async run({ args, reply, send, message }: Context): Promise<void> {
-    if (!args[0]) {
-      await send("Você precisa informar **on** ou **off**")
-      return
+  public validate(args: string[]): void | never {
+    if (args.length === 0 || (args[0] !== "on" && args[0] !== "off")) {
+      throw new InvalidArgsException("Você precisa informar **on** ou **off**")
     }
+  }
 
+  public async run({ args, send, setRolePermissions }: Context): Promise<void> {
     const SEND_MESSAGES = args[0] === "on"
-    const channel = message.channel as GuildChannel
 
-    await channel.overwritePermissions(
-      message.guild.roles.find((role) => role.name === "@everyone"),
-      { SEND_MESSAGES }
+    await setRolePermissions("@everyone", { SEND_MESSAGES })
+
+    await send(
+      SEND_MESSAGES
+        ? "``❗`` Este canal foi aberto."
+        : "``❗`` Este canal foi pausado."
     )
-
-    if (SEND_MESSAGES) {
-      await send("``❗`` Este canal foi aberto.")
-      return
-    }
-
-    await send("``❗`` Este canal foi pausado.")
   }
 }
