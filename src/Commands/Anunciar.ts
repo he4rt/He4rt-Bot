@@ -2,6 +2,7 @@ import { RichEmbed } from "discord.js"
 
 import Command from "@core/Contracts/Command"
 import Context from "@core/Contracts/Context"
+import InvalidArgsException from "@core/Exceptions/InvalidArgs"
 
 export default class Anunciar extends Command {
   public get description() {
@@ -16,16 +17,15 @@ export default class Anunciar extends Command {
     return "Como usar: `!anunciar <mensagem>`"
   }
 
-  public async run({ args, send }: Context): Promise<void> {
+  public validate(args: string[]): void | never {
     if (args.length === 0) {
-      await send(this.help())
-      return
+      throw new InvalidArgsException(this.help())
     }
+  }
 
+  public async run({ args, send }: Context): Promise<void> {
     const message = args.join(" ").trim()
 
-    // make our own RichEmbed class so discord.js can be changed if
-    // needed ?
     const announcement = new RichEmbed()
       .setTitle("``🔔`` **Heart informa:**")
       .setDescription(message)

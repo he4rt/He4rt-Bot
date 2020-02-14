@@ -1,5 +1,6 @@
 import Command from "@core/Contracts/Command"
 import Context from "@core/Contracts/Context"
+import InvalidArgsException from "@core/Exceptions/InvalidArgs"
 
 export default class Color extends Command {
   public get description() {
@@ -21,49 +22,47 @@ export default class Color extends Command {
     return "Como usar: `!color <hex>` (código hexadecimal da cor)"
   }
 
-  public async run({ args, send, message, member }: Context): Promise<void> {
-    const hex = args[0]
+  private isHex(value: string): boolean {
+    return parseInt(value, 16).toString(16) === value.toLowerCase()
+  }
 
-    if (!hex) {
-      await send(
+  public validate(args: string[]): void | never {
+    if (args.length === 0 || !this.isHex(args[0])) {
+      throw new InvalidArgsException(
         ":x: Você precisa informar o codigo hexadecimal (!color `hex`)"
       )
+    }
+  }
+
+  public async run({ args, send, user, createRole }: Context): Promise<void> {
+    const [color] = args
+
+    const roleName = /.+#\d{4}/i
+
+    if (!user.hasRole(roleName)) {
+      const newRole = await createRole({
+        name: user.name(),
+        mentionable: false,
+        position: 60,
+        color
+      })
+
+      await Promise.all([
+        send(`Cor criada com sucesso! hex(${newRole.color})`),
+        user.addRole(newRole)
+      ])
+
       return
     }
 
-    const nick = message.author.tag
-    const role = member.roles.find((r) => /.+#\d{4}/i.test(r.name))
+    const role = user.role(roleName)
 
-    // Cria a role
-    if (!role) {
-      try {
-        const newRole = await message.guild.createRole({
-          name: nick,
-          color: hex,
-          mentionable: false,
-          position: 60
-        })
-
-        await send(`Cor criada com sucesso! hex(${newRole.color})`)
-        await member.addRole(newRole)
-        return
-      } catch (error) {
-        send("``❌`` Cor invalida!")
-        return
-      }
+    const username = user.name()
+    if (role.name !== username) {
+      await role.setName(username)
     }
 
-    if (role.name !== nick) {
-      await role.setName(nick)
-    }
-
-    // Autaliza a role
-    try {
-      const newRole = await role.setColor(hex)
-      await send(`Cor atualizada com sucesso! hex(${newRole.color})`)
-      return
-    } catch (error) {
-      send("``❌`` Cor invalida!")
-    }
+    const newRole = await role.setColor(color)
+    await send(`Cor atualizada com sucesso! hex(${newRole.color})`)
   }
 }

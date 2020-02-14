@@ -16,13 +16,13 @@ export default class Message extends Event {
       return
     }
 
+    const messageTransformer = Ioc.use<MessageTransformer>(
+      "Transformers/Message"
+    )
+
+    const context: Context = messageTransformer.item(message)
+
     try {
-      const messageTransformer = Ioc.use<MessageTransformer>(
-        "Transformers/Message"
-      )
-
-      const context: Context = messageTransformer.item(message)
-
       const command = Ioc.use<Command>(context.command)
 
       await message.delete()
@@ -35,21 +35,17 @@ export default class Message extends Event {
         return
       }
 
-      try {
-        command.validate(context.args)
-        await command.run(context)
-      } catch (exception) {
-        if (exception.__internal && exception.message) {
-          await context.send(exception.message)
-        }
-      }
+      command.validate(context.args)
+      await command.run(context)
     } catch (exception) {
       if (process.env.DEBUG) {
         console.error(exception)
       }
 
-      await message.channel.send(
-        "Algo não deu certo, tem certeza que esse comando existe?"
+      await context.send(
+        exception.__internal && exception.message
+          ? exception.message
+          : "Algo não deu certo, tem certeza que esse comando existe?"
       )
     }
   }
