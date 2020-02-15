@@ -53,9 +53,6 @@ export default class RoleValidator implements Validator {
       this.validatePermissions(ctx, command)
     }
 
-    console.log("this._failed", this._failed)
-    console.log("this._messages", this._messages)
-
     if (this._failed && this._messages.length === 0) {
       this._messages.push("Você não está autorizado a usar esse comando :(")
     }
