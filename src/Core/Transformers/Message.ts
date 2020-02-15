@@ -7,7 +7,8 @@ import {
   PermissionOverwriteOptions,
   GuildChannel,
   RoleData,
-  Role
+  Role,
+  ChannelLogsQueryOptions
 } from "discord.js"
 
 import Context from "@core/Contracts/Context"
@@ -44,7 +45,13 @@ export default class MessageTransformer {
         (message.channel as GuildChannel).overwritePermissions(
           message.guild.roles.find(({ name }) => name === roleName),
           permissions
-        )
+        ),
+      getChannelMessages: (options?: ChannelLogsQueryOptions) =>
+        message.channel.fetchMessages(options),
+      deleteChannelMessages: (options?: ChannelLogsQueryOptions) =>
+        message.channel
+          .fetchMessages(options)
+          .then((messages) => message.channel.bulkDelete(messages))
     }
   }
 }
