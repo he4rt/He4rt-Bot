@@ -39,8 +39,6 @@ export default class Ignitor {
 
     Ioc.singleton("Commands", commandList)
 
-    // make ioc require commands only when needed?
-    // instead of importing them all
     for (const { default: Command } of commands) {
       Ioc.singleton(Command.name.toLowerCase(), Command)
     }
