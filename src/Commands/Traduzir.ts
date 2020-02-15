@@ -19,9 +19,9 @@ export default class Traduzir extends Command {
   }
 
   public async run({ args, send }: Context): Promise<void> {
-    const to = args.pop()
+    const [to, ...message] = args
 
-    const { text } = await translate(args.join(" "), { to })
+    const { text } = await translate(message, { to })
 
     await send(text)
   }
