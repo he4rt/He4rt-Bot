@@ -11,7 +11,8 @@ import {
   VoiceChannel,
   PermissionOverwriteOptions,
   Role,
-  RoleData
+  RoleData,
+  ChannelLogsQueryOptions
 } from "discord.js"
 
 export default interface Context {
@@ -42,4 +43,10 @@ export default interface Context {
     role: string,
     permissions: PermissionOverwriteOptions
   ): Promise<void>
+  getChannelMessages(
+    options?: ChannelLogsQueryOptions
+  ): Promise<Collection<string, Message>>
+  deleteChannelMessages(
+    options?: ChannelLogsQueryOptions
+  ): Promise<Collection<string, Message>>
 }
