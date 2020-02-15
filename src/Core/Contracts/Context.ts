@@ -12,11 +12,14 @@ import {
   PermissionOverwriteOptions,
   Role,
   RoleData,
-  ChannelLogsQueryOptions
+  ChannelLogsQueryOptions,
+  Client
 } from "discord.js"
 
 export default interface Context {
+  client: Client
   message: Message
+  members: Collection<Snowflake, GuildMember>
   send(
     content?: StringResolvable,
     options?: MessageOptions | RichEmbed | Attachment
