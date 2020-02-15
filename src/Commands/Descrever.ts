@@ -9,7 +9,7 @@ export default class Descrever extends Command {
   }
 
   public help(): string {
-    return ":x:Como usar: `!descrever <comando>`"
+    return ":x: Como usar: `!descrever <comando>`"
   }
 
   public validate(args: string[]): void | never {
