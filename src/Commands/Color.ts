@@ -19,7 +19,7 @@ export default class Color extends Command {
   }
 
   public help(): string {
-    return "Como usar: `!color <hex>` (código hexadecimal da cor)"
+    return ":x: Como usar: `!color <hex>` (código hexadecimal da cor)"
   }
 
   private isHex(value: string): boolean {
@@ -28,9 +28,7 @@ export default class Color extends Command {
 
   public validate(args: string[]): void | never {
     if (args.length === 0 || !this.isHex(args[0])) {
-      throw new InvalidArgsException(
-        ":x: Você precisa informar o codigo hexadecimal (!color `hex`)"
-      )
+      throw new InvalidArgsException(this.help())
     }
   }
 

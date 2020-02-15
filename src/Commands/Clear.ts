@@ -27,7 +27,7 @@ export default class Clear extends Command {
   }
 
   public help(): string {
-    return "Como usar: `!clear <quantidade_mensagens(min:1|max:100)>`"
+    return ":x: Como usar: `!clear <quantidade_mensagens(min:1|max:100)>`"
   }
 
   public async run({ args, deleteChannelMessages }: Context): Promise<void> {

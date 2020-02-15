@@ -19,12 +19,12 @@ export default class Say extends Command {
   }
 
   public help(): string {
-    return "Como usar: `!say hello world`"
+    return ":x: Como usar: `!say <message>`"
   }
 
   public validate(args: string[]): void | never {
     if (args.length === 0) {
-      throw new InvalidArgsException(":x: Voce deve informar uma mensagem")
+      throw new InvalidArgsException(this.help())
     }
   }
 
