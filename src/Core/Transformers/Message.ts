@@ -21,9 +21,11 @@ export default class MessageTransformer {
     const client = Ioc.use<Client>("Client")
 
     return {
+      client,
+      message,
       command,
       args,
-      message,
+      members: client.guilds.get(process.env.GUILD_ID!)!.members,
       send: message.channel.send.bind(message.channel),
       reply: message.reply.bind(message),
       user: {
