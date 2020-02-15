@@ -1,8 +1,8 @@
-import Context from "@core/Contracts/Context"
+import Context from "./Context"
 
 export default abstract class Command {
   public get description() {
-    return "Um comando que pode ser usado para interagir com o bot."
+    return "Um comando que pode ser usado para interagir com o bot"
   }
 
   public get roles(): string[] {
@@ -28,6 +28,9 @@ export default abstract class Command {
   public get validateAllPermissions(): boolean {
     return false
   }
+
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  public validate(args: string[]): void | never {}
 
   public abstract help(): string
 

@@ -9,22 +9,20 @@ import MessageTransformer from "@core/Transformers/Message"
 
 export default class Message extends Event {
   public async run(message: DiscordMessage): Promise<void> {
-    // move this somewhere else?
-    if (!message.content.startsWith(process.env.COMMAND_PREFIX as string)) {
+    if (
+      message.author.bot ||
+      !message.content.startsWith(process.env.COMMAND_PREFIX as string)
+    ) {
       return
     }
 
-    if (message.author.bot) {
-      return
-    }
+    const messageTransformer = Ioc.use<MessageTransformer>(
+      "Transformers/Message"
+    )
+
+    const context: Context = messageTransformer.item(message)
 
     try {
-      const messageTransformer = Ioc.use<MessageTransformer>(
-        "Transformers/Message"
-      )
-
-      const context: Context = messageTransformer.item(message)
-
       const command = Ioc.use<Command>(context.command)
 
       await message.delete()
@@ -37,14 +35,17 @@ export default class Message extends Event {
         return
       }
 
+      command.validate(context.args)
       await command.run(context)
     } catch (exception) {
       if (process.env.DEBUG) {
         console.error(exception)
       }
 
-      await message.channel.send(
-        "Algo não deu certo, tem certeza que esse comando existe?"
+      await context.send(
+        exception.__internal && exception.message
+          ? exception.message
+          : "Algo não deu certo, tem certeza que esse comando existe?"
       )
     }
   }

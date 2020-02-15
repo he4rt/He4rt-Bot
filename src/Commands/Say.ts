@@ -1,7 +1,6 @@
-import { Message } from "discord.js"
-
 import Command from "@core/Contracts/Command"
 import Context from "@core/Contracts/Context"
+import InvalidArgsException from "@core/Exceptions/InvalidArgs"
 
 export default class Say extends Command {
   public get description() {
@@ -23,13 +22,13 @@ export default class Say extends Command {
     return "Como usar: `!say hello world`"
   }
 
-  public async run({ args, reply, send }: Context): Promise<void> {
+  public validate(args: string[]): void | never {
     if (args.length === 0) {
-      const message = await reply(":x: Voce deve informar uma mensagem")
-      ;(message as Message).delete(5000)
-      return
+      throw new InvalidArgsException(":x: Voce deve informar uma mensagem")
     }
+  }
 
+  public async run({ args, send }: Context): Promise<void> {
     await send(args.join(" ").trim())
   }
 }
