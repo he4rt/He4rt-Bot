@@ -7,7 +7,7 @@ export default class Codigo extends Command {
   }
 
   public help(): string {
-    return "Como usar: `!codigo`"
+    return ":x: Como usar: `!codigo`"
   }
 
   public async run({ send }: Context): Promise<void> {

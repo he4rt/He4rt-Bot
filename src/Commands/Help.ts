@@ -8,11 +8,12 @@ export default class Help extends Command {
   }
 
   public help(): string {
-    return "Como usar: `!help`"
+    return ":x: Como usar: `!help`"
   }
 
   public async run({ send }: Context): Promise<void> {
     const commandList = Ioc.use<string[]>("Commands")
+
     await send(`Comandos disponíveis: ${commandList}`)
   }
 }

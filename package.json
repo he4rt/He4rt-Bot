@@ -36,6 +36,7 @@
     "typescript": "^3.7.4"
   },
   "dependencies": {
+    "@vitalets/google-translate-api": "^3.0.0",
     "discord.js": "^11.5.1",
     "dotenv": "^8.2.0"
   }

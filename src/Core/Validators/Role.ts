@@ -8,16 +8,13 @@ export default class RoleValidator implements Validator {
   private _failed = false
   private _messages: string[] = []
 
-  public async validate({ member }: Context, command: Command): Promise<void> {
-    if (command.roles.length === 0) {
-      return
-    }
-
+  private validateRoles({ user }: Context, command: Command): void {
     for (const role of command.roles) {
-      if (!member.roles.has(role)) {
+      if (!user.hasRole(role)) {
         this._failed = true
 
         const unauthorizedMessage = command.roleValidationMessages[role]
+
         if (unauthorizedMessage) {
           this._messages.push(unauthorizedMessage)
         }
@@ -27,13 +24,16 @@ export default class RoleValidator implements Validator {
         }
       }
     }
+  }
 
+  private validatePermissions({ message }: Context, command: Command): void {
     for (const permission of command.permissions) {
-      if (!member.hasPermission(permission as PermissionResolvable)) {
+      if (!message.member.hasPermission(permission as PermissionResolvable)) {
         this._failed = true
 
         const unauthorizedMessage =
           command.permissionValidationMessages[permission]
+
         if (unauthorizedMessage) {
           this._messages.push(unauthorizedMessage)
         }
@@ -42,6 +42,15 @@ export default class RoleValidator implements Validator {
           break
         }
       }
+    }
+  }
+
+  public async validate(ctx: Context, command: Command): Promise<void> {
+    if (command.roles.length > 0) {
+      this.validateRoles(ctx, command)
+    }
+    if (command.permissions.length > 0) {
+      this.validatePermissions(ctx, command)
     }
 
     if (this._failed && this._messages.length === 0) {

@@ -6,7 +6,7 @@ import InvalidArgsException from "@core/Exceptions/InvalidArgs"
 
 export default class Anunciar extends Command {
   public get description() {
-    return "Faz o bot anunciar algo no chat usando @everyone"
+    return "Faz o bot anunciar algo no chat usando everyone"
   }
 
   public get permissions(): string[] {
@@ -14,7 +14,7 @@ export default class Anunciar extends Command {
   }
 
   public help(): string {
-    return "Como usar: `!anunciar <mensagem>`"
+    return ":x: Como usar: `!anunciar <mensagem>`"
   }
 
   public validate(args: string[]): void | never {

@@ -7,7 +7,8 @@ import {
   PermissionOverwriteOptions,
   GuildChannel,
   RoleData,
-  Role
+  Role,
+  ChannelLogsQueryOptions
 } from "discord.js"
 
 import Context from "@core/Contracts/Context"
@@ -20,9 +21,11 @@ export default class MessageTransformer {
     const client = Ioc.use<Client>("Client")
 
     return {
+      client,
+      message,
       command,
       args,
-      message,
+      members: client.guilds.get(process.env.GUILD_ID!)!.members,
       send: message.channel.send.bind(message.channel),
       reply: message.reply.bind(message),
       user: {
@@ -44,7 +47,13 @@ export default class MessageTransformer {
         (message.channel as GuildChannel).overwritePermissions(
           message.guild.roles.find(({ name }) => name === roleName),
           permissions
-        )
+        ),
+      getChannelMessages: (options?: ChannelLogsQueryOptions) =>
+        message.channel.fetchMessages(options),
+      deleteChannelMessages: (options?: ChannelLogsQueryOptions) =>
+        message.channel
+          .fetchMessages(options)
+          .then((messages) => message.channel.bulkDelete(messages))
     }
   }
 }

@@ -11,11 +11,15 @@ import {
   VoiceChannel,
   PermissionOverwriteOptions,
   Role,
-  RoleData
+  RoleData,
+  ChannelLogsQueryOptions,
+  Client
 } from "discord.js"
 
 export default interface Context {
+  client: Client
   message: Message
+  members: Collection<Snowflake, GuildMember>
   send(
     content?: StringResolvable,
     options?: MessageOptions | RichEmbed | Attachment
@@ -42,4 +46,10 @@ export default interface Context {
     role: string,
     permissions: PermissionOverwriteOptions
   ): Promise<void>
+  getChannelMessages(
+    options?: ChannelLogsQueryOptions
+  ): Promise<Collection<string, Message>>
+  deleteChannelMessages(
+    options?: ChannelLogsQueryOptions
+  ): Promise<Collection<string, Message>>
 }

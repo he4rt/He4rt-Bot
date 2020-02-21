@@ -19,12 +19,12 @@ export default class Chat extends Command {
   }
 
   public help(): string {
-    return "Como usar: `!chat <on/off>`"
+    return ":x: Como usar: `!chat <on/off>`"
   }
 
   public validate(args: string[]): void | never {
     if (args.length === 0 || (args[0] !== "on" && args[0] !== "off")) {
-      throw new InvalidArgsException("Você precisa informar **on** ou **off**")
+      throw new InvalidArgsException(this.help())
     }
   }
 

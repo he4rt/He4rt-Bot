@@ -1,25 +1,15 @@
 import Command from "@core/Contracts/Command"
 import Context from "@core/Contracts/Context"
 import InvalidArgsException from "@core/Exceptions/InvalidArgs"
+import Ioc from "@core/IoC/Ioc"
 
-export default class Say extends Command {
+export default class Descrever extends Command {
   public get description() {
-    return "Manda uma mensagem pelo bot."
-  }
-
-  public get roles(): string[] {
-    return [process.env.ADMIN_ROLE!]
-  }
-
-  public get roleValidationMessages() {
-    return {
-      [process.env
-        .ADMIN_ROLE!]: "Apenas administradores podem usar esse comando"
-    }
+    return "Mostra a descrição de um comando."
   }
 
   public help(): string {
-    return ":x: Como usar: `!say <message>`"
+    return ":x: Como usar: `!descrever <comando>`"
   }
 
   public validate(args: string[]): void | never {
@@ -29,6 +19,8 @@ export default class Say extends Command {
   }
 
   public async run({ args, send }: Context): Promise<void> {
-    await send(args.join(" ").trim())
+    const command = Ioc.use<Command>(args[0])
+
+    await send(command.description)
   }
 }

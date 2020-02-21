@@ -30,7 +30,7 @@ export default class Rules extends Command {
   }
 
   public help(): string {
-    return "Como usar: `!rules`"
+    return ":x:Como usar: `!rules`"
   }
 
   public async run({ textChannels }: Context): Promise<void> {
