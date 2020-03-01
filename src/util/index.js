@@ -4,12 +4,17 @@ const langPTBR = require('../../assets/pt_BR');
 
 module.exports = {
   isCommand: message => message.content.startsWith(process.env.COMMAND_PREFIX),
-  translate: (path, fields = []) => {
-    const data = _.cloneDeep(_.get(langPTBR, path));
+  translate: (path, fields = [], templates) => {
+    let data = _.cloneDeep(_.get(langPTBR, path));
     if (!data) {
       return null;
     }
     if (typeof data === 'string') {
+      if (templates && typeof templates === 'object') {
+        for (const name in templates) {
+          data = data.replace(`{{${name}}}`, templates[name]);
+        }
+      }
       return data;
     }
     if (data.fields) {
