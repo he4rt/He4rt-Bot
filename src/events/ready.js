@@ -23,15 +23,25 @@ module.exports = async client => {
 		});
 
 		const embed = new Discord.RichEmbed()
-			.setTitle('``⏰`` Página de Status')
+			.setTitle('``📶`` Página de Status')
 			.addField('``👥`` **Usuários:**', `${members}`, true)
 			.addField(
 				'``🎓`` **Usuários apresentados:**',
 				`${numeroMembrosApresentados}`,
+				false
+			)
+			.addField(
+				'``📡`` **Status da he4rtdevs.com:**',
+				`${Math.round(client.ping)}ms`,
 				true
 			)
 			.addField(
-				'``📡`` **Latência da API:**',
+				'``📡`` **Status da API:**',
+				`${Math.round(client.ping)}ms`,
+				true
+			)
+			.addField(
+				'``📡`` **Latência do Discord:**',
 				`${Math.round(client.ping)}ms`,
 				true
 			)

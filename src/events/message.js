@@ -9,26 +9,33 @@ const runLevelUp = async (client, message) => {
 	) {
 		return;
 	}
-	const { data } = await client.axios.post(
-		`/users/${message.author.id}/levelup`
+	const donator = message.member.roles.find(
+		r => r.id === process.env.DONATOR_ROLE
 	);
-	if (!data.is_levelup) {
-		return;
+
+	const { data } = await client.axios.post(
+		`/users/${message.author.id}/levelup`,
+		{ donator }
+	);
+
+	if (!data.is_levelup) return; // Check if is level up
+
+	const lvl = parseInt(data.level, 10);
+
+	if (lvl === 10) {
+		message.member.addRole(process.env.BEGINNER_ROLE); // Iniciante
 	}
-	if (data.level === '10') {
-		message.member.addRole(`547569615421833247`); // Iniciante
+	if (lvl === 20) {
+		message.member.addRole(process.env.INTERMEDIATE_ROLE); // Intermediario
 	}
-	if (data.level === '20') {
-		message.member.addRole(`547569827259088944`); // Intermediario
+	if (lvl === 30) {
+		message.member.addRole(process.env.ADVANCED_ROLE); // Avançado
 	}
-	if (data.level === '30') {
-		message.member.addRole(`547569825229307916`); // Avançado
+	if (lvl === 40) {
+		message.member.addRole(process.env.SUPREME_ROLE); // Supremo
 	}
-	if (data.level === '40') {
-		message.member.addRole(`547569826324021248`); // Supremo
-	}
-	if (data.level === '50') {
-		message.member.addRole(`512389942354378772`); // He4rt
+	if (lvl === 50) {
+		message.member.addRole(process.env.HE4RT_ROLE); // He4rt
 	}
 	const level = new Discord.RichEmbed()
 		.setTitle(
@@ -36,6 +43,7 @@ const runLevelUp = async (client, message) => {
 				data.level
 			}!`
 		)
+		.setColor('#4c4cff')
 		.setThumbnail(message.author.avatarURL)
 		.setFooter(
 			'2019 © He4rt Developers',
@@ -130,6 +138,11 @@ module.exports = async (client, message) => {
 	if (message.content.toLowerCase() === 'boa tarde') {
 		message.react('🌞');
 		message.channel.send('tarde!');
+	}
+	if (message.channel.id === process.env.APPRENTICESHIP_CHAT) {
+		message.react(client.emojis.get('551856304759504910'));
+		message.react(client.emojis.get('551856305007231033'));
+		message.react(client.emojis.get('547614831432302631'));
 	}
 
 	await Promise.all([

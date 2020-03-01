@@ -28,8 +28,8 @@ module.exports = {
 
 		const { data: user } = await client.axios.get(`/users/${userID}`);
 
-		if (args.length) {
-			const options = ['about', 'git', 'name', 'nickname', 'language'];
+		const options = ['about', 'git', 'name', 'nickname', 'language'];
+		if (args.length && options.includes(args[0])) {
 			const filtered = options.filter(val => val === args[0]);
 			if (filtered.length && options.includes(args[0])) {
 				await client.axios.put(`/users/${userID}`, {
@@ -70,7 +70,10 @@ module.exports = {
 				`<:hcoin:548969665020297216> ${user.money}`,
 				devRoles || 'Desconhecido',
 				engRoles || 'Desconhecido',
-				`${moment(client.guilds.get(process.env.GUILD_ID).members.get(message.author.id).joinedTimestamp).format('LLLL')} **#${user.id}**`,
+				`${moment(
+					client.guilds.get(process.env.GUILD_ID).members.get(userID)
+						.joinedTimestamp
+				).format('LLLL')} **#${user.id}**`,
 			]);
 			answer.setThumbnail(member.avatarURL);
 			answer.setFooter(

@@ -6,7 +6,7 @@ module.exports = {
       
         const value = args.slice(0).join('');
 
-        if(!value){
+        if(!value || isNaN(value) || value < 1){
             message.channel.send("``❗`` Sintaxe incorreta, utilize ``!flip <valor>``.");
             return;
         }

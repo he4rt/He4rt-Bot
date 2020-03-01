@@ -143,7 +143,6 @@
         { "name": "**Nome:**", "inline": true },
         { "name": "**Sobre:**", "inline": true },
         { "name": "**Git:**", "inline": true },
-        { "name": "**Status:**", "inline": true },
         { "name": "**Nível:**", "inline": true },
         { "name": "**Experiência:**", "inline": true },
         { "name": "**HCoins:**", "inline": true },
