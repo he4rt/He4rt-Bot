@@ -22,7 +22,7 @@ export default class SayAll extends Command {
     return ":x: Como usar: `!sayall <message>`"
   }
 
-  public validate(args: string[]): void | never {
+  public validate({ args }: Context): void | never {
     if (args.length === 0) {
       throw new InvalidArgsException(this.help())
     }

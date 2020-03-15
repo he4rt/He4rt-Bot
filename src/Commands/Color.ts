@@ -26,15 +26,18 @@ export default class Color extends Command {
     return parseInt(value, 16).toString(16) === value.toLowerCase()
   }
 
-  public validate(args: string[]): void | never {
-    if (args.length === 0 || !this.isHex(args[0])) {
+  public validate({ arg }: Context): void | never {
+    if (!this.isHex(arg)) {
       throw new InvalidArgsException(this.help())
     }
   }
 
-  public async run({ args, send, user, createRole }: Context): Promise<void> {
-    const [color] = args
-
+  public async run({
+    arg: color,
+    send,
+    user,
+    createRole
+  }: Context): Promise<void> {
     const roleName = /.+#\d{4}/i
 
     if (!user.hasRole(roleName)) {

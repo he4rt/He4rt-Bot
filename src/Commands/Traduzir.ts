@@ -12,7 +12,7 @@ export default class Traduzir extends Command {
     return ":x: Como usar: `!traduzir <language(exemplo: en)> <text>`"
   }
 
-  public validate(args: string[]): void | never {
+  public validate({ args }: Context): void | never {
     if (args.length < 2) {
       throw new InvalidArgsException(this.help())
     }

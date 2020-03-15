@@ -22,14 +22,14 @@ export default class Chat extends Command {
     return ":x: Como usar: `!chat <on/off>`"
   }
 
-  public validate(args: string[]): void | never {
-    if (args.length === 0 || (args[0] !== "on" && args[0] !== "off")) {
+  public validate({ arg }: Context): void | never {
+    if (arg !== "on" && arg !== "off") {
       throw new InvalidArgsException(this.help())
     }
   }
 
-  public async run({ args, send, setRolePermissions }: Context): Promise<void> {
-    const SEND_MESSAGES = args[0] === "on"
+  public async run({ arg, send, setRolePermissions }: Context): Promise<void> {
+    const SEND_MESSAGES = arg === "on"
 
     await setRolePermissions("@everyone", { SEND_MESSAGES })
 

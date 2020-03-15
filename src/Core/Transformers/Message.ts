@@ -24,8 +24,9 @@ export default class MessageTransformer {
       client,
       message,
       command,
+      arg: args.length > 0 ? args[0] : "",
       args,
-      members: client.guilds.get(process.env.GUILD_ID!)!.members,
+      members: {} as any /* client.guilds.get(process.env.GUILD_ID!)!.members */,
       send: message.channel.send.bind(message.channel),
       reply: message.reply.bind(message),
       user: {
@@ -53,7 +54,9 @@ export default class MessageTransformer {
       deleteChannelMessages: (options?: ChannelLogsQueryOptions) =>
         message.channel
           .fetchMessages(options)
-          .then((messages) => message.channel.bulkDelete(messages))
+          .then((messages) => message.channel.bulkDelete(messages)),
+      getMentionedUsers: () => message.mentions.members,
+      hasMentionedUsers: () => !!message.mentions.members.first()
     }
   }
 }

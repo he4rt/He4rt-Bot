@@ -33,6 +33,7 @@ export default interface Context {
   ): Promise<Message | Message[]>
   reply(options?: MessageOptions): Promise<Message | Message[]>
   command: string
+  arg: string
   args: string[]
   user: GuildMember & {
     name(): string
@@ -52,4 +53,6 @@ export default interface Context {
   deleteChannelMessages(
     options?: ChannelLogsQueryOptions
   ): Promise<Collection<string, Message>>
+  getMentionedUsers: () => Collection<string, GuildMember>
+  hasMentionedUsers: () => boolean
 }

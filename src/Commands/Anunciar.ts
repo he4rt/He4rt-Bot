@@ -17,7 +17,7 @@ export default class Anunciar extends Command {
     return ":x: Como usar: `!anunciar <mensagem>`"
   }
 
-  public validate(args: string[]): void | never {
+  public validate({ args }: Context): void | never {
     if (args.length === 0) {
       throw new InvalidArgsException(this.help())
     }
