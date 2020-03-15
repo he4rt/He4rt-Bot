@@ -19,7 +19,6 @@ import {
 export default interface Context {
   client: Client
   message: Message
-  members: Collection<Snowflake, GuildMember>
   send(
     content?: StringResolvable,
     options?: MessageOptions | RichEmbed | Attachment
@@ -53,6 +52,6 @@ export default interface Context {
   deleteChannelMessages(
     options?: ChannelLogsQueryOptions
   ): Promise<Collection<string, Message>>
-  getMentionedUsers: () => Collection<string, GuildMember>
+  getMentionedUsers: () => GuildMember[]
   hasMentionedUsers: () => boolean
 }

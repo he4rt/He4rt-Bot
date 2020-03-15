@@ -30,7 +30,7 @@ export default class Mute extends Command {
     getMentionedUsers,
     textChannels
   }: Context): Promise<void> {
-    const userToMute = getMentionedUsers().first()
+    const [userToMute] = getMentionedUsers()
 
     userToMute.addRole(process.env.MUTED_ROLE!)
 
