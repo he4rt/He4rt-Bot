@@ -35,7 +35,7 @@ export default class Message extends Event {
         return
       }
 
-      command.validate(context.args)
+      command.validate(context)
       await command.run(context)
     } catch (exception) {
       if (process.env.DEBUG) {

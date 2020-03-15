@@ -15,12 +15,12 @@ export default class Clear extends Command {
     return character.split("").every((c) => c >= "0" && c <= "9")
   }
 
-  public validate(args: string[]): void | never {
-    if (args.length === 0 || !this.isDigit(args[0])) {
+  public validate({ arg }: Context): void | never {
+    if (this.isDigit(arg)) {
       throw new InvalidArgsException(this.help())
     }
 
-    const messagesToDelete = parseInt(args[0])
+    const messagesToDelete = parseInt(arg)
     if (messagesToDelete < 1 || messagesToDelete > 100) {
       throw new InvalidArgsException(this.help())
     }
@@ -30,9 +30,9 @@ export default class Clear extends Command {
     return ":x: Como usar: `!clear <quantidade_mensagens(min:1|max:100)>`"
   }
 
-  public async run({ args, deleteChannelMessages }: Context): Promise<void> {
+  public async run({ arg, deleteChannelMessages }: Context): Promise<void> {
     const userMessage = 1
-    const limit = parseInt(args[0]) + userMessage
+    const limit = parseInt(arg) + userMessage
 
     await deleteChannelMessages({ limit })
   }

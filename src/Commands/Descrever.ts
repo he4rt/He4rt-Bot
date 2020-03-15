@@ -12,14 +12,14 @@ export default class Descrever extends Command {
     return ":x: Como usar: `!descrever <comando>`"
   }
 
-  public validate(args: string[]): void | never {
-    if (args.length === 0) {
+  public validate({ arg }: Context): void | never {
+    if (!arg) {
       throw new InvalidArgsException(this.help())
     }
   }
 
-  public async run({ args, send }: Context): Promise<void> {
-    const command = Ioc.use<Command>(args[0])
+  public async run({ arg, send }: Context): Promise<void> {
+    const command = Ioc.use<Command>(arg)
 
     await send(command.description)
   }

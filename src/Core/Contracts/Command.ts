@@ -30,7 +30,7 @@ export default abstract class Command {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  public validate(args: string[]): void | never {}
+  public validate(context: Context): void | never {}
 
   public abstract help(): string
 

@@ -46,12 +46,8 @@ export default class RoleValidator implements Validator {
   }
 
   public async validate(ctx: Context, command: Command): Promise<void> {
-    if (command.roles.length > 0) {
-      this.validateRoles(ctx, command)
-    }
-    if (command.permissions.length > 0) {
-      this.validatePermissions(ctx, command)
-    }
+    this.validateRoles(ctx, command)
+    this.validatePermissions(ctx, command)
 
     if (this._failed && this._messages.length === 0) {
       this._messages.push("Você não está autorizado a usar esse comando :(")

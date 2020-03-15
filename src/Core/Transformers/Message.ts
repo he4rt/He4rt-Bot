@@ -24,8 +24,8 @@ export default class MessageTransformer {
       client,
       message,
       command,
+      arg: args[0] || "",
       args,
-      members: client.guilds.get(process.env.GUILD_ID!)!.members,
       send: message.channel.send.bind(message.channel),
       reply: message.reply.bind(message),
       user: {
@@ -34,7 +34,7 @@ export default class MessageTransformer {
         role: (name: string | RegExp): Role =>
           message.member.roles.find((r) => new RegExp(name).test(r.name)),
         hasRole: (name: string | RegExp): boolean =>
-          !!message.member.roles.find((r) => new RegExp(name).test(r.name))
+          message.member.roles.some((r) => new RegExp(name).test(r.name))
       } as any /* change this */,
       textChannels: client.channels as Collection<string, TextChannel>,
       voiceChannels: client.channels as Collection<string, VoiceChannel>,
@@ -53,7 +53,9 @@ export default class MessageTransformer {
       deleteChannelMessages: (options?: ChannelLogsQueryOptions) =>
         message.channel
           .fetchMessages(options)
-          .then((messages) => message.channel.bulkDelete(messages))
+          .then((messages) => message.channel.bulkDelete(messages)),
+      getMentionedUsers: () => message.mentions.members.array(),
+      hasMentionedUsers: () => Boolean(message.mentions.members.first())
     }
   }
 }
