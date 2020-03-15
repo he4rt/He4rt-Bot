@@ -35,6 +35,6 @@ export default class SayAll extends Command {
       "Enviando mensagem para todos os usuários...\n``❗`` Vai retornar algum erro."
     )
 
-    await Promise.all(members.map((member) => member.send(message)))
+    await Promise.all(members().map((member) => member.send(message)))
   }
 }
