@@ -39,6 +39,7 @@ export default interface Context {
     role(name: string | RegExp): Role
     hasRole(name: string | RegExp): boolean
   }
+  members: () => GuildMember[]
   textChannels: Collection<Snowflake, TextChannel>
   voiceChannels: Collection<Snowflake, VoiceChannel>
   createRole(data?: RoleData, reason?: string): Promise<Role>

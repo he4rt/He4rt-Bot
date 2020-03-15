@@ -26,6 +26,7 @@ export default class MessageTransformer {
       command,
       arg: args[0] || "",
       args,
+      members: () => client.guilds.get(process.env.GUILD_ID!)!.members.array(),
       send: message.channel.send.bind(message.channel),
       reply: message.reply.bind(message),
       user: {
