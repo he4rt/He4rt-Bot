@@ -4,10 +4,12 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
+    "build": "tsc",
     "start": "tsc && node dist/main",
     "test": "jest --colors --noStackTrace --passWithNoTests"
   },
   "_moduleAliases": {
+    "@": "dist",
     "@types": "dist/@types",
     "@commands": "dist/Commands",
     "@events": "dist/Events",
