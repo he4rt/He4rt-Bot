@@ -1,17 +1,10 @@
 import env from "@/env"
 import Command from "@core/Contracts/Command"
-import Context from "@core/Contracts/Context"
 
-export default class Silent extends Command {
-  public get description() {
-    return "Desativa/ativa mensagens da equipe"
-  }
-
-  public help(): string {
-    return "Como usar: `!silent`"
-  }
-
-  public async run({ send, user }: Context): Promise<void> {
+const command = Command({
+  description: "Desativa/ativa mensagens da equipe",
+  help: "Como usar: `!silent`",
+  run: async ({ send, user }) => {
     const role = env.NOTIFY_ROLE
 
     const hasRole = user.hasRole(role)
@@ -27,5 +20,6 @@ export default class Silent extends Command {
         ? "Você receberá mensagens da equipe"
         : "Você não receberá mensagens da equipe"
     )
-  }
-}
+  },
+})
+export default command

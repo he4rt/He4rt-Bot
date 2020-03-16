@@ -1,44 +1,24 @@
 import env from "@/env"
 import Command from "@core/Contracts/Command"
-import Context from "@core/Contracts/Context"
 import InvalidArgsException from "@core/Exceptions/InvalidArgs"
 
-export default class Color extends Command {
-  public get description() {
-    return "Troca a cor do seu nick"
-  }
+const isHex = (value: string): boolean => {
+  return parseInt(value, 16).toString(16) === value.toLowerCase()
+}
 
-  public get roles(): string[] {
-    return [env.DONATOR_ROLE]
-  }
-
-  public get roleValidationMessages() {
-    return {
-      [env.DONATOR_ROLE]:
-        "Esse comando está disponivel apenas para apoiadores!",
+const command = Command({
+  description: "Troca a cor do seu nick",
+  roles: [env.DONATOR_ROLE],
+  roleValidationMessages: {
+    [env.DONATOR_ROLE]: "Esse comando está disponivel apenas para apoiadores!",
+  },
+  help: ":x: Como usar: `!color <hex>` (código hexadecimal da cor)",
+  validate: async ({ arg }) => {
+    if (!isHex(arg)) {
+      throw new InvalidArgsException(command.help)
     }
-  }
-
-  public help(): string {
-    return ":x: Como usar: `!color <hex>` (código hexadecimal da cor)"
-  }
-
-  private isHex(value: string): boolean {
-    return parseInt(value, 16).toString(16) === value.toLowerCase()
-  }
-
-  public validate({ arg }: Context): void | never {
-    if (!this.isHex(arg)) {
-      throw new InvalidArgsException(this.help())
-    }
-  }
-
-  public async run({
-    arg: color,
-    send,
-    user,
-    createRole,
-  }: Context): Promise<void> {
+  },
+  run: async ({ arg: color, send, user, createRole }) => {
     const roleName = /.+#\d{4}/i
 
     if (!user.hasRole(roleName)) {
@@ -66,5 +46,6 @@ export default class Color extends Command {
 
     const newRole = await role.setColor(color)
     await send(`Cor atualizada com sucesso! hex(${newRole.color})`)
-  }
-}
+  },
+})
+export default command

@@ -1,28 +1,21 @@
 import Command from "@core/Contracts/Command"
-import Context from "@core/Contracts/Context"
 import InvalidArgsException from "@core/Exceptions/InvalidArgs"
 import translate from "@vitalets/google-translate-api"
 
-export default class Traduzir extends Command {
-  public get description() {
-    return "Traduz uma mensagem."
-  }
-
-  public help(): string {
-    return ":x: Como usar: `!traduzir <language(exemplo: en)> <text>`"
-  }
-
-  public validate({ args }: Context): void | never {
+const command = Command({
+  description: "Traduz uma mensagem.",
+  help: ":x: Como usar: `!traduzir <language(exemplo: en)> <text>`",
+  validate: async ({ args }) => {
     if (args.length < 2) {
-      throw new InvalidArgsException(this.help())
+      throw new InvalidArgsException(command.help)
     }
-  }
-
-  public async run({ args, send }: Context): Promise<void> {
+  },
+  run: async ({ args, send }) => {
     const [to, ...message] = args
 
     const { text } = await translate(message, { to })
 
     await send(text)
-  }
-}
+  },
+})
+export default command

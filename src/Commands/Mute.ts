@@ -2,35 +2,18 @@ import env from "@/env"
 import { RichEmbed } from "discord.js"
 
 import Command from "@core/Contracts/Command"
-import Context from "@core/Contracts/Context"
 import InvalidArgsException from "@core/Exceptions/InvalidArgs"
 
-export default class Mute extends Command {
-  public get description() {
-    return "Muta um usuário"
-  }
-
-  public get permissions(): string[] {
-    return ["BAN_MEMBERS"]
-  }
-
-  public help(): string {
-    return ":x: Como usar: `!mute <nick> <motivo>`"
-  }
-
-  public validate({ args, hasMentionedUsers }: Context): void | never {
+const command = Command({
+  description: "Muta um usuário",
+  permissions: ["BAN_MEMBERS"],
+  help: ":x: Como usar: `!mute <nick> <motivo>`",
+  validate: async ({ args, hasMentionedUsers }) => {
     if (!hasMentionedUsers() || args.length <= 2) {
-      throw new InvalidArgsException(this.help())
+      throw new InvalidArgsException(command.help)
     }
-  }
-
-  public async run({
-    args,
-    send,
-    user,
-    getMentionedUsers,
-    textChannels,
-  }: Context): Promise<void> {
+  },
+  run: async ({ args, send, user, getMentionedUsers, textChannels }) => {
     const [userToMute] = getMentionedUsers()
 
     userToMute.addRole(env.MUTED_ROLE)
@@ -61,5 +44,6 @@ export default class Mute extends Command {
       userToMute.send("Você foi mutado, mais informações abaixo.", infoEmbed),
       textChannels.get(env.PUNISHMENT_CHAT)!.send(infoEmbed),
     ])
-  }
-}
+  },
+})
+export default command

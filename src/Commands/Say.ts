@@ -1,34 +1,21 @@
 import env from "@/env"
 import Command from "@core/Contracts/Command"
-import Context from "@core/Contracts/Context"
 import InvalidArgsException from "@core/Exceptions/InvalidArgs"
 
-export default class Say extends Command {
-  public get description() {
-    return "Manda uma mensagem pelo bot."
-  }
-
-  public get roles(): string[] {
-    return [env.ADMIN_ROLE]
-  }
-
-  public get roleValidationMessages() {
-    return {
-      [env.ADMIN_ROLE]: "Apenas administradores podem usar esse comando",
-    }
-  }
-
-  public help(): string {
-    return ":x: Como usar: `!say <message>`"
-  }
-
-  public validate({ args }: Context): void | never {
+const command = Command({
+  description: "Manda uma mensagem pelo bot.",
+  roles: [env.ADMIN_ROLE],
+  roleValidationMessages: {
+    [env.ADMIN_ROLE]: "Apenas administradores podem usar esse comando",
+  },
+  help: ":x: Como usar: `!say <message>`",
+  validate: async ({ args }) => {
     if (args.length === 0) {
-      throw new InvalidArgsException(this.help())
+      throw new InvalidArgsException(command.help)
     }
-  }
-
-  public async run({ args, send }: Context): Promise<void> {
+  },
+  run: async ({ args, send }) => {
     await send(args.join(" ").trim())
-  }
-}
+  },
+})
+export default command
