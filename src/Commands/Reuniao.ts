@@ -1,3 +1,4 @@
+import env from "@/env"
 import Command from "@core/Contracts/Command"
 import Context from "@core/Contracts/Context"
 import InvalidArgsException from "@core/Exceptions/InvalidArgs"
@@ -8,13 +9,12 @@ export default class Reuniao extends Command {
   }
 
   public get roles(): string[] {
-    return [process.env.ADMIN_ROLE!]
+    return [env.ADMIN_ROLE]
   }
 
   public get roleValidationMessages() {
     return {
-      [process.env
-        .ADMIN_ROLE!]: "Apenas administradores podem usar esse comando",
+      [env.ADMIN_ROLE]: "Apenas administradores podem usar esse comando",
     }
   }
 

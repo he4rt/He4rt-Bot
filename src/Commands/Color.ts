@@ -1,3 +1,4 @@
+import env from "@/env"
 import Command from "@core/Contracts/Command"
 import Context from "@core/Contracts/Context"
 import InvalidArgsException from "@core/Exceptions/InvalidArgs"
@@ -8,13 +9,13 @@ export default class Color extends Command {
   }
 
   public get roles(): string[] {
-    return [process.env.DONATOR_ROLE!]
+    return [env.DONATOR_ROLE]
   }
 
   public get roleValidationMessages() {
     return {
-      [process.env
-        .DONATOR_ROLE!]: "Esse comando está disponivel apenas para apoiadores!",
+      [env.DONATOR_ROLE]:
+        "Esse comando está disponivel apenas para apoiadores!",
     }
   }
 

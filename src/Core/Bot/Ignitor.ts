@@ -1,10 +1,9 @@
-import "dotenv/config"
-
 import { Client } from "discord.js"
 import { readdir } from "fs"
 import { join } from "path"
 import { promisify } from "util"
 
+import env from "@/env"
 import Ioc from "@core/IoC/Ioc"
 import MessageTransformer from "@core/Transformers/Message"
 import RoleValidator from "@core/Validators/Role"
@@ -59,7 +58,7 @@ export default class Ignitor {
       this.registerUtilities(),
     ])
 
-    await this.client.login(process.env.AUTH_TOKEN)
+    await this.client.login(env.AUTH_TOKEN)
     console.log("Bot on")
   }
 }

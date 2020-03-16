@@ -1,3 +1,4 @@
+import env from "@/env"
 import { RichEmbed } from "discord.js"
 
 import Command from "@core/Contracts/Command"
@@ -32,7 +33,7 @@ export default class Mute extends Command {
   }: Context): Promise<void> {
     const [userToMute] = getMentionedUsers()
 
-    userToMute.addRole(process.env.MUTED_ROLE!)
+    userToMute.addRole(env.MUTED_ROLE)
 
     const muteReason = args.join(" ").trim()
 
@@ -58,7 +59,7 @@ export default class Mute extends Command {
 
     await Promise.all([
       userToMute.send("Você foi mutado, mais informações abaixo.", infoEmbed),
-      textChannels.get(process.env.PUNISHMENT_CHAT!)!.send(infoEmbed),
+      textChannels.get(env.PUNISHMENT_CHAT)!.send(infoEmbed),
     ])
   }
 }

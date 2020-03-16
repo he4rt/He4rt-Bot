@@ -1,3 +1,4 @@
+import env from "@/env"
 import Command from "@core/Contracts/Command"
 import Context from "@core/Contracts/Context"
 
@@ -11,7 +12,7 @@ export default class Silent extends Command {
   }
 
   public async run({ send, user }: Context): Promise<void> {
-    const role = process.env.NOTIFY_ROLE!
+    const role = env.NOTIFY_ROLE
 
     const hasRole = user.hasRole(role)
 

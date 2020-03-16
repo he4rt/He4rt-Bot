@@ -1,5 +1,6 @@
 import { Message as DiscordMessage } from "discord.js"
 
+import env from "@/env"
 import Ioc from "@core/IoC/Ioc"
 import Event from "@core/Contracts/Event"
 import Context from "@core/Contracts/Context"
@@ -11,7 +12,7 @@ export default class Message extends Event {
   public async run(message: DiscordMessage): Promise<void> {
     if (
       message.author.bot ||
-      !message.content.startsWith(process.env.COMMAND_PREFIX as string)
+      !message.content.startsWith(env.COMMAND_PREFIX as string)
     ) {
       return
     }
@@ -38,7 +39,7 @@ export default class Message extends Event {
       command.validate(context)
       await command.run(context)
     } catch (exception) {
-      if (process.env.DEBUG) {
+      if (env.DEBUG) {
         console.error(exception)
       }
 

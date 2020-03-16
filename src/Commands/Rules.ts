@@ -1,3 +1,4 @@
+import env from "@/env"
 import Command from "@core/Contracts/Command"
 import Context from "@core/Contracts/Context"
 
@@ -34,6 +35,6 @@ export default class Rules extends Command {
   }
 
   public async run({ textChannels }: Context): Promise<void> {
-    await textChannels.get(process.env.RULES_CHAT!)!.send(rules)
+    await textChannels.get(env.RULES_CHAT)!.send(rules)
   }
 }
