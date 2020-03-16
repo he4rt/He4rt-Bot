@@ -1,6 +1,6 @@
 import { Client } from "discord.js"
 import { readdir } from "fs"
-import { join } from "path"
+import { parse, join } from "path"
 import { promisify } from "util"
 
 import env from "@/env"
@@ -30,17 +30,17 @@ export default class Ignitor {
 
     const files = await promisify(readdir)(path)
 
-    const commands = await Promise.all(
-      files.map((file) => import(`${path}/${file}`))
-    )
+    const names = files.map((file) => parse(file).name)
+    const commands = (
+      await Promise.all(files.map((file) => import(`${path}/${file}`)))
+    ).map((file) => file.default)
 
-    const commandList = commands.map(({ default: c }) => c.name.toLowerCase())
+    Ioc.singleton("Commands", names)
 
-    Ioc.singleton("Commands", commandList)
-
-    for (const { default: Command } of commands) {
-      Ioc.singleton(Command.name.toLowerCase(), Command)
-    }
+    commands.forEach((command, i) => {
+      const name = names[i]
+      Ioc.singleton(name.toLowerCase(), command)
+    })
   }
 
   private async registerUtilities(): Promise<void> {

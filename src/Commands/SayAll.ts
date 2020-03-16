@@ -1,34 +1,20 @@
 import env from "@/env"
 import Command from "@core/Contracts/Command"
-import Context from "@core/Contracts/Context"
 import InvalidArgsException from "@core/Exceptions/InvalidArgs"
 
-export default class SayAll extends Command {
-  public get description() {
-    return "Manda uma mensagem pelo bot para cada usuário do servidor."
-  }
-
-  public get roles(): string[] {
-    return [env.ADMIN_ROLE]
-  }
-
-  public get roleValidationMessages() {
-    return {
-      [env.ADMIN_ROLE]: "Apenas administradores podem usar esse comando.",
-    }
-  }
-
-  public help(): string {
-    return ":x: Como usar: `!sayall <message>`"
-  }
-
-  public validate({ args }: Context): void | never {
+const command = Command({
+  description: "Manda uma mensagem pelo bot para cada usuário do servidor.",
+  roles: [env.ADMIN_ROLE],
+  roleValidationMessages: {
+    [env.ADMIN_ROLE]: "Apenas administradores podem usar esse comando.",
+  },
+  help: ":x: Como usar: `!sayall <message>`",
+  validate: async ({ args }) => {
     if (args.length === 0) {
-      throw new InvalidArgsException(this.help())
+      throw new InvalidArgsException(command.help)
     }
-  }
-
-  public async run({ args, send, members }: Context): Promise<void> {
+  },
+  run: async ({ args, send, members }) => {
     const message = args.join(" ")
 
     await send(
@@ -36,5 +22,6 @@ export default class SayAll extends Command {
     )
 
     await Promise.all(members().map((member) => member.send(message)))
-  }
-}
+  },
+})
+export default command

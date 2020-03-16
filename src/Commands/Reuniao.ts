@@ -1,39 +1,25 @@
 import env from "@/env"
 import Command from "@core/Contracts/Command"
-import Context from "@core/Contracts/Context"
 import InvalidArgsException from "@core/Exceptions/InvalidArgs"
 
-export default class Reuniao extends Command {
-  public get description() {
-    return "Coloca o servidor em modo reunião."
-  }
-
-  public get roles(): string[] {
-    return [env.ADMIN_ROLE]
-  }
-
-  public get roleValidationMessages() {
-    return {
-      [env.ADMIN_ROLE]: "Apenas administradores podem usar esse comando",
-    }
-  }
-
-  public help(): string {
-    return ":x: Como usar: `!reuniao <on|off>`"
-  }
-
-  public validate({ arg }: Context): void | never {
+const command = Command({
+  description: "Coloca o servidor em modo reunião.",
+  roles: [env.ADMIN_ROLE],
+  roleValidationMessages: {
+    [env.ADMIN_ROLE]: "Apenas administradores podem usar esse comando",
+  },
+  help: ":x: Como usar: `!reuniao <on|off>`",
+  validate: async ({ arg }) => {
     const states = {
       on: 1,
       off: 2,
     }
 
     if (!(arg in states)) {
-      throw new InvalidArgsException(this.help())
+      throw new InvalidArgsException(command.help)
     }
-  }
-
-  public async run({ client, arg }: Context): Promise<void> {
+  },
+  run: async ({ client, arg }) => {
     client.channels
       .filter(
         (channel) =>
@@ -48,5 +34,6 @@ export default class Reuniao extends Command {
           })),
         })
       )
-  }
-}
+  },
+})
+export default command
