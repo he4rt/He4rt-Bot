@@ -14,7 +14,7 @@ export default class SayAll extends Command {
   public get roleValidationMessages() {
     return {
       [process.env
-        .ADMIN_ROLE!]: "Apenas administradores podem usar esse comando."
+        .ADMIN_ROLE!]: "Apenas administradores podem usar esse comando.",
     }
   }
 

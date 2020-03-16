@@ -56,7 +56,7 @@ export default class Ignitor {
     await Promise.all([
       this.registerEvents(),
       this.registerCommands(),
-      this.registerUtilities()
+      this.registerUtilities(),
     ])
 
     await this.client.login(process.env.AUTH_TOKEN)

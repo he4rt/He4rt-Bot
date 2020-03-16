@@ -8,7 +8,7 @@ import {
   GuildChannel,
   RoleData,
   Role,
-  ChannelLogsQueryOptions
+  ChannelLogsQueryOptions,
 } from "discord.js"
 
 import Context from "@core/Contracts/Context"
@@ -35,7 +35,7 @@ export default class MessageTransformer {
         role: (name: string | RegExp): Role =>
           message.member.roles.find((r) => new RegExp(name).test(r.name)),
         hasRole: (name: string | RegExp): boolean =>
-          message.member.roles.some((r) => new RegExp(name).test(r.name))
+          message.member.roles.some((r) => new RegExp(name).test(r.name)),
       } as any /* change this */,
       textChannels: client.channels as Collection<string, TextChannel>,
       voiceChannels: client.channels as Collection<string, VoiceChannel>,
@@ -56,7 +56,7 @@ export default class MessageTransformer {
           .fetchMessages(options)
           .then((messages) => message.channel.bulkDelete(messages)),
       getMentionedUsers: () => message.mentions.members.array(),
-      hasMentionedUsers: () => Boolean(message.mentions.members.first())
+      hasMentionedUsers: () => Boolean(message.mentions.members.first()),
     }
   }
 }

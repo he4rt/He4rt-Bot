@@ -28,7 +28,7 @@ export default class Mute extends Command {
     send,
     user,
     getMentionedUsers,
-    textChannels
+    textChannels,
   }: Context): Promise<void> {
     const [userToMute] = getMentionedUsers()
 
@@ -58,7 +58,7 @@ export default class Mute extends Command {
 
     await Promise.all([
       userToMute.send("Você foi mutado, mais informações abaixo.", infoEmbed),
-      textChannels.get(process.env.PUNISHMENT_CHAT!)!.send(infoEmbed)
+      textChannels.get(process.env.PUNISHMENT_CHAT!)!.send(infoEmbed),
     ])
   }
 }

@@ -14,7 +14,7 @@ export default class Color extends Command {
   public get roleValidationMessages() {
     return {
       [process.env
-        .DONATOR_ROLE!]: "Esse comando está disponivel apenas para apoiadores!"
+        .DONATOR_ROLE!]: "Esse comando está disponivel apenas para apoiadores!",
     }
   }
 
@@ -36,7 +36,7 @@ export default class Color extends Command {
     arg: color,
     send,
     user,
-    createRole
+    createRole,
   }: Context): Promise<void> {
     const roleName = /.+#\d{4}/i
 
@@ -45,12 +45,12 @@ export default class Color extends Command {
         name: user.name(),
         mentionable: false,
         position: 60,
-        color
+        color,
       })
 
       await Promise.all([
         send(`Cor criada com sucesso! hex(${newRole.color})`),
-        user.addRole(newRole)
+        user.addRole(newRole),
       ])
 
       return

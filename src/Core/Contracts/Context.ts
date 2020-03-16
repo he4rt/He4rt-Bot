@@ -13,7 +13,7 @@ import {
   Role,
   RoleData,
   ChannelLogsQueryOptions,
-  Client
+  Client,
 } from "discord.js"
 
 export default interface Context {

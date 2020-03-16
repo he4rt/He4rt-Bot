@@ -14,7 +14,7 @@ export default class Reuniao extends Command {
   public get roleValidationMessages() {
     return {
       [process.env
-        .ADMIN_ROLE!]: "Apenas administradores podem usar esse comando"
+        .ADMIN_ROLE!]: "Apenas administradores podem usar esse comando",
     }
   }
 
@@ -25,7 +25,7 @@ export default class Reuniao extends Command {
   public validate({ arg }: Context): void | never {
     const states = {
       on: 1,
-      off: 2
+      off: 2,
     }
 
     if (!(arg in states)) {
@@ -44,8 +44,8 @@ export default class Reuniao extends Command {
         (channel as any).replacePermissionOverwrites({
           overwrites: client.users.map((user) => ({
             id: user.id,
-            denied: arg === "on" ? ["VIEW_CHANNEL"] : []
-          }))
+            denied: arg === "on" ? ["VIEW_CHANNEL"] : [],
+          })),
         })
       )
   }
