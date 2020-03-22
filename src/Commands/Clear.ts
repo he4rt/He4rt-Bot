@@ -8,7 +8,7 @@ const command = Command({
   description: "Limpa o chat",
   permissions: ["MANAGE_GUILD"],
   validate: async ({ arg }) => {
-    if (isDigit(arg)) {
+    if (!isDigit(arg)) {
       throw new InvalidArgsException(command.help)
     }
 
