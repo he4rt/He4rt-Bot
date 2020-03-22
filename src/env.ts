@@ -19,4 +19,6 @@ const keys = [
   "DEBUG",
 ] as const
 
-export default Object.fromEntries(keys.map((key) => [key, env(key)]))
+export default Object.fromEntries(keys.map((key) => [key, env(key)])) as {
+  [key in typeof keys[number]]: string
+}
