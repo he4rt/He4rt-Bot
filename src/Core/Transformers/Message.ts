@@ -7,19 +7,19 @@ import {
   PermissionOverwriteOptions,
   GuildChannel,
   RoleData,
-  Role,
   ChannelLogsQueryOptions,
-} from "discord.js"
+} from "discord.js";
 
-import env from "@/env"
-import Context from "@core/Contracts/Context"
-import Ioc from "@core/IoC/Ioc"
+import Context from "@core/Contracts/Context";
+import Ioc from "@core/IoC/Ioc";
+import env from "@/env";
 
 export default class MessageTransformer {
+  // eslint-disable-next-line class-methods-use-this
   public item(message: Message): Context {
-    const [command, ...args] = message.content.slice(1).split(" ")
+    const [command, ...args] = message.content.slice(1).split(" ");
 
-    const client = Ioc.use<Client>("Client")
+    const client = Ioc.use<Client>("Client");
 
     return {
       client,
@@ -27,17 +27,22 @@ export default class MessageTransformer {
       command,
       arg: args[0] || "",
       args,
-      members: () => client.guilds.get(env.GUILD_ID)!.members.array(),
+      members: () => {
+        const guild = client.guilds.get(env.GUILD_ID);
+        if (!guild) {
+          throw new Error(`guild not found ${env.GUILD_ID}`);
+        }
+        return guild.members.array();
+      },
       send: message.channel.send.bind(message.channel),
       reply: message.reply.bind(message),
-      user: {
-        ...message.member,
-        name: (): string => message.author.tag,
-        role: (name: string | RegExp): Role =>
+      user: Object.assign(message.member, {
+        name: () => message.author.tag,
+        role: (name: string | RegExp) =>
           message.member.roles.find((r) => new RegExp(name).test(r.name)),
-        hasRole: (name: string | RegExp): boolean =>
+        hasRole: (name: string | RegExp) =>
           message.member.roles.some((r) => new RegExp(name).test(r.name)),
-      } as any /* change this */,
+      }),
       textChannels: client.channels as Collection<string, TextChannel>,
       voiceChannels: client.channels as Collection<string, VoiceChannel>,
       createRole: (data?: RoleData, reason?: string) =>
@@ -58,6 +63,6 @@ export default class MessageTransformer {
           .then((messages) => message.channel.bulkDelete(messages)),
       getMentionedUsers: () => message.mentions.members.array(),
       hasMentionedUsers: () => Boolean(message.mentions.members.first()),
-    }
+    };
   }
 }

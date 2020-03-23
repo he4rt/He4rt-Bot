@@ -1,10 +1,10 @@
 const env = (key: string): string => {
-  const value = process.env[key]
+  const value = process.env[key];
   if (!value) {
-    throw new Error("missing env key: " + key)
+    throw new Error(`missing env key: ${key}`);
   }
-  return value
-}
+  return value;
+};
 
 const keys = [
   "ADMIN_ROLE",
@@ -17,8 +17,8 @@ const keys = [
   "GUILD_ID",
   "COMMAND_PREFIX",
   "DEBUG",
-] as const
+] as const;
 
 export default Object.fromEntries(keys.map((key) => [key, env(key)])) as {
-  [key in typeof keys[number]]: string
-}
+  [key in typeof keys[number]]: string;
+};

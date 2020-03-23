@@ -1,4 +1,4 @@
-import "./setup"
-import Ignitor from "@core/Bot/Ignitor"
+import "./setup";
+import Ignitor from "@core/Bot/Ignitor";
 
-new Ignitor().boostrap()
+new Ignitor().boostrap().catch(console.error);

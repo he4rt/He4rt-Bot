@@ -1,6 +1,7 @@
-import env from "@/env"
-import Command from "@core/Contracts/Command"
-import InvalidArgsException from "@core/Exceptions/InvalidArgs"
+import Command from "@core/Contracts/Command";
+import InvalidArgsException from "@core/Exceptions/InvalidArgs";
+import { TextChannel } from "discord.js";
+import env from "@/env";
 
 const command = Command({
   description: "Coloca o servidor em modo reunião.",
@@ -13,27 +14,31 @@ const command = Command({
     const states = {
       on: 1,
       off: 2,
-    }
+    };
 
     if (!(arg in states)) {
-      throw new InvalidArgsException(command.help)
+      throw new InvalidArgsException(command.help);
     }
   },
   run: async ({ client, arg }) => {
-    client.channels
-      .filter(
-        (channel) =>
-          !/Reunião/i.test((channel as any).name) &&
-          !/My Bot Server/i.test((channel as any).name)
-      )
-      .forEach((channel) =>
-        (channel as any).replacePermissionOverwrites({
-          overwrites: client.users.map((user) => ({
-            id: user.id,
-            denied: arg === "on" ? ["VIEW_CHANNEL"] : [],
-          })),
-        })
-      )
+    await Promise.all(
+      client.channels
+        .filter((channel) => channel.type === "text")
+        .map((channel) => channel as TextChannel)
+        .filter(
+          (channel) =>
+            !/Reunião/i.test(channel.name) &&
+            !/My Bot Server/i.test(channel.name)
+        )
+        .map((channel) =>
+          channel.replacePermissionOverwrites({
+            overwrites: client.users.map((user) => ({
+              id: user.id,
+              denied: arg === "on" ? ["VIEW_CHANNEL"] : [],
+            })),
+          })
+        )
+    );
   },
-})
-export default command
+});
+export default command;

@@ -1,7 +1,7 @@
-import { RichEmbed } from "discord.js"
+import { RichEmbed } from "discord.js";
 
-import Command from "@core/Contracts/Command"
-import InvalidArgsException from "@core/Exceptions/InvalidArgs"
+import Command from "@core/Contracts/Command";
+import InvalidArgsException from "@core/Exceptions/InvalidArgs";
 
 const command = Command({
   description: "Faz o bot anunciar algo no chat usando everyone",
@@ -9,11 +9,11 @@ const command = Command({
   help: ":x: Como usar: `!anunciar <mensagem>`",
   validate: async ({ args }) => {
     if (args.length === 0) {
-      throw new InvalidArgsException(command.help)
+      throw new InvalidArgsException(command.help);
     }
   },
   run: async ({ args, send }) => {
-    const message = args.join(" ").trim()
+    const message = args.join(" ").trim();
 
     const announcement = new RichEmbed()
       .setTitle("``🔔`` **Heart informa:**")
@@ -23,9 +23,9 @@ const command = Command({
         "2019 © He4rt Developers",
         "https://heartdevs.com/wp-content/uploads/2018/12/logo.png"
       )
-      .setTimestamp()
+      .setTimestamp();
 
-    await send("@everyone", announcement)
+    await send("@everyone", announcement);
   },
-})
-export default command
+});
+export default command;
