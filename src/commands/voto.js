@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const categories = require('../userCategory');
+const util = require('../util');
 
 module.exports = {
 	async run(client, message, args) {
@@ -11,7 +12,7 @@ module.exports = {
 						'Infelizmente você não tem permissão para utilizar esse'
 					)
 					.setFooter(
-						'2019 © He4rt Developers',
+						util.getYear()+' © He4rt Developers',
 						'https://heartdevs.com/wp-content/uploads/2018/12/logo.png'
 					)
 					.setColor('RED')
@@ -27,7 +28,7 @@ module.exports = {
 						'Uso correto: !voto <emoji || numero> <mensagem> \nEx. !voto emoji Excluir o chat de visitantes'
 					)
 					.setFooter(
-						'2019 © He4rt Developers',
+						util.getYear()+' © He4rt Developers',
 						'https://heartdevs.com/wp-content/uploads/2018/12/logo.png'
 					)
 					.setColor('RED')
@@ -45,7 +46,7 @@ module.exports = {
 						'Uso correto: !voto <emoji || numero> <mensagem> \nEx. !voto emoji Excluir o chat de visitantes'
 					)
 					.setFooter(
-						'2019 © He4rt Developers',
+						util.getYear()+' © He4rt Developers',
 						'https://heartdevs.com/wp-content/uploads/2018/12/logo.png'
 					)
 					.setColor('RED')
@@ -74,7 +75,7 @@ module.exports = {
 						'Uso correto: !voto <emoji || numero> <mensagem> \nEx. !voto emoji Excluir o chat de visitantes'
 					)
 					.setFooter(
-						'2019 © He4rt Developers',
+						util.getYear()+' © He4rt Developers',
 						'https://heartdevs.com/wp-content/uploads/2018/12/logo.png'
 					)
 					.setColor('RED')

@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const categories = require('../userCategory');
-
+const util = require('../util');
 module.exports = {
 	async run(client, message, args) {
 		const { member } = message;
@@ -16,7 +16,7 @@ module.exports = {
 								'Infelizmente você não tem permissão para utilizar esse comando'
 							)
 							.setFooter(
-								'2019 © He4rt Developers',
+								util.getYear()+' © He4rt Developers',
 								'https://heartdevs.com/wp-content/uploads/2018/12/logo.png'
 							)
 							.setColor('RED')
