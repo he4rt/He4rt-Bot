@@ -26,7 +26,7 @@ module.exports = {
 			)
 			.setColor('#ffff32')
 			.setFooter(
-				util.getYear()+' © He4rt Developers',
+				util.getYear() + ' © He4rt Developers',
 				'https://heartdevs.com/wp-content/uploads/2018/12/logo.png'
 			)
 			.setTimestamp();
@@ -43,7 +43,7 @@ module.exports = {
 			)
 			.setColor('#ff3232')
 			.setFooter(
-				util.getYear()+' © He4rt Developers',
+				util.getYear() + ' © He4rt Developers',
 				'https://heartdevs.com/wp-content/uploads/2018/12/logo.png'
 			)
 			.setTimestamp();
@@ -60,7 +60,7 @@ module.exports = {
 			)
 			.setColor('#4ca64c')
 			.setFooter(
-				util.getYear()+' © He4rt Developers',
+				util.getYear() + ' © He4rt Developers',
 				'https://heartdevs.com/wp-content/uploads/2018/12/logo.png'
 			)
 			.setTimestamp();

@@ -22,7 +22,7 @@ module.exports = {
 						'Infelizmente você não tem permissão para utilizar esse comando.'
 					)
 					.setFooter(
-						util.getYear()+' © He4rt Developers',
+						util.getYear() + ' © He4rt Developers',
 						'https://heartdevs.com/wp-content/uploads/2018/12/logo.png'
 					)
 					.setColor('RED')

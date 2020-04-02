@@ -12,7 +12,7 @@ module.exports = {
 						'Infelizmente você não tem permissão para utilizar esse'
 					)
 					.setFooter(
-						util.getYear()+' © He4rt Developers',
+						util.getYear() + ' © He4rt Developers',
 						'https://heartdevs.com/wp-content/uploads/2018/12/logo.png'
 					)
 					.setColor('RED')
@@ -28,7 +28,7 @@ module.exports = {
 						'Uso correto: !voto <emoji || numero> <mensagem> \nEx. !voto emoji Excluir o chat de visitantes'
 					)
 					.setFooter(
-						util.getYear()+' © He4rt Developers',
+						util.getYear() + ' © He4rt Developers',
 						'https://heartdevs.com/wp-content/uploads/2018/12/logo.png'
 					)
 					.setColor('RED')
@@ -46,7 +46,7 @@ module.exports = {
 						'Uso correto: !voto <emoji || numero> <mensagem> \nEx. !voto emoji Excluir o chat de visitantes'
 					)
 					.setFooter(
-						util.getYear()+' © He4rt Developers',
+						util.getYear() + ' © He4rt Developers',
 						'https://heartdevs.com/wp-content/uploads/2018/12/logo.png'
 					)
 					.setColor('RED')
@@ -75,7 +75,7 @@ module.exports = {
 						'Uso correto: !voto <emoji || numero> <mensagem> \nEx. !voto emoji Excluir o chat de visitantes'
 					)
 					.setFooter(
-						util.getYear()+' © He4rt Developers',
+						util.getYear() + ' © He4rt Developers',
 						'https://heartdevs.com/wp-content/uploads/2018/12/logo.png'
 					)
 					.setColor('RED')

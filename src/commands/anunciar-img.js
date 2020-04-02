@@ -23,7 +23,7 @@ module.exports = {
 			.setImage(imageUrl)
 			.setColor('#8146DC')
 			.setFooter(
-				util.getYear()+' © He4rt Developers',
+				util.getYear() + ' © He4rt Developers',
 				'https://heartdevs.com/wp-content/uploads/2018/12/logo.png'
 			)
 			.setTimestamp();
