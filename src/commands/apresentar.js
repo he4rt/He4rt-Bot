@@ -5,12 +5,7 @@ module.exports = {
 		const presentedRole = client.guilds
 			.get(process.env.GUILD_ID)
 			.roles.find(role => role.name === '🎓 Apresentou');
-		if (
-			client.guilds
-				.get(process.env.GUILD_ID)
-				.members.get(message.author.id)
-				.roles.some(role => role.name === presentedRole.name)
-		) {
+		if (message.member.roles.has(presentedRole.id)) {
 			throw new Error('registered');
 		}
 	},
