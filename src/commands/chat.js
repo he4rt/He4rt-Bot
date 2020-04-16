@@ -7,7 +7,7 @@ module.exports = {
 		await message.channel.overwritePermissions(
 			client.guilds
 				.get(process.env.GUILD_ID)
-				.roles.find('name', '@everyone'),
+				.roles.find('id', process.env.APRESENTOU_ROLE),
 			{ SEND_MESSAGES }
 		);
 		if (SEND_MESSAGES) {
