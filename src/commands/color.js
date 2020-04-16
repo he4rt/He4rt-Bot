@@ -18,13 +18,13 @@ module.exports = {
 					.setColor('RED')
 					.setTimestamp()
 			);
-		}
+    }
+    
 		const hex = args[0];
 		if (!hex) return message.channel.send('``❌`` Utilize: !color <hex>');
 
 		const nick = message.author.tag;
-		const roleName = nick;
-		const role = message.guild.roles.find(x => x.name === roleName);
+    const role = message.member.roles.find(x => /.+#\d{4}/i.test(x.name));
 
 		if (!role) {
 			return message.guild
@@ -37,13 +37,16 @@ module.exports = {
 				.then(newRole => {
 					message.reply(
 						`Cor criada com sucesso! hex(${newRole.color})`
-					);
-
-					console.log(newRole);
+          );
+          
 					message.member.addRole(newRole);
 				})
 				.catch(() => message.reply('``❌`` Cor invalida!'));
-		}
+    }
+    
+    if (role.name !== nick) {
+      await role.setName(nick);
+    }
 
 		role.setColor(hex)
 			.then(newRole =>
