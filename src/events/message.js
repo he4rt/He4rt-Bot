@@ -46,7 +46,7 @@ const runLevelUp = async (client, message) => {
 		.setColor('#4c4cff')
 		.setThumbnail(message.author.avatarURL)
 		.setFooter(
-			'2019 © He4rt Developers',
+			util.getYear() + '© He4rt Developers',
 			'https://heartdevs.com/wp-content/uploads/2018/12/logo.png'
 		)
 		.setTimestamp();

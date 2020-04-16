@@ -3,6 +3,10 @@ const _ = require('lodash');
 const langPTBR = require('../../assets/pt_BR');
 
 module.exports = {
+  getYear: ()=> {
+    current_date = new Date()
+    return current_date.getYear()
+  },
   isCommand: message => message.content.startsWith(process.env.COMMAND_PREFIX),
   translate: (path, fields = [], templates) => {
     let data = _.cloneDeep(_.get(langPTBR, path));
