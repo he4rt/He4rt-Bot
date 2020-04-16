@@ -181,6 +181,8 @@ module.exports = {
 			throw new Error('cooldown');
 		}
 		cooldown[message.author.id] = true;
+		const devRoles = roles.dev_roles;
+		const engRoles = roles.eng_roles;
 		const collectors = {};
 
 		const presentedRole = client.guilds
@@ -222,6 +224,7 @@ module.exports = {
 			client,
 			author: message.author,
 			message: languageMessage,
+			devRoles,
 		});
 
 		const englishMessage = await sendEnglishMessage(message.author);
@@ -229,6 +232,7 @@ module.exports = {
 			client,
 			author: message.author,
 			message: englishMessage,
+			engRoles,
 		});
 
 		const embedResponse = createEmbedResponse({
