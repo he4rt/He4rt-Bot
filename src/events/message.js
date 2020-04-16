@@ -13,10 +13,11 @@ const runLevelUp = async (client, message) => {
 		r => r.id === process.env.DONATOR_ROLE
 	);
 
-	const { data } = await client.axios.post(
-		`/users/${message.author.id}/levelup`,
-		{ donator }
-	);
+	const {
+		data,
+	} = await client.axios.post(`/users/${message.author.id}/levelup`, {
+		donator,
+	});
 
 	if (!data.is_levelup) return; // Check if is level up
 
@@ -39,15 +40,13 @@ const runLevelUp = async (client, message) => {
 	}
 	const level = new Discord.RichEmbed()
 		.setTitle(
-			`🆙 **${message.author.username}** subiu para o nível ${
-				data.level
-			}!`
+			`🆙 **${message.author.username}** subiu para o nível ${data.level}!`
 		)
 		.setColor('#4c4cff')
 		.setThumbnail(message.author.avatarURL)
 		.setFooter(
 			util.getYear() + '© He4rt Developers',
-			'https://heartdevs.com/wp-content/uploads/2018/12/logo.png'
+			'https://i.imgur.com/14yqEKn.png'
 		)
 		.setTimestamp();
 	client.channels.get('552332704381927424').send(level);
@@ -85,9 +84,7 @@ const runCommand = async (client, message) => {
 
 	console.log(
 		'[#LOG]',
-		`${message.author.username} (${
-			message.author.id
-		}) executou o comando: ${cmd.command.name}`
+		`${message.author.username} (${message.author.id}) executou o comando: ${cmd.command.name}`
 	);
 	try {
 		if (cmd.validate) {

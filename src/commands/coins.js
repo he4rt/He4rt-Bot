@@ -23,7 +23,7 @@ module.exports = {
 					)
 					.setFooter(
 						util.getYear() + ' © He4rt Developers',
-						'https://heartdevs.com/wp-content/uploads/2018/12/logo.png'
+						'https://i.imgur.com/14yqEKn.png'
 					)
 					.setColor('RED')
 					.setTimestamp()
@@ -43,9 +43,7 @@ module.exports = {
 					.post(`/users/${member.id}/money/add`, { value: quantity })
 					.then(res => {
 						return message.channel.send(
-							`\`\`✅\`\` Foram adicionados ${quantity} HCoins na conta do usuário <@${
-								member.id
-							}>`
+							`\`\`✅\`\` Foram adicionados ${quantity} HCoins na conta do usuário <@${member.id}>`
 						);
 					})
 					.catch(err => {
@@ -58,9 +56,7 @@ module.exports = {
 					})
 					.then(res => {
 						return message.channel.send(
-							`\`\`❌\`\` Foram removidos ${quantity} HCoins da conta do usuário <@${
-								member.id
-							}>`
+							`\`\`❌\`\` Foram removidos ${quantity} HCoins da conta do usuário <@${member.id}>`
 						);
 					})
 					.catch(err => {
@@ -68,29 +64,31 @@ module.exports = {
 					});
 			} else if (args[1] === 'enviar' && quantity) {
 				client.axios.get(`/users/${message.author.id}`).then(res => {
-					userMoney = res.data.money
-					
+					userMoney = res.data.money;
+
 					if (userMoney < quantity) {
 						return message.channel.send(
 							`\`\`❗\`\`  <@${message.author.id}>  seu saldo é menor que ${quantity}.`
-						)
+						);
 					} else {
-						client.axios.post(`/users/${message.author.id}/money/reduce`, {
-							value: quantity,
-						})
-						client.axios.post(`/users/${member.id}/money/add`, {
-							value: quantity,
-						})
-						.then(res => {
-							return message.channel.send(
-								`\`\`❌\`\` Foram removidos ${quantity} HCoins da conta do usuário <@${
-									message.author.id
-								}> e adicionados ${quantity} HCoins na conta do usuario <@${member.id}>`
-							)
-						})
+						client.axios.post(
+							`/users/${message.author.id}/money/reduce`,
+							{
+								value: quantity,
+							}
+						);
+						client.axios
+							.post(`/users/${member.id}/money/add`, {
+								value: quantity,
+							})
+							.then(res => {
+								return message.channel.send(
+									`\`\`❌\`\` Foram removidos ${quantity} HCoins da conta do usuário <@${message.author.id}> e adicionados ${quantity} HCoins na conta do usuario <@${member.id}>`
+								);
+							});
 					}
-				})
-			} 
+				});
+			}
 		} else {
 			return message.channel.send('``❌`` Usuário não existente.');
 		}

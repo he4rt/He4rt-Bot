@@ -87,7 +87,7 @@ module.exports = {
 					)
 					.setFooter(
 						util.getYear() + ' © He4rt Developers',
-						'https://heartdevs.com/wp-content/uploads/2018/12/logo.png'
+						'https://i.imgur.com/14yqEKn.png'
 					)
 					.setColor('RED')
 					.setTimestamp()
@@ -135,16 +135,10 @@ module.exports = {
 
 			const win = new Discord.RichEmbed()
 				.setTitle(
-					`\`\`🏆\`\` EVENTO QUIZ\n**${
-						winnerAnswer.author.username
-					} acertou.**`
+					`\`\`🏆\`\` EVENTO QUIZ\n**${winnerAnswer.author.username} acertou.**`
 				)
 				.setDescription(
-					`**Informações:**\n🔹 Ganhador: ${
-						winnerAnswer.author.username
-					}\n🔹 Pergunta: \`\`${
-						random.question
-					}\`\`\n🔹 Premiação: \`\`XP BOOST\`\`.` +
+					`**Informações:**\n🔹 Ganhador: ${winnerAnswer.author.username}\n🔹 Pergunta: \`\`${random.question}\`\`\n🔹 Premiação: \`\`XP BOOST\`\`.` +
 						`\n🔹 Tempo de jogo: \`\`${tempo} segundos\`\`.`
 				)
 				.setColor('#FFB900');

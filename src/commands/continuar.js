@@ -66,8 +66,8 @@ const createEmbedResponse = ({ author, collectors, client }) =>
 			true
 		)
 		.setFooter(
-			util.getYear() + ' © He4rt Developers',
-			'https://heartdevs.com/wp-content/uploads/2018/12/logo.png'
+			`${util.getYear()} © He4rt Developers`,
+			'https://i.imgur.com/14yqEKn.png'
 		)
 		.setTimestamp();
 const isAuthor = (message, author) => message.author.id === author.id;

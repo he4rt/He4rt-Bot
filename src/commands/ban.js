@@ -29,7 +29,7 @@ module.exports = {
 			.setColor('#8146DC')
 			.setFooter(
 				util.getYear() + ' © He4rt Developers',
-				'https://heartdevs.com/wp-content/uploads/2018/12/logo.png'
+				'https://i.imgur.com/14yqEKn.png'
 			)
 			.setTimestamp();
 

@@ -2,7 +2,6 @@ const Discord = require('discord.js');
 const categories = require('../userCategory');
 const util = require('../util');
 
-
 module.exports = {
 	validate(client, message) {
 		if (!message.member.hasPermission('MANAGE_GUILD')) {
@@ -21,7 +20,7 @@ module.exports = {
 			.setColor('#8146DC')
 			.setFooter(
 				util.getYear() + ' © He4rt Developers',
-				'https://heartdevs.com/wp-content/uploads/2018/12/logo.png'
+				'https://i.imgur.com/14yqEKn.png'
 			)
 			.setTimestamp();
 

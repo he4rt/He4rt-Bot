@@ -13,7 +13,7 @@ module.exports = {
 					)
 					.setFooter(
 						util.getYear() + ' © He4rt Developers',
-						'https://heartdevs.com/wp-content/uploads/2018/12/logo.png'
+						'https://i.imgur.com/14yqEKn.png'
 					)
 					.setColor('RED')
 					.setTimestamp()
@@ -29,7 +29,7 @@ module.exports = {
 					)
 					.setFooter(
 						util.getYear() + ' © He4rt Developers',
-						'https://heartdevs.com/wp-content/uploads/2018/12/logo.png'
+						'https://i.imgur.com/14yqEKn.png'
 					)
 					.setColor('RED')
 					.setTimestamp()
@@ -47,7 +47,7 @@ module.exports = {
 					)
 					.setFooter(
 						util.getYear() + ' © He4rt Developers',
-						'https://heartdevs.com/wp-content/uploads/2018/12/logo.png'
+						'https://i.imgur.com/14yqEKn.png'
 					)
 					.setColor('RED')
 					.setTimestamp()
@@ -76,7 +76,7 @@ module.exports = {
 					)
 					.setFooter(
 						util.getYear() + ' © He4rt Developers',
-						'https://heartdevs.com/wp-content/uploads/2018/12/logo.png'
+						'https://i.imgur.com/14yqEKn.png'
 					)
 					.setColor('RED')
 					.setTimestamp()
@@ -92,7 +92,7 @@ module.exports = {
 					.setDescription(text)
 					.setFooter(
 						`Votação iniciada por: ${message.author.username}`,
-						'https://heartdevs.com/wp-content/uploads/2018/12/logo.png'
+						'https://i.imgur.com/14yqEKn.png'
 					)
 					.setColor('GREEN')
 					.setTimestamp()
