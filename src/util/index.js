@@ -4,8 +4,8 @@ const langPTBR = require('../../assets/pt_BR');
 
 module.exports = {
 	getYear: () => {
-		current_date = new Date();
-		return current_date.getYear();
+		const currentDate = new Date();
+		return currentDate.getFullYear();
 	},
 	isCommand: message =>
 		message.content.startsWith(process.env.COMMAND_PREFIX),
