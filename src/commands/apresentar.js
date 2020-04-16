@@ -30,6 +30,11 @@ module.exports = {
 				.setColor('#36393E');
 			return message.channel.send(directEmbed);
 		}
+		if (err.message === 'registered') {
+			return message.channel
+				.send('``❌`` Você já se apresentou.')
+				.then(msg => msg.delete(8000));
+		}
 		return null;
 	},
 
