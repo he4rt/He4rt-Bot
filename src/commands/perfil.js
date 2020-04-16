@@ -78,7 +78,7 @@ module.exports = {
 			answer.setThumbnail(member.avatarURL);
 			answer.setFooter(
 				`Comando utilizado por: ${message.author.tag}`,
-				'https://heartdevs.com/wp-content/uploads/2018/12/logo.png'
+				'https://i.imgur.com/14yqEKn.png'
 			);
 			answer.setTimestamp();
 			await message.channel.send(answer);

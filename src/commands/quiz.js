@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const categories = require('../userCategory');
+const util = require('../util');
 
 const items = [
 	{
@@ -85,8 +86,8 @@ module.exports = {
 						'Infelizmente você não tem permissão para utilizar esse comando'
 					)
 					.setFooter(
-						'2019 © He4rt Developers',
-						'https://heartdevs.com/wp-content/uploads/2018/12/logo.png'
+						util.getYear() + ' © He4rt Developers',
+						'https://i.imgur.com/14yqEKn.png'
 					)
 					.setColor('RED')
 					.setTimestamp()
@@ -134,16 +135,10 @@ module.exports = {
 
 			const win = new Discord.RichEmbed()
 				.setTitle(
-					`\`\`🏆\`\` EVENTO QUIZ\n**${
-						winnerAnswer.author.username
-					} acertou.**`
+					`\`\`🏆\`\` EVENTO QUIZ\n**${winnerAnswer.author.username} acertou.**`
 				)
 				.setDescription(
-					`**Informações:**\n🔹 Ganhador: ${
-						winnerAnswer.author.username
-					}\n🔹 Pergunta: \`\`${
-						random.question
-					}\`\`\n🔹 Premiação: \`\`XP BOOST\`\`.` +
+					`**Informações:**\n🔹 Ganhador: ${winnerAnswer.author.username}\n🔹 Pergunta: \`\`${random.question}\`\`\n🔹 Premiação: \`\`XP BOOST\`\`.` +
 						`\n🔹 Tempo de jogo: \`\`${tempo} segundos\`\`.`
 				)
 				.setColor('#FFB900');

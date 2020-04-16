@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const categories = require('../userCategory');
+const util = require('../util');
 
 module.exports = {
 	async run(client, message, args) {
@@ -12,19 +13,19 @@ module.exports = {
 						'Esse comando está disponivel apenas para apoiadores'
 					)
 					.setFooter(
-						'2019 © He4rt Developers',
-						'https://heartdevs.com/wp-content/uploads/2018/12/logo.png'
+						util.getYear() + ' © He4rt Developers',
+						'https://i.imgur.com/14yqEKn.png'
 					)
 					.setColor('RED')
 					.setTimestamp()
 			);
-    }
-    
+		}
+
 		const hex = args[0];
 		if (!hex) return message.channel.send('``❌`` Utilize: !color <hex>');
 
 		const nick = message.author.tag;
-    const role = message.member.roles.find(x => /.+#\d{4}/i.test(x.name));
+		const role = message.member.roles.find(x => /.+#\d{4}/i.test(x.name));
 
 		if (!role) {
 			return message.guild
@@ -37,16 +38,16 @@ module.exports = {
 				.then(newRole => {
 					message.reply(
 						`Cor criada com sucesso! hex(${newRole.color})`
-          );
-          
+					);
+
 					message.member.addRole(newRole);
 				})
 				.catch(() => message.reply('``❌`` Cor invalida!'));
-    }
-    
-    if (role.name !== nick) {
-      await role.setName(nick);
-    }
+		}
+
+		if (role.name !== nick) {
+			await role.setName(nick);
+		}
 
 		role.setColor(hex)
 			.then(newRole =>

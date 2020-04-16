@@ -3,6 +3,7 @@ const Discord = require('discord.js');
 const util = require('../util');
 const roles = require('../../assets/roles.json');
 const categories = require('../userCategory');
+const langPTBR = require('../../assets/pt_BR');
 
 const TIMEOUT = 60 * 1000;
 
@@ -23,32 +24,14 @@ const hiddenRolesEng = [
 	'546148708077666315',
 ];
 
-const createEmbeds = ({ devRoles, engRoles }) => {
-	const name = util.translate('continuar.name');
-	const nick = util.translate('continuar.nick');
-	const about = util.translate('continuar.about');
-	const git = util.translate('continuar.git');
+const englishDescription = roles.eng_roles
+	.map(engRole => `${engRole.react}  -  ${engRole.name}`)
+	.join('\n');
+const languagesDescriptionLine = roles.dev_roles
+	.map(devRole => `${devRole.react}  -  ${devRole.name}`)
+	.join('\n');
+const languagesDescription = `${languagesDescriptionLine}\n\n\n✅ - Pronto.`;
 
-	const languagesDescriptionLine = devRoles
-		.map(devRole => `${devRole.react}  -  ${devRole.name}`)
-		.join('\n');
-	const languagesDescription = `${languagesDescriptionLine}'\n\n\n✅ - Pronto.'`;
-	const languages = new Discord.RichEmbed()
-		.setTitle(
-			`**Linguagens?** (Reaja para adquirir seu cargo e prosseguir)`
-		)
-		.setDescription(languagesDescription)
-		.setColor('#36393E');
-
-	const englishDescription = engRoles
-		.map(engRole => `${engRole.react}  -  ${engRole.name}`)
-		.join('\n');
-	const english = new Discord.RichEmbed()
-		.setTitle(`**Nível de inglês?**`)
-		.setDescription(englishDescription)
-		.setColor('#36393E');
-	return { name, nick, about, git, languages, english };
-};
 const createEmbedResponse = ({ author, collectors, client }) =>
 	new Discord.RichEmbed()
 		.setTitle(`**Apresentação** » ${author.username}`)
@@ -83,8 +66,8 @@ const createEmbedResponse = ({ author, collectors, client }) =>
 			true
 		)
 		.setFooter(
-			'2019 © He4rt Developers',
-			'https://heartdevs.com/wp-content/uploads/2018/12/logo.png'
+			`${util.getYear()} © He4rt Developers`,
+			'https://i.imgur.com/14yqEKn.png'
 		)
 		.setTimestamp();
 const isAuthor = (message, author) => message.author.id === author.id;
@@ -111,8 +94,10 @@ const collectMessage = message => {
 	return collect(collector).then(() => collector);
 };
 
-const sendLanguageMessage = async (author, embeds) => {
-	const message = await author.send(embeds.languages);
+const sendLanguageMessage = async author => {
+	const message = await author.send(
+		`${langPTBR.continuar.languages.title}\n\n${languagesDescription}`
+	);
 
 	await message.react('1⃣');
 	await message.react('2⃣');
@@ -155,8 +140,10 @@ const collectLanguagesReactions = async ({
 	return collect(collector).then(() => collector);
 };
 
-const sendEnglishMessage = async (author, embeds) => {
-	const message = await author.send(embeds.english);
+const sendEnglishMessage = async author => {
+	const message = await author.send(
+		`${langPTBR.continuar.english.title}\n\n${englishDescription}`
+	);
 
 	await message.react('🇦');
 	await message.react('🇧');
@@ -194,10 +181,8 @@ module.exports = {
 			throw new Error('cooldown');
 		}
 		cooldown[message.author.id] = true;
-
 		const devRoles = roles.dev_roles;
 		const engRoles = roles.eng_roles;
-		const embeds = createEmbeds({ devRoles, engRoles });
 		const collectors = {};
 
 		const presentedRole = client.guilds
@@ -213,17 +198,17 @@ module.exports = {
 			throw new Error('registered');
 		}
 
-		await message.author.send(embeds.name);
+		await message.author.send(langPTBR.continuar.name.title);
 		collectors.name = await collectMessage(message);
 
-		await message.author.send(embeds.nick);
+		await message.author.send(langPTBR.continuar.nick.title);
 		collectors.nick = await collectMessage(message);
 
-		await message.author.send(embeds.about);
+		await message.author.send(langPTBR.continuar.about.title);
 		collectors.about = await collectMessage(message);
 
 		// TODO: validar git se tiver inferir em algum canto
-		await message.author.send(embeds.git);
+		await message.author.send(langPTBR.continuar.git.title);
 		collectors.git = await collectMessage(message);
 
 		// Socorro eu quero morrer pq sim
@@ -234,23 +219,20 @@ module.exports = {
 			about: collectors.about.collected.first().content,
 		});
 
-		const languageMessage = await sendLanguageMessage(
-			message.author,
-			embeds
-		);
+		const languageMessage = await sendLanguageMessage(message.author);
 		await collectLanguagesReactions({
 			client,
-			devRoles,
 			author: message.author,
 			message: languageMessage,
+			devRoles,
 		});
 
-		const englishMessage = await sendEnglishMessage(message.author, embeds);
+		const englishMessage = await sendEnglishMessage(message.author);
 		await collectEnglishReactions({
 			client,
-			engRoles,
 			author: message.author,
 			message: englishMessage,
+			engRoles,
 		});
 
 		const embedResponse = createEmbedResponse({
