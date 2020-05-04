@@ -1,5 +1,5 @@
-import Command from "@core/Contracts/Command"
-import Context from "@core/Contracts/Context"
+import Command from "@core/Contracts/Command";
+import env from "@/env";
 
 const rules = `
 <:he4rt:546395281093034015> Sejam bem-vindos ao servidor He4rt Developers! [:flag_br:]
@@ -18,22 +18,19 @@ const rules = `
 # Ocorrência (1º Ocorrência): Mudo por 8 horas;
 # Ocorrência (2º Ocorrência): Banimento de 2 dias;
 # Insistência (3º Ocorrênncia): Banimento permanente.\`\`\`
-`
+`;
 
-export default class Rules extends Command {
-  public get description() {
-    return "Envia as regras para o usuário."
-  }
+const command = Command({
+  description: "Envia as regras para o usuário.",
+  permissions: ["MANAGE_GUILD"],
+  help: ":x:Como usar: `!rules`",
+  run: async ({ textChannels }) => {
+    const rulesChat = textChannels.get(env.RULES_CHAT);
+    if (!rulesChat) {
+      throw new Error(`${env.PUNISHMENT_CHAT} TextChanncel, doesn't exists`);
+    }
 
-  public get permissions(): string[] {
-    return ["MANAGE_GUILD"]
-  }
-
-  public help(): string {
-    return "Como usar: `!rules`"
-  }
-
-  public async run({ textChannels }: Context): Promise<void> {
-    await textChannels.get(process.env.RULES_CHAT!)!.send(rules)
-  }
-}
+    await rulesChat.send(rules);
+  },
+});
+export default command;

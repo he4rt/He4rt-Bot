@@ -1,18 +1,13 @@
-import Ioc from "@core/IoC/Ioc"
-import Command from "@core/Contracts/Command"
-import Context from "@core/Contracts/Context"
+import Ioc from "@core/IoC/Ioc";
+import Command from "@core/Contracts/Command";
 
-export default class Help extends Command {
-  public get description() {
-    return "Exibe a lista de comandos disponíveis."
-  }
+const command = Command({
+  description: "Exibe a lista de comandos disponíveis.",
+  help: ":x: Como usar: `!help`",
+  run: async ({ send }) => {
+    const commandList = Ioc.use<string[]>("Commands");
 
-  public help(): string {
-    return "Como usar: `!help`"
-  }
-
-  public async run({ send }: Context): Promise<void> {
-    const commandList = Ioc.use<string[]>("Commands")
-    await send(`Comandos disponíveis: ${commandList}`)
-  }
-}
+    await send(`Comandos disponíveis: ${commandList}`);
+  },
+});
+export default command;

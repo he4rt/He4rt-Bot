@@ -1,35 +1,21 @@
-import { Message } from "discord.js"
+import Command from "@core/Contracts/Command";
+import InvalidArgsException from "@core/Exceptions/InvalidArgs";
+import env from "@/env";
 
-import Command from "@core/Contracts/Command"
-import Context from "@core/Contracts/Context"
-
-export default class Say extends Command {
-  public get description() {
-    return "Manda uma mensagem pelo bot."
-  }
-
-  public get roles(): string[] {
-    return [process.env.ADMIN_ROLE!]
-  }
-
-  public get roleValidationMessages() {
-    return {
-      [process.env
-        .ADMIN_ROLE!]: "Apenas administradores podem usar esse comando"
-    }
-  }
-
-  public help(): string {
-    return "Como usar: `!say hello world`"
-  }
-
-  public async run({ args, reply, send }: Context): Promise<void> {
+const command = Command({
+  description: "Manda uma mensagem pelo bot.",
+  roles: [env.ADMIN_ROLE],
+  roleValidationMessages: {
+    [env.ADMIN_ROLE]: "Apenas administradores podem usar esse comando",
+  },
+  help: ":x: Como usar: `!say <message>`",
+  validate: async ({ args }) => {
     if (args.length === 0) {
-      const message = await reply(":x: Voce deve informar uma mensagem")
-      ;(message as Message).delete(5000)
-      return
+      throw new InvalidArgsException(command.help);
     }
-
-    await send(args.join(" ").trim())
-  }
-}
+  },
+  run: async ({ args, send }) => {
+    await send(args.join(" ").trim());
+  },
+});
+export default command;

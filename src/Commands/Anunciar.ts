@@ -1,31 +1,20 @@
-import { RichEmbed } from "discord.js"
+import { RichEmbed } from "discord.js";
 
-import Command from "@core/Contracts/Command"
-import Context from "@core/Contracts/Context"
+import Command from "@core/Contracts/Command";
+import InvalidArgsException from "@core/Exceptions/InvalidArgs";
 
-export default class Anunciar extends Command {
-  public get description() {
-    return "Faz o bot anunciar algo no chat usando @everyone"
-  }
-
-  public get permissions(): string[] {
-    return ["MANAGE_GUILD"]
-  }
-
-  public help(): string {
-    return "Como usar: `!anunciar <mensagem>`"
-  }
-
-  public async run({ args, send }: Context): Promise<void> {
+const command = Command({
+  description: "Faz o bot anunciar algo no chat usando everyone",
+  permissions: ["MANAGE_GUILD"],
+  help: ":x: Como usar: `!anunciar <mensagem>`",
+  validate: async ({ args }) => {
     if (args.length === 0) {
-      await send(this.help())
-      return
+      throw new InvalidArgsException(command.help);
     }
+  },
+  run: async ({ args, send }) => {
+    const message = args.join(" ").trim();
 
-    const message = args.join(" ").trim()
-
-    // make our own RichEmbed class so discord.js can be changed if
-    // needed ?
     const announcement = new RichEmbed()
       .setTitle("``🔔`` **Heart informa:**")
       .setDescription(message)
@@ -34,8 +23,9 @@ export default class Anunciar extends Command {
         "2019 © He4rt Developers",
         "https://heartdevs.com/wp-content/uploads/2018/12/logo.png"
       )
-      .setTimestamp()
+      .setTimestamp();
 
-    await send("@everyone", announcement)
-  }
-}
+    await send("@everyone", announcement);
+  },
+});
+export default command;

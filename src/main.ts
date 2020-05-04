@@ -1,8 +1,4 @@
-import "module-alias/register"
+import "./setup";
+import Ignitor from "@core/Bot/Ignitor";
 
-import Ignitor from "@core/Bot/Ignitor"
-
-function main(): void {
-  new Ignitor().boostrap()
-}
-main()
+new Ignitor().boostrap().catch(console.error);
