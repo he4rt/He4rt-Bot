@@ -18,7 +18,7 @@ export default class SayHello extends Command {
     return "Como usar: `!sayhello <names>`"
   }
 
-  // run() recebe um objecto Context que contem outros
+  // run() recebe um objeto Context que contem outros
   // objetos e funções necessárias para interagir com o discord
   public async run({ send, args }: Context): Promise<void> {
     const names = args.join(" ").trim()
