@@ -139,7 +139,7 @@ module.exports = async (client, message) => {
 	if (message.channel.id === process.env.APPRENTICESHIP_CHAT) {
 		await message.react(client.emojis.get('551856304759504910'));
 		await message.react(client.emojis.get('551856305007231033'));
-		message.react(client.emojis.get('547614831432302631'));
+		await message.react(client.emojis.get('547614831432302631'));
 	}
 
 	await Promise.all([
