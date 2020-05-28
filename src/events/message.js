@@ -62,7 +62,7 @@ const runCommand = async (client, message) => {
 		message.channel.id === process.env.SEARCH_CHAT
 	) {
 		await message.react('✅');
-		message.react('❌');
+		await message.react('❌');
 	}
 
 	if (!util.isCommand(message)) return;
