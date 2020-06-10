@@ -30,7 +30,7 @@ module.exports = {
 			client.channels
 				.get(process.env.RULES_CHAT)
 				.send(
-					'``$3`` - **$3 - Estamos sempre abertos a novas comunidades de tecnologia, mas divulgações devem ser discutidas com o <@241070790383108096> para garantir um ambiente saudável em nosso discord sem ofender ou afetar membros diretamente**```objectivec\n•  Divulgações de outras comunidades são permitidas mediante contato com o @'Pride#5559; \n\n# Ocorrência (1º Ocorrência): Aviso e mensagem deletada;\n# Ocorrência (2º Ocorrência): Mudo por 8 horas;\n# Insistência (3º Ocorrência): Banimento permanentemente.```'
+					'``$3`` - **Estamos sempre abertos a novas comunidades de tecnologia, mas divulgações devem ser discutidas com o <@241070790383108096> para garantir um ambiente saudável em nosso discord sem ofender ou afetar membros diretamente**```objectivec\n•  Divulgações de outras comunidades são permitidas mediante contato com o @Pride; \n\n# Ocorrência (1º Ocorrência): Aviso e mensagem deletada;\n# Ocorrência (2º Ocorrência): Mudo por 8 horas;\n# Insistência (3º Ocorrência): Banimento permanentemente.```'
 				);
 		}, 2000);
 
