@@ -54,7 +54,7 @@ module.exports = {
 			)
 			.setFooter(
 				`Comando utilizado por: ${message.author.tag}`,
-				'https://i.imgur.com/rRr6Md6.png'
+				'https://i.imgur.com/a96VgwW.png'
 			);
 		await message.channel.send(profile);
 	},

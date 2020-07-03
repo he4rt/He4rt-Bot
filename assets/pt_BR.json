@@ -3,20 +3,11 @@
 		"name": {
 			"title": "> **Qual é seu nome?** (Exemplo: Daniel Reis)"
 		},
-		"nick": {
-			"title": "> **Qual é seu nick?** (Exemplo: DanielHe4rt)"
-		},
 		"about": {
 			"title": "> **Diga um pouco sobre você:** (Exemplo: Me chamo Gustavo...)"
 		},
-		"portfolio": {
-			"title": "> **Qual é seu portfólio?** (Exemplo: https://www.behance.net/Neextur)"
-		},
 		"skills": {
-			"title": "> **Área de conhecimento?** (Reaja para adquirir seu cargo e prosseguir)"
-		},
-		"english": {
-			"title": "> **Nível de inglês?**"
+			"title": "> **Área de atuação?** (Reaja para adquirir seu cargo e prosseguir)"
 		}
 	},
 	"tempban": {

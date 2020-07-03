@@ -1,40 +1,40 @@
 {
 	"skill_roles": [
 		{
-			"name": "Video Editor",
+			"name": "Desenvolvedor",
 			"emoji": "1⃣",
-			"id": "728382462597660763",
+			"id": "724048293864276028",
 			"react": ":one:"
 		},
 		{
 			"name": "Designer",
 			"emoji": "2⃣",
-			"id": "728382522370686977",
+			"id": "724044517098913884",
 			"react": ":two:"
 		},
 		{
-			"name": "Ilustrador",
+			"name": "Escritor",
 			"emoji": "3⃣",
-			"id": "728382580621312113",
+			"id": "724044516725751879",
 			"react": ":three:"
-		}
-	],
-
-	"eng_roles": [
-		{
-			"name": "Básico",
-			"react": "🇦",
-			"id": "728383661308903536"
 		},
 		{
-			"name": "Intermediário",
-			"react": "🇧",
-			"id": "728383550969348157"
+			"name": "Growth Hacker",
+			"emoji": "4⃣",
+			"id": "724046898675056731",
+			"react": ":four:"
 		},
 		{
-			"name": "Avançado",
-			"react": "🇨",
-			"id": "728382933865594881"
+			"name": "SEO",
+			"emoji": "5⃣",
+			"id": "724046716751577114",
+			"react": ":five:"
+		},
+		{
+			"name": "Social Media",
+			"emoji": "6⃣",
+			"id": "724045296795123802",
+			"react": ":six:"
 		}
 	]
 }
