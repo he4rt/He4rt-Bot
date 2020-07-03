@@ -1,71 +1,40 @@
 {
-    "dev_roles" : [
-        {
-            "name": "C,C++,C#",
-            "emoji": "1⃣",
-            "id": "541021498064896000",
-            "react": ":one:"
-        },
-        {
-            "name": "PYTHON",
-            "emoji": "2⃣",
-            "id": "540994295541399552",
-            "react": ":two:"
-        },
-        {
-            "name": "PERL",
-            "emoji": "3⃣",
-            "id": "540995072246939648",
-            "react": ":three:"
+	"skill_roles": [
+		{
+			"name": "Video Editor",
+			"emoji": "1⃣",
+			"id": "728382462597660763",
+			"react": ":one:"
+		},
+		{
+			"name": "Designer",
+			"emoji": "2⃣",
+			"id": "728382522370686977",
+			"react": ":two:"
+		},
+		{
+			"name": "Ilustrador",
+			"emoji": "3⃣",
+			"id": "728382580621312113",
+			"react": ":three:"
+		}
+	],
 
-        },
-        {
-            "name": "RUBY",
-            "emoji": "4⃣",
-            "id": "540995627559944207",
-            "react": ":four:"
-        },
-        {
-            "name": "JAVA",
-            "emoji": "5⃣",
-            "id": "540995379538165774",
-            "react": ":five:"
-        },
-        {
-            "name": "PHP",
-            "emoji": "6⃣",
-            "id": "540994118634176512",
-            "react": ":six:"
-        },
-        {
-            "name": "JavaScript",
-            "emoji": "7⃣",
-            "id": "540993488410378281",
-            "react": ":seven:"
-        },
-        {
-            "name": "Designer",
-            "emoji": "🎨",
-            "id": "547606728179449895",
-            "react": ":art:"
-        }
-    ],
-
-    "eng_roles" : [
-        {
-            "name" : "Básico",
-            "react" : "🇦",
-            "id" : "546148708077666315"
-        },
-        {
-            "name" : "Intermediário",
-            "react" : "🇧",
-            "id" : "546148711416332298"
-        },
-        {
-            "name" : "Avançado",
-            "react" : "🇨",
-            "id" : "546148712833875985"
-        }
-    ]
+	"eng_roles": [
+		{
+			"name": "Básico",
+			"react": "🇦",
+			"id": "728383661308903536"
+		},
+		{
+			"name": "Intermediário",
+			"react": "🇧",
+			"id": "728383550969348157"
+		},
+		{
+			"name": "Avançado",
+			"react": "🇨",
+			"id": "728382933865594881"
+		}
+	]
 }

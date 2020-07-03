@@ -9,11 +9,11 @@
 		"about": {
 			"title": "> **Diga um pouco sobre você:** (Exemplo: Me chamo Gustavo...)"
 		},
-		"git": {
-			"title": "> **Qual é seu Git?** (Exemplo: https://github.com/DanielHe4rt)"
+		"portfolio": {
+			"title": "> **Qual é seu portfólio?** (Exemplo: https://www.behance.net/Neextur)"
 		},
-		"languages": {
-			"title": "> **Linguagens?** (Reaja para adquirir seu cargo e prosseguir)"
+		"skills": {
+			"title": "> **Área de conhecimento?** (Reaja para adquirir seu cargo e prosseguir)"
 		},
 		"english": {
 			"title": "> **Nível de inglês?**"

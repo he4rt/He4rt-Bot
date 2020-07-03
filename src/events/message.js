@@ -1,68 +1,10 @@
 const Discord = require('discord.js');
 const util = require('../util');
 
-const runLevelUp = async (client, message) => {
-	if (
-		message.channel.type === 'dm' ||
-		message.channel.id === process.env.COMMANDS_CHAT ||
-		message.channel.id === process.env.GAMES_CHAT
-	) {
-		return;
-	}
-	const donator = message.member.roles.find(
-		r => r.id === process.env.DONATOR_ROLE
-	);
-
-	const {
-		data,
-	} = await client.axios.post(`/users/${message.author.id}/levelup`, {
-		donator,
-	});
-
-	if (!data.is_levelup) return; // Check if is level up
-
-	const lvl = parseInt(data.level, 10);
-
-	if (lvl === 10) {
-		message.member.addRole(process.env.BEGINNER_ROLE); // Iniciante
-	}
-	if (lvl === 20) {
-		message.member.addRole(process.env.INTERMEDIATE_ROLE); // Intermediario
-	}
-	if (lvl === 30) {
-		message.member.addRole(process.env.ADVANCED_ROLE); // Avançado
-	}
-	if (lvl === 40) {
-		message.member.addRole(process.env.SUPREME_ROLE); // Supremo
-	}
-	if (lvl === 50) {
-		message.member.addRole(process.env.HE4RT_ROLE); // He4rt
-	}
-	const level = new Discord.RichEmbed()
-		.setTitle(
-			`🆙 **${message.author.username}** subiu para o nível ${data.level}!`
-		)
-		.setColor('#4c4cff')
-		.setThumbnail(message.author.avatarURL)
-		.setFooter(
-			util.getYear() + '© He4rt Developers',
-			'https://i.imgur.com/14yqEKn.png'
-		)
-		.setTimestamp();
-	client.channels.get('552332704381927424').send(level);
-	console.log(
-		'[#LOG]',
-		`${message.author.username} subiu para o nível ${data.level}!`
-	);
-};
-
 const runCommand = async (client, message) => {
-	if (
-		message.channel.id === process.env.SUGGESTION_CHAT ||
-		message.channel.id === process.env.SEARCH_CHAT
-	) {
-		message.react('✅');
-		message.react('❌');
+	if (message.channel.id === process.env.SUGGESTION_CHAT) {
+		await message.react('✅');
+		await message.react('❌');
 	}
 
 	if (!util.isCommand(message)) return;
@@ -74,10 +16,6 @@ const runCommand = async (client, message) => {
 	const command = args.shift().toLowerCase();
 
 	const cmd = client.commands.get(command);
-	// if(message.channel.type !== "dm" && message.channel.id !== process.env.COMMANDS_CHAT && !message.member.roles.exists('id', process.env.ADMIN_ROLE) && message.channel.id !== process.env.COMMANDS_CHAT && !message.member.roles.exists('id', process.env.MOD_ROLE)) {
-	//   message.delete().catch(() => {});
-	//   return message.channel.send("``❌`` Use comandos no canal <#542840741588762637>.").then(msg => msg.delete(15000));
-	// }
 	if (!cmd) return;
 
 	message.delete().catch(() => {});
@@ -136,17 +74,6 @@ module.exports = async (client, message) => {
 		message.react('🌞');
 		message.channel.send('tarde!');
 	}
-	if (message.channel.id === process.env.APPRENTICESHIP_CHAT) {
-		message.react(client.emojis.get('551856304759504910'));
-		message.react(client.emojis.get('551856305007231033'));
-		message.react(client.emojis.get('547614831432302631'));
-	}
 
-	await Promise.all([
-		runLevelUp(client, message).catch(res =>
-			console.error(`[#LEVELUP] ERROR: ${res}`)
-		),
-		runCommand(client, message),
-	]);
-	// await Promise.bind(runCommand(client, message));
+	await Promise.bind(runCommand(client, message));
 };

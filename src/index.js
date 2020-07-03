@@ -1,22 +1,9 @@
 const Discord = require('discord.js');
 const fs = require('fs-extra');
 const Enmap = require('enmap');
-const axios = require('axios');
 
 const client = new Discord.Client({ forceFetchUsers: true });
 require('dotenv').config();
-
-client.axios = axios.create({
-	baseURL: process.env.HE4RT_API,
-	timeout: 5000,
-	headers: { 'Api-Key': process.env.HE4RT_TOKEN },
-});
-
-client.devwars = axios.create({
-	baseURL: process.env.DEVWARS_API,
-	timeout: 5000,
-	headers: { 'Api-Key': process.env.DEVWARS_TOKEN },
-});
 
 client.commands = new Enmap();
 
@@ -27,7 +14,7 @@ const init = async () => {
 		`Carregando o total de ${cmdFiles.length - 1} comandos.`
 	);
 	cmdFiles.shift();
-	cmdFiles.forEach(f => {
+	cmdFiles.forEach((f) => {
 		try {
 			// eslint-disable-next-line
 			const props = require(`./commands/${f}`);
@@ -43,7 +30,7 @@ const init = async () => {
 
 	const evtFiles = await fs.readdir('src/events/');
 	console.log('[#LOG]', `Carregando o total de ${evtFiles.length} eventos.`);
-	evtFiles.forEach(f => {
+	evtFiles.forEach((f) => {
 		const eventName = f.split('.')[0];
 		// eslint-disable-next-line
 		const event = require(`./events/${f}`);
@@ -51,7 +38,7 @@ const init = async () => {
 		client.on(eventName, event.bind(null, client));
 	});
 
-	client.on('error', err => console.error('[#ERROR]', err));
+	client.on('error', (err) => console.error('[#ERROR]', err));
 
 	client.login(process.env.AUTH_TOKEN);
 };

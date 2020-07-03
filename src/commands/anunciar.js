@@ -19,8 +19,8 @@ module.exports = {
 			.setDescription(mensg)
 			.setColor('#8146DC')
 			.setFooter(
-				util.getYear() + ' © He4rt Developers',
-				'https://i.imgur.com/14yqEKn.png'
+				util.getYear() + ' © He4rt Studios',
+				'https://i.imgur.com/rRr6Md6.png'
 			)
 			.setTimestamp();
 

@@ -6,7 +6,7 @@
 
 # He4rt Bot
 
-Esta aplicaçao será responsável pelo gerenciamento e aprendizado da <a href="https://heartdevs.com">He4rt Developers</a> na plataforma Discord.
+Esta aplicaçao será responsável pelo gerenciamento e aprendizado da <a href="https://heartdevs.com">He4rt Studios</a> na plataforma Discord.
 
 ## 📥 Instalando dependências
 

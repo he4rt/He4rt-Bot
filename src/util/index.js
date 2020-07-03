@@ -5,7 +5,7 @@ const langPTBR = require('../../assets/pt_BR');
 module.exports = {
 	getYear: () => {
 		current_date = new Date();
-		return current_date.getYear();
+		return current_date.getFullYear();
 	},
 	isCommand: message =>
 		message.content.startsWith(process.env.COMMAND_PREFIX),

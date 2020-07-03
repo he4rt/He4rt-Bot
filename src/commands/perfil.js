@@ -1,24 +1,20 @@
+const { RichEmbed } = require('discord.js');
 const moment = require('moment');
 const util = require('../util');
 const categories = require('../userCategory');
 
 moment.locale('pt-BR');
 
-const hiddenRolesDev = [
-	'540994118634176512',
-	'540994295541399552',
-	'540995072246939648',
-	'540995379538165774',
-	'540995627559944207',
-	'541021498064896000',
-	'540993488410378281',
-	'546152565633449995',
+const hiddenRolesSkill = [
+	'728382462597660763',
+	'728382522370686977',
+	'728382580621312113',
 ];
 
 const hiddenRolesEng = [
-	'546148712833875985',
-	'546148711416332298',
-	'546148708077666315',
+	'728383661308903536',
+	'728383550969348157',
+	'728382933865594881',
 ];
 
 module.exports = {
@@ -26,63 +22,41 @@ module.exports = {
 		const member = message.mentions.users.first() || message.author;
 		const userID = member.id;
 
-		const { data: user } = await client.axios.get(`/users/${userID}`);
-
-		const options = ['about', 'git', 'name', 'nickname', 'language'];
-		if (args.length && options.includes(args[0])) {
-			const filtered = options.filter(val => val === args[0]);
-			if (filtered.length && options.includes(args[0])) {
-				await client.axios.put(`/users/${userID}`, {
-					[args[0]]: args.slice(1).join(' '),
-				});
-				const answer = await message.channel.send(
-					'Seu perfil foi atualizado com sucesso! Use o comando !profile para acessar suas informações!'
-				);
-				answer.delete(8000);
-			} else {
-				const answer = await message.channel.send('Comando invalido!');
-				answer.delete(8000);
-			}
-		} else {
-			const engRoles =
+		const profile = new RichEmbed()
+			.setTitle('`👥` » !profile')
+			.setThumbnail(message.author.avatarURL)
+			.addField('Nickname:', member.username, false)
+			.setColor('#950df5')
+			.addField(
+				'**Conhecimentos:**',
 				client.guilds
 					.get(process.env.GUILD_ID)
-					.members.get(member.id)
+					.members.get(message.author.id)
+					.roles.filter(role => hiddenRolesSkill.includes(role.id))
+					.map(role => `<@&${role.id}>`)
+					.join(', ') || '`Nenhum`'
+			)
+			.addField(
+				'**Nível de inglês:**',
+				client.guilds
+					.get(process.env.GUILD_ID)
+					.members.get(message.author.id)
 					.roles.filter(role => hiddenRolesEng.includes(role.id))
 					.map(role => `<@&${role.id}>`)
-					.join(', ') || '`Nenhuma`';
-			const devRoles =
-				client.guilds
-					.get(process.env.GUILD_ID)
-					.members.get(member.id)
-					.roles.filter(role => hiddenRolesDev.includes(role.id))
-					.map(role => `<@&${role.id}>`)
-					.join(', ') || '`Nenhuma`';
-
-			const answer = util.translate('perfil.answer', [
-				user.name
-					? `${member.username} (${user.name})`
-					: `${member.username}`,
-				user.about || 'Desconhecido',
-				user.git || 'Desconhecido',
-				user.level || 'Desconhecido',
-				user.current_exp || 'Desconhecido',
-				`<:hcoin:548969665020297216> ${user.money}`,
-				devRoles || 'Desconhecido',
-				engRoles || 'Desconhecido',
-				`${moment(
+					.join(', ') || '`Nenhum`'
+			)
+			.addField(
+				'Juntou-se:',
+				moment(
 					client.guilds.get(process.env.GUILD_ID).members.get(userID)
 						.joinedTimestamp
-				).format('LLLL')} **#${user.id}**`,
-			]);
-			answer.setThumbnail(member.avatarURL);
-			answer.setFooter(
+				).format('LLLL')
+			)
+			.setFooter(
 				`Comando utilizado por: ${message.author.tag}`,
-				'https://i.imgur.com/14yqEKn.png'
+				'https://i.imgur.com/rRr6Md6.png'
 			);
-			answer.setTimestamp();
-			await message.channel.send(answer);
-		}
+		await message.channel.send(profile);
 	},
 
 	get command() {

@@ -7,30 +7,25 @@ const langPTBR = require('../../assets/pt_BR');
 
 const TIMEOUT = 60 * 1000;
 
-const hiddenRolesDev = [
-	'540994118634176512',
-	'540994295541399552',
-	'540995072246939648',
-	'540995379538165774',
-	'540995627559944207',
-	'541021498064896000',
-	'540993488410378281',
-	'546152565633449995',
+const hiddenRolesSkill = [
+	'728382462597660763',
+	'728382522370686977',
+	'728382580621312113',
 ];
 
 const hiddenRolesEng = [
-	'546148712833875985',
-	'546148711416332298',
-	'546148708077666315',
+	'728383661308903536',
+	'728383550969348157',
+	'728382933865594881',
 ];
 
 const englishDescription = roles.eng_roles
 	.map(engRole => `${engRole.react}  -  ${engRole.name}`)
 	.join('\n');
-const languagesDescriptionLine = roles.dev_roles
-	.map(devRole => `${devRole.react}  -  ${devRole.name}`)
+const skillsDescriptionLine = roles.skill_roles
+	.map(skillRole => `${skillRole.react}  -  ${skillRole.name}`)
 	.join('\n');
-const languagesDescription = `${languagesDescriptionLine}\n\n\n✅ - Pronto.`;
+const skillsDescription = `${skillsDescriptionLine}\n\n✅ - Pronto.\n:exclamation: **Espere até que todas as reações carreguem para receber devidamente suas tags.**`;
 
 const createEmbedResponse = ({ author, collectors, client }) =>
 	new Discord.RichEmbed()
@@ -44,15 +39,19 @@ const createEmbedResponse = ({ author, collectors, client }) =>
 			collectors.nick.collected.first().content,
 			true
 		)
-		.addField('**Git:**', collectors.git.collected.first().content, true)
 		.addField(
-			'**Linguagens:**',
+			'**Portfólio:**',
+			collectors.git.collected.first().content,
+			true
+		)
+		.addField(
+			'**Conhecimentos:**',
 			client.guilds
 				.get(process.env.GUILD_ID)
 				.members.get(author.id)
-				.roles.filter(role => hiddenRolesDev.includes(role.id))
+				.roles.filter(role => hiddenRolesSkill.includes(role.id))
 				.map(role => `<@&${role.id}>`)
-				.join(', ') || '`Nenhuma`',
+				.join(', ') || '`Nenhum`',
 			true
 		)
 		.addField(
@@ -62,12 +61,12 @@ const createEmbedResponse = ({ author, collectors, client }) =>
 				.members.get(author.id)
 				.roles.filter(role => hiddenRolesEng.includes(role.id))
 				.map(role => `<@&${role.id}>`)
-				.join(', ') || '`Nenhuma`',
+				.join(', ') || '`Nenhum`',
 			true
 		)
 		.setFooter(
-			`${util.getYear()} © He4rt Developers`,
-			'https://i.imgur.com/14yqEKn.png'
+			`${util.getYear()} © He4rt Studios`,
+			'https://i.imgur.com/rRr6Md6.png'
 		)
 		.setTimestamp();
 const isAuthor = (message, author) => message.author.id === author.id;
@@ -94,27 +93,22 @@ const collectMessage = message => {
 	return collect(collector).then(() => collector);
 };
 
-const sendLanguageMessage = async author => {
+const sendSkillsMessage = async author => {
 	const message = await author.send(
-		`${langPTBR.continuar.languages.title}\n\n${languagesDescription}`
+		`${langPTBR.continuar.skills.title}\n\n${skillsDescription}`
 	);
 
 	await message.react('1⃣');
 	await message.react('2⃣');
 	await message.react('3⃣');
-	await message.react('4⃣');
-	await message.react('5⃣');
-	await message.react('6⃣');
-	await message.react('7⃣');
-	await message.react('🎨');
 	await message.react('✅');
 	return message;
 };
-const collectLanguagesReactions = async ({
+const collectSkillsReactions = async ({
 	author,
-	message, // message with languages reactions
+	message, // message with skills reactions
 	client,
-	devRoles,
+	skillRoles,
 }) => {
 	const collector = message.createReactionCollector(
 		(reaction, user) => isAuthor({ author }, user),
@@ -127,7 +121,7 @@ const collectLanguagesReactions = async ({
 		}
 
 		const emoji = reaction.emoji.name;
-		const selectedRole = devRoles.find(role => role.emoji === emoji);
+		const selectedRole = skillRoles.find(role => role.emoji === emoji);
 		if (!selectedRole) {
 			return;
 		}
@@ -135,7 +129,7 @@ const collectLanguagesReactions = async ({
 			.get(process.env.GUILD_ID)
 			.members.get(author.id)
 			.addRole(selectedRole.id);
-		await author.send('``✅`` Linguagem adicionada com sucesso!');
+		await author.send('``✅`` Cargo adicionada com sucesso!');
 	});
 	return collect(collector).then(() => collector);
 };
@@ -181,7 +175,7 @@ module.exports = {
 			throw new Error('cooldown');
 		}
 		cooldown[message.author.id] = true;
-		const devRoles = roles.dev_roles;
+		const skillRoles = roles.skill_roles;
 		const engRoles = roles.eng_roles;
 		const collectors = {};
 
@@ -208,23 +202,15 @@ module.exports = {
 		collectors.about = await collectMessage(message);
 
 		// TODO: validar git se tiver inferir em algum canto
-		await message.author.send(langPTBR.continuar.git.title);
+		await message.author.send(langPTBR.continuar.portfolio.title);
 		collectors.git = await collectMessage(message);
 
-		// Socorro eu quero morrer pq sim
-		client.axios.put(`/users/${message.author.id}`, {
-			name: collectors.name.collected.first().content,
-			nickname: collectors.nick.collected.first().content,
-			git: collectors.git.collected.first().content,
-			about: collectors.about.collected.first().content,
-		});
-
-		const languageMessage = await sendLanguageMessage(message.author);
-		await collectLanguagesReactions({
+		const skillsMessage = await sendSkillsMessage(message.author);
+		await collectSkillsReactions({
 			client,
 			author: message.author,
-			message: languageMessage,
-			devRoles,
+			message: skillsMessage,
+			skillRoles,
 		});
 
 		const englishMessage = await sendEnglishMessage(message.author);
