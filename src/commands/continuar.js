@@ -78,6 +78,7 @@ const sendSkillsMessage = async author => {
 	await message.react('4⃣');
 	await message.react('5⃣');
 	await message.react('6⃣');
+	await message.react('7⃣');
 	await message.react('✅');
 	return message;
 };
