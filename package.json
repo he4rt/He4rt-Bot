@@ -34,6 +34,7 @@
     "lodash": "^4.17.13",
     "mathjs": "^5.4.2",
     "moment": "^2.24.0",
+    "node-schedule": "^1.3.2",
     "slot-machine": "^2.1.0",
     "snekfetch": "^4.0.4",
     "sqlite3": "^4.0.6",
