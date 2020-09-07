@@ -12,12 +12,6 @@ client.axios = axios.create({
 	headers: { 'Api-Key': process.env.HE4RT_TOKEN },
 });
 
-client.devwars = axios.create({
-	baseURL: process.env.DEVWARS_API,
-	timeout: 5000,
-	headers: { 'Api-Key': process.env.DEVWARS_TOKEN },
-});
-
 client.commands = new Enmap();
 
 const init = async () => {

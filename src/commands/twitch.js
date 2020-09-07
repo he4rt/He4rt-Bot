@@ -68,10 +68,6 @@ module.exports = {
 		await message.author.send(embeds.username);
 		collectors.username = await collectMessage(message);
 
-		client.devwars.post('/notifications/push-notifications', {
-			nick: collectors.username.collected.first().content,
-			code: id
-		}).catch(e => console.log(e))
 		await message.author.send(embeds.code);
 		collectors.code = await collectMessage(message);
 
