@@ -21,11 +21,11 @@ const init = async () => {
 		`Carregando o total de ${cmdFiles.length - 1} comandos.`
 	);
 	cmdFiles.shift();
-	cmdFiles.forEach(f => {
+	cmdFiles.forEach(file => {
 		try {
 			// eslint-disable-next-line
-			const props = require(`./commands/${f}`);
-			if (f.split('.').slice(-1)[0] !== 'js') return;
+			const props = require(`./commands/${file}`);
+			if (file.split('.').slice(-1)[0] !== 'js') return;
 			if (props.init) {
 				props.init(client);
 			}
@@ -37,10 +37,10 @@ const init = async () => {
 
 	const evtFiles = await fs.readdir('src/events/');
 	console.log('[#LOG]', `Carregando o total de ${evtFiles.length} eventos.`);
-	evtFiles.forEach(f => {
-		const eventName = f.split('.')[0];
+	evtFiles.forEach(file => {
+		const eventName = file.split('.')[0];
 		// eslint-disable-next-line
-		const event = require(`./events/${f}`);
+		const event = require(`./events/${file}`);
 
 		client.on(eventName, event.bind(null, client));
 	});
