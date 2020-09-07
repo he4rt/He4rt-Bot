@@ -41,7 +41,7 @@ module.exports = async (client, oldMember, newMember) => {
 		.get(process.env.GUILD_ID)
 		.createChannel(channelName, 'voice');
 
-	await createdChan.setParent(process.env.COWORKING_PARENT_ID);
+	await createdChan.setParent(process.env.COWORKING_CATEGORY_ID);
 	newMember.setVoiceChannel(createdChan);
 	userChannelRelation[newMember.user.id] = createdChan.id;
 };

@@ -2,6 +2,7 @@ const Discord = require('discord.js');
 const fs = require('fs-extra');
 const Enmap = require('enmap');
 const axios = require('axios');
+const initializeJobs = require('./jobs/index');
 
 const client = new Discord.Client({ forceFetchUsers: true });
 require('dotenv').config();
@@ -47,8 +48,12 @@ const init = async () => {
 
 	client.on('error', err => console.error('[#ERROR]', err));
 
-	client.login(process.env.AUTH_TOKEN);
+	await client.login(process.env.AUTH_TOKEN);
+
+	// Initialize scheduled jobs
+	initializeJobs(client);
 };
+
 init();
 
 module.exports = client.commands;
