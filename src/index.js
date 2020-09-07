@@ -31,7 +31,7 @@ const init = async () => {
 			}
 			client.commands.set(props.command.name, props);
 		} catch (e) {
-			console.log(`[#ERROR] Impossivel executar comando ${f}: ${e}`);
+			console.log(`[#ERROR] Impossivel executar comando ${file}: ${e}`);
 		}
 	});
 
