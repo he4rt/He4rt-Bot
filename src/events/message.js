@@ -61,8 +61,8 @@ const runCommand = async (client, message) => {
 		message.channel.id === process.env.SUGGESTION_CHAT ||
 		message.channel.id === process.env.SEARCH_CHAT
 	) {
-		message.react('✅');
-		message.react('❌');
+		await message.react('✅');
+		await message.react('❌');
 	}
 
 	if (!util.isCommand(message)) return;
@@ -137,9 +137,9 @@ module.exports = async (client, message) => {
 		message.channel.send('tarde!');
 	}
 	if (message.channel.id === process.env.APPRENTICESHIP_CHAT) {
-		message.react(client.emojis.get('551856304759504910'));
-		message.react(client.emojis.get('551856305007231033'));
-		message.react(client.emojis.get('547614831432302631'));
+		await message.react(client.emojis.get('551856304759504910'));
+		await message.react(client.emojis.get('551856305007231033'));
+		await message.react(client.emojis.get('547614831432302631'));
 	}
 
 	await Promise.all([
