@@ -1,0 +1,3 @@
+{
+  "window.title": "${dirty}${activeEditorShort}${separator}${rootName}${separator}${appName} ${separator} [Branch: new-api]"
+}
