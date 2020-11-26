@@ -38,7 +38,7 @@ Antes de fazer qualquer contribuição leia <a href="">CONTRIBUTING.md</a>.
 
 ## 👥 Contribuidores
 
-Obrigado a todos os contirbuidores:
+Obrigado a todos os contribuidores:
 
 <table>
   <tr>
