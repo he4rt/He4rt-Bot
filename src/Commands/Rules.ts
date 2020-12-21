@@ -23,7 +23,7 @@ const rules = `
 const command = Command({
   description: "Envia as regras para o usuário.",
   permissions: ["MANAGE_GUILD"],
-  help: ":x:Como usar: `!rules`",
+  help: ":x: Como usar: `!rules`",
   run: async ({ textChannels }) => {
     await textChannels.get(env.RULES_CHAT)!.send(rules)
   },
