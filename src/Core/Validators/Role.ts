@@ -28,7 +28,7 @@ export default class RoleValidator implements Validator {
 
   private validatePermissions({ message }: Context, command: Command): void {
     for (const permission of command.permissions) {
-      if (!message.member.hasPermission(permission as PermissionResolvable)) {
+      if (!message.member!.hasPermission(permission as PermissionResolvable)) {
         this._failed = true
 
         const unauthorizedMessage =

@@ -2,35 +2,32 @@ import {
   Message,
   StringResolvable,
   MessageOptions,
-  RichEmbed,
-  Attachment,
   GuildMember,
   Collection,
   Snowflake,
   TextChannel,
   VoiceChannel,
-  PermissionOverwriteOptions,
   Role,
   RoleData,
   ChannelLogsQueryOptions,
   Client,
+  PermissionOverwriteOption,
+  MessageEmbed,
 } from "discord.js"
+
+type MessageContent = StringResolvable | MessageEmbed
 
 export default interface Context {
   client: Client
   message: Message
   send(
-    content?: StringResolvable,
-    options?: MessageOptions | RichEmbed | Attachment
-  ): Promise<Message | Message[]>
-  send(
-    options?: MessageOptions | RichEmbed | Attachment
-  ): Promise<Message | Message[]>
-  reply(
-    content?: StringResolvable,
+    content: MessageContent,
     options?: MessageOptions
   ): Promise<Message | Message[]>
-  reply(options?: MessageOptions): Promise<Message | Message[]>
+  reply(
+    content: MessageContent,
+    options?: MessageOptions
+  ): Promise<Message | Message[]>
   command: string
   arg: string
   args: string[]
@@ -39,20 +36,18 @@ export default interface Context {
     role(name: string | RegExp): Role
     hasRole(name: string | RegExp): boolean
   }
-  members: () => GuildMember[]
+  getMembers: () => Promise<GuildMember[]>
   textChannels: Collection<Snowflake, TextChannel>
   voiceChannels: Collection<Snowflake, VoiceChannel>
   createRole(data?: RoleData, reason?: string): Promise<Role>
   setRolePermissions(
     role: string,
-    permissions: PermissionOverwriteOptions
+    permissions: PermissionOverwriteOption
   ): Promise<void>
   getChannelMessages(
     options?: ChannelLogsQueryOptions
   ): Promise<Collection<string, Message>>
-  deleteChannelMessages(
-    options?: ChannelLogsQueryOptions
-  ): Promise<Collection<string, Message>>
+  deleteChannelMessages(options?: ChannelLogsQueryOptions): Promise<void>
   getMentionedUsers: () => GuildMember[]
   hasMentionedUsers: () => boolean
 }

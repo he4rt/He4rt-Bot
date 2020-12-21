@@ -59,6 +59,7 @@ export default class Ignitor {
     ])
 
     await this.client.login(env.AUTH_TOKEN)
+
     console.log("Bot on")
   }
 }

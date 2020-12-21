@@ -31,7 +31,7 @@ const command = Command({
 
       await Promise.all([
         send(`Cor criada com sucesso! hex(${newRole.color})`),
-        user.addRole(newRole),
+        user.roles.add(newRole),
       ])
 
       return

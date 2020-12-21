@@ -20,20 +20,21 @@ const command = Command({
     }
   },
   run: async ({ client, arg }) => {
+    /* redo this
     client.channels
       .filter(
-        (channel) =>
+        channel =>
           !/Reunião/i.test((channel as any).name) &&
           !/My Bot Server/i.test((channel as any).name)
       )
-      .forEach((channel) =>
+      .forEach(channel =>
         (channel as any).replacePermissionOverwrites({
-          overwrites: client.users.map((user) => ({
+          overwrites: client.users.map(user => ({
             id: user.id,
             denied: arg === "on" ? ["VIEW_CHANNEL"] : [],
           })),
         })
-      )
+      ) */
   },
 })
 export default command

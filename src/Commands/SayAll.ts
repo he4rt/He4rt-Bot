@@ -14,14 +14,16 @@ const command = Command({
       throw new InvalidArgsException(command.help)
     }
   },
-  run: async ({ args, send, members }) => {
+  run: async ({ args, send, getMembers }) => {
     const message = args.join(" ")
 
     await send(
       "Enviando mensagem para todos os usuários...\n``❗`` Vai retornar algum erro."
     )
 
-    await Promise.all(members().map((member) => member.send(message)))
+    const members = await getMembers()
+
+    await Promise.all(members.map((member) => member.send(message)))
   },
 })
 export default command
