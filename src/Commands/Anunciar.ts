@@ -1,4 +1,4 @@
-import { RichEmbed } from "discord.js"
+import { MessageEmbed } from "discord.js"
 
 import Command from "@core/Contracts/Command"
 import InvalidArgsException from "@core/Exceptions/InvalidArgs"
@@ -15,7 +15,7 @@ const command = Command({
   run: async ({ args, send }) => {
     const message = args.join(" ").trim()
 
-    const announcement = new RichEmbed()
+    const announcement = new MessageEmbed()
       .setTitle("``🔔`` **Heart informa:**")
       .setDescription(message)
       .setColor("#8146DC")

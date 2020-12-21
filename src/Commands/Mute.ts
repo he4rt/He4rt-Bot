@@ -1,5 +1,5 @@
 import env from "@/env"
-import { RichEmbed } from "discord.js"
+import { MessageEmbed } from "discord.js"
 
 import Command from "@core/Contracts/Command"
 import InvalidArgsException from "@core/Exceptions/InvalidArgs"
@@ -20,7 +20,7 @@ const command = Command({
 
     const muteReason = args.join(" ").trim()
 
-    const infoEmbed = new RichEmbed()
+    const infoEmbed = new MessageEmbed()
       .setTitle("``🚔`` » Punição")
       .addField("``👤`` **Usuário mutado:**", userToMute.user, true)
       .addField("``👮`` **Mutado por:**", user.name(), true)
@@ -35,7 +35,7 @@ const command = Command({
       .setTimestamp()
 
     await send(
-      new RichEmbed()
+      new MessageEmbed()
         .setTitle("``✅`` Usuário mutado com sucesso.")
         .addField("**Motivo: **", muteReason, true)
     )

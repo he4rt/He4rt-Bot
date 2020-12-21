@@ -27,16 +27,19 @@ export default class MessageTransformer {
       command,
       arg: args[0] || "",
       args,
-      members: () => client.guilds.get(env.GUILD_ID)!.members.array(),
+      members: () =>
+        client.guilds
+          .fetch(env.GUILD_ID)!
+          .then((guild) => guild.members.array()),
       send: message.channel.send.bind(message.channel),
       reply: message.reply.bind(message),
       user: {
         ...message.member,
         name: (): string => message.author.tag,
         role: (name: string | RegExp): Role =>
-          message.member.roles.find((r) => new RegExp(name).test(r.name)),
+          message.member!.roles.find((r) => new RegExp(name).test(r.name)),
         hasRole: (name: string | RegExp): boolean =>
-          message.member.roles.some((r) => new RegExp(name).test(r.name)),
+          message.member!.roles.some((r) => new RegExp(name).test(r.name)),
       } as any /* change this */,
       textChannels: client.channels as Collection<string, TextChannel>,
       voiceChannels: client.channels as Collection<string, VoiceChannel>,
@@ -51,12 +54,12 @@ export default class MessageTransformer {
           permissions
         ),
       getChannelMessages: (options?: ChannelLogsQueryOptions) =>
-        message.channel.fetchMessages(options),
+        message.channel.messages.fetch(options),
       deleteChannelMessages: (options?: ChannelLogsQueryOptions) =>
-        message.channel
-          .fetchMessages(options)
+        message.channel.messages
+          .fetch(options)
           .then((messages) => message.channel.bulkDelete(messages)),
-      getMentionedUsers: () => message.mentions.members.array(),
+      getMentionedUsers: () => message.mentions.members?.array(),
       hasMentionedUsers: () => Boolean(message.mentions.members.first()),
     }
   }
