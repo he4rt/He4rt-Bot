@@ -10,7 +10,7 @@ interface Command {
   readonly validateAllPermissions: boolean
   readonly help: string
   readonly validate: (context: Context) => Promise<void | never>
-  readonly run: (context: Context) => Promise<void>
+  readonly run: (context: Context) => Promise<unknown>
 }
 type CommandOptions = Partial<Command> & {
   help: Command["help"]

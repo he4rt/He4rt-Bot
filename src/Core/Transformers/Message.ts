@@ -4,11 +4,11 @@ import {
   Collection,
   VoiceChannel,
   TextChannel,
-  PermissionOverwriteOptions,
   GuildChannel,
   RoleData,
   Role,
   ChannelLogsQueryOptions,
+  PermissionOverwriteOption,
 } from "discord.js"
 
 import env from "@/env"
@@ -27,40 +27,55 @@ export default class MessageTransformer {
       command,
       arg: args[0] || "",
       args,
-      members: () =>
+      getMembers: () =>
         client.guilds
-          .fetch(env.GUILD_ID)!
-          .then((guild) => guild.members.array()),
+          .fetch(env.GUILD_ID)
+          .then((guild) => guild.members.fetch())
+          .then((members) => members.array()),
       send: message.channel.send.bind(message.channel),
       reply: message.reply.bind(message),
       user: {
         ...message.member,
         name: (): string => message.author.tag,
         role: (name: string | RegExp): Role =>
-          message.member!.roles.find((r) => new RegExp(name).test(r.name)),
+          message.member?.roles.cache
+            .array()
+            .find((r) => new RegExp(name).test(r.name))!,
         hasRole: (name: string | RegExp): boolean =>
-          message.member!.roles.some((r) => new RegExp(name).test(r.name)),
+          message
+            .member!.roles.cache.array()
+            .some((r) => new RegExp(name).test(r.name)),
       } as any /* change this */,
-      textChannels: client.channels as Collection<string, TextChannel>,
-      voiceChannels: client.channels as Collection<string, VoiceChannel>,
+      textChannels: client.channels.cache as Collection<string, TextChannel>,
+      voiceChannels: client.channels.cache as Collection<string, VoiceChannel>,
       createRole: (data?: RoleData, reason?: string) =>
-        message.guild.createRole(data, reason),
-      setRolePermissions: (
+        message.guild!.roles.create({ data, reason }),
+      setRolePermissions: async (
         roleName: string,
-        permissions: PermissionOverwriteOptions
-      ) =>
-        (message.channel as GuildChannel).overwritePermissions(
-          message.guild.roles.find(({ name }) => name === roleName),
-          permissions
-        ),
+        permissions: PermissionOverwriteOption
+      ) => {
+        const role = message.guild!.roles.cache.find(
+          ({ name }) => name === roleName
+        )
+        if (!role) {
+          return // handle me
+        }
+
+        const guildChannel = message.channel as GuildChannel
+
+        await guildChannel.updateOverwrite(role, permissions)
+      },
       getChannelMessages: (options?: ChannelLogsQueryOptions) =>
         message.channel.messages.fetch(options),
-      deleteChannelMessages: (options?: ChannelLogsQueryOptions) =>
-        message.channel.messages
-          .fetch(options)
-          .then((messages) => message.channel.bulkDelete(messages)),
-      getMentionedUsers: () => message.mentions.members?.array(),
-      hasMentionedUsers: () => Boolean(message.mentions.members.first()),
+      deleteChannelMessages: async (options?: ChannelLogsQueryOptions) => {
+        const messages = await message.channel.messages.fetch(options)
+
+        const textChannel = message.channel as TextChannel
+
+        await textChannel.bulkDelete(messages)
+      },
+      getMentionedUsers: () => message.mentions.members!.array(),
+      hasMentionedUsers: () => message.mentions.members!.size > 0,
     }
   }
 }

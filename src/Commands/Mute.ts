@@ -16,7 +16,7 @@ const command = Command({
   run: async ({ args, send, user, getMentionedUsers, textChannels }) => {
     const [userToMute] = getMentionedUsers()
 
-    userToMute.addRole(env.MUTED_ROLE)
+    userToMute.roles.add(env.MUTED_ROLE)
 
     const muteReason = args.join(" ").trim()
 
@@ -26,7 +26,7 @@ const command = Command({
       .addField("``👮`` **Mutado por:**", user.name(), true)
       .addField("``📄`` **Tipo:**", "Mute", true)
       .addField("``📣`` **Motivo:**", muteReason, true)
-      .setThumbnail(userToMute.user.avatarURL)
+      .setThumbnail(userToMute.user.avatar!)
       .setColor("#8146DC")
       .setFooter(
         "2019 © He4rt Developers",
