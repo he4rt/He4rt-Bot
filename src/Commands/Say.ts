@@ -15,8 +15,6 @@ const command = Command({
       .min(1)
       .required()
       .isValid(args),
-  run: async ({ args, send }) => {
-    await send(args.join(" ").trim())
-  },
+  run: ({ args, send }) => send(args.join(" ").trim()),
 })
 export default command

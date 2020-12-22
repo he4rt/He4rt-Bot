@@ -1,9 +1,10 @@
 import Command from "@core/Contracts/Command"
 import * as yup from "yup"
+import { permissions } from "@/Core/Misc/Permissions"
 
 const command = Command({
   description: "Limpa o chat",
-  permissions: ["MANAGE_GUILD"],
+  permissions: [permissions.MANAGE_GUILD],
   validate: ({ arg }) =>
     yup
       .number()
