@@ -26,19 +26,24 @@ const memberToUser = (member: GuildMember) => ({
     member.roles.cache.find((role) => role.name.includes(roleName)),
   hasRole: (roleId: string) =>
     member.roles.cache.some((role) => role.id === roleId),
+  sendDirectMessage: member.send.bind(member),
 })
+
+const isMention = (value: string) => /(^<@!\d+>$)/.test(value)
 
 export const toContext = (message: Message): Context => {
   const [command, ...args] = message.content.slice(1).split(" ")
 
   const member = message.member as GuildMember
 
+  const argsWithoutMentions = args.filter((arg) => !isMention(arg))
+
   return {
     client: message.client,
     message,
     command,
-    arg: args[0] || "",
-    args,
+    arg: argsWithoutMentions[0] || "",
+    args: argsWithoutMentions,
     getMembers: () =>
       message.client.guilds
         .fetch(env.GUILD_ID)

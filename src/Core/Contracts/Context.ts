@@ -29,6 +29,10 @@ type User = {
   removeRole: (role: Role | string) => Promise<GuildMember>
   getRole(role: string | RegExp): Role | undefined
   hasRole(role: string | RegExp): boolean
+  sendDirectMessage: (
+    content: MessageContent,
+    options?: MessageOptions
+  ) => Promise<Message | Message[]>
 }
 
 export default interface Context {
