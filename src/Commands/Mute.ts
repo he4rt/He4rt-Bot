@@ -32,7 +32,7 @@ const command = Command({
       .info()
       .setTitle("``🚔`` » Punição")
       .addField("``👤`` **Usuário mutado:**", userToMute.user)
-      .addField("``👮`` **Mutado por:**", user.name())
+      .addField("``👮`` **Mutado por:**", user.name)
       .addField("``📄`` **Tipo:**", "Mute")
       .addField("``📣`` **Motivo:**", muteReason)
 

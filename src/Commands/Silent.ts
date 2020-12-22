@@ -10,9 +10,9 @@ const command = Command({
     const hasRole = user.hasRole(role)
 
     if (hasRole) {
-      await user.roles.remove(role)
+      await user.removeRole(role)
     } else {
-      await user.roles.add(role)
+      await user.addRole(role)
     }
 
     await send(

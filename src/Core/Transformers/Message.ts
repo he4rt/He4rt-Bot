@@ -8,6 +8,8 @@ import {
   RoleData,
   ChannelLogsQueryOptions,
   PermissionOverwriteOption,
+  Role,
+  GuildMember,
 } from "discord.js"
 
 import env from "@/env"
@@ -15,6 +17,18 @@ import Context from "@core/Contracts/Context"
 
 export const toContext = (message: Message): Context => {
   const [command, ...args] = message.content.slice(1).split(" ")
+
+  const member = message.member as GuildMember
+
+  const user = {
+    name: message.author.tag,
+    addRole: (role: Role | string) => member.roles.add(role),
+    removeRole: (role: Role | string) => member.roles.remove(role),
+    getRole: (roleName: string) =>
+      member.roles.cache.find((role) => role.name.includes(roleName)),
+    hasRole: (roleId: string) =>
+      member.roles.cache.some((role) => role.id === roleId),
+  }
 
   return {
     client: message.client,
@@ -29,27 +43,7 @@ export const toContext = (message: Message): Context => {
         .then((members) => members.array()),
     send: message.channel.send.bind(message.channel),
     reply: message.reply.bind(message),
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    user: {
-      ...message.member,
-      name: (): string => message.author.tag,
-      role: (name: string | RegExp) =>
-        message.member?.roles.cache
-          .array()
-          .find((r) => new RegExp(name).test(r.name)),
-      hasRole: (name: string | RegExp) => {
-        const { member } = message
-
-        if (!member) {
-          return false
-        }
-
-        return member.roles.cache
-          .array()
-          .some((r) => new RegExp(name).test(r.name))
-      },
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } as any /* change this */,
+    user,
     textChannels: message.client.channels.cache as Collection<
       string,
       TextChannel
