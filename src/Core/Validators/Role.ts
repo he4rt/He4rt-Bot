@@ -4,7 +4,7 @@ import Context from "@core/Contracts/Context"
 import Validator from "@core/Contracts/Validator"
 import Command from "@core/Contracts/Command"
 
-export const validate: Validator = async (ctx: Context, command: Command) => {
+export const validate: Validator = (ctx: Context, command: Command) => {
   const messages: string[] = []
   let failed = false
 
