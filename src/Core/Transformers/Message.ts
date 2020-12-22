@@ -24,10 +24,14 @@ export const toContext = (message: Message): Context => {
     name: message.author.tag,
     addRole: (role: Role | string) => member.roles.add(role),
     removeRole: (role: Role | string) => member.roles.remove(role),
-    getRole: (roleName: string) =>
-      member.roles.cache.find((role) => role.name.includes(roleName)),
-    hasRole: (roleId: string) =>
-      member.roles.cache.some((role) => role.id === roleId),
+    getRole: (value: string) =>
+      member.roles.cache.find(
+        (role) => role.name.includes(value) || role.id === value
+      ),
+    hasRole: (value: string) =>
+      member.roles.cache.some(
+        (role) => role.id === value || role.name === value
+      ),
   }
 
   return {
