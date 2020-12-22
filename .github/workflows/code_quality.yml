@@ -20,8 +20,14 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
+      - name: Install dependencies
+        if: steps.yarn-cache.outputs.cache-hit != 'true'
+        run: yarn
+
       - name: Lint
         uses: bradennapier/eslint-plus-action@v3.4.2
+        with:
+          npmInstall: false
 
       - name: Typecheck
         uses: andoshin11/typescript-error-reporter-action@v1.0.2
