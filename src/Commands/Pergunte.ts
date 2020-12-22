@@ -16,16 +16,14 @@ const command = Command({
       .setTitle("Não peça para perguntar")
       .setDescription(
         dedent`
-				${mentionedUser ? `Ei ${mentionedUser.toString()}` : ""}
 				Explique o problema
 				Mostre o que você tentou
 				Mostre o que deu errado
 			`
       )
       .setImage(linusSayingTalkIsCheap)
-      .setColor("#8146DC")
 
-    await send(answer)
+    await send(mentionedUser, answer)
   },
 })
 export default command
