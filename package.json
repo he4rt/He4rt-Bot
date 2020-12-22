@@ -22,6 +22,7 @@
   "devDependencies": {
     "@types/dedent": "^0.7.0",
     "@types/jest": "^24.0.25",
+    "@types/mathjs": "^6.0.9",
     "@types/node": "^14.14.14",
     "@types/ramda": "^0.27.34",
     "@types/yup": "^0.29.11",
@@ -49,6 +50,7 @@
     "dedent": "^0.7.0",
     "discord.js": "^12.5.1",
     "dotenv": "^8.2.0",
+    "mathjs": "^8.1.0",
     "minisearch": "^3.0.2",
     "module-alias": "^2.2.2",
     "ramda": "^0.27.1",
