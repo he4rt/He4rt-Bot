@@ -2,10 +2,11 @@ import env from "@/env"
 import Command from "@core/Contracts/Command"
 import * as embed from "@/Core/Misc/Embeds"
 import * as yup from "yup"
+import { permissions } from "@core/Misc/Permissions"
 
 const command = Command({
   description: "Muta um usuário",
-  permissions: ["BAN_MEMBERS"],
+  permissions: [permissions.BAN_MEMBERS],
   help: ":x: Como usar: `!mute <nick> <motivo>`",
   validate: ({ args, hasMentionedUsers }) =>
     yup
