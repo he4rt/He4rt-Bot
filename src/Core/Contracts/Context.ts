@@ -31,10 +31,12 @@ export default interface Context {
   command: string
   arg: string
   args: string[]
-  user: GuildMember & {
-    name(): string
-    role(name: string | RegExp): Role | undefined
-    hasRole(name: string | RegExp): boolean
+  user: {
+    name: string
+    addRole: (role: Role | string) => Promise<GuildMember>
+    removeRole: (role: Role | string) => Promise<GuildMember>
+    getRole(role: string | RegExp): Role | undefined
+    hasRole(role: string | RegExp): boolean
   }
   getMembers: () => Promise<GuildMember[]>
   textChannels: Collection<Snowflake, TextChannel>

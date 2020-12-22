@@ -23,7 +23,7 @@ const command = Command({
 
     if (!user.hasRole(roleName)) {
       const newRole = await createRole({
-        name: user.name(),
+        name: user.name,
         mentionable: false,
         position: 60,
         color,
@@ -31,21 +31,20 @@ const command = Command({
 
       await Promise.all([
         send(`Cor criada com sucesso! hex(${newRole.color})`),
-        user.roles.add(newRole),
+        user.addRole(newRole),
       ])
 
       return
     }
 
-    const role = user.role(roleName)
+    const role = user.getRole(roleName)
 
     if (!role) {
       return
     }
 
-    const username = user.name()
-    if (role.name !== username) {
-      await role.setName(username)
+    if (role.name !== user.name) {
+      await role.setName(user.name)
     }
 
     const newRole = await role.setColor(color)
