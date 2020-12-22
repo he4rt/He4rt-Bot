@@ -15,8 +15,7 @@ const command = Command({
       .isValid(arg),
   help: ":x: Como usar: `!clear <quantidade_mensagens(min:1|max:100)>`",
   run: async ({ arg, deleteChannelMessages }) => {
-    const userMessage = 1
-    const limit = parseInt(arg, 10) + userMessage
+    const limit = parseInt(arg, 10)
 
     await deleteChannelMessages({ limit })
   },

@@ -17,8 +17,8 @@ const command = Command({
 
     await send(
       hasRole
-        ? "Você receberá mensagens da equipe"
-        : "Você não receberá mensagens da equipe"
+        ? "Você não receberá mensagens da equipe"
+        : "Você receberá mensagens da equipe"
     )
   },
 })
