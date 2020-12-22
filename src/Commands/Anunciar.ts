@@ -1,17 +1,18 @@
 import { MessageEmbed } from "discord.js"
 
 import Command from "@core/Contracts/Command"
-import InvalidArgsException from "@core/Exceptions/InvalidArgs"
+import * as yup from "yup"
 
 const command = Command({
   description: "Faz o bot anunciar algo no chat usando everyone",
   permissions: ["MANAGE_GUILD"],
   help: ":x: Como usar: `!anunciar <mensagem>`",
-  validate: async ({ args }) => {
-    if (args.length === 0) {
-      throw new InvalidArgsException(command.help)
-    }
-  },
+  validate: ({ args }) =>
+    yup
+      .array()
+      .min(1)
+      .required()
+      .isValid(args),
   run: async ({ args, send }) => {
     const message = args.join(" ").trim()
 

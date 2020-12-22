@@ -25,7 +25,13 @@ const command = Command({
   permissions: ["MANAGE_GUILD"],
   help: ":x: Como usar: `!rules`",
   run: async ({ textChannels }) => {
-    await textChannels.get(env.RULES_CHAT)!.send(rules)
+    const rulesChat = textChannels.get(env.RULES_CHAT)
+
+    if (!rulesChat) {
+      return // log?
+    }
+
+    await rulesChat.send(rules)
   },
 })
 export default command

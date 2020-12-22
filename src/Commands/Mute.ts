@@ -2,21 +2,23 @@ import env from "@/env"
 import { MessageEmbed } from "discord.js"
 
 import Command from "@core/Contracts/Command"
-import InvalidArgsException from "@core/Exceptions/InvalidArgs"
+import * as yup from "yup"
 
 const command = Command({
   description: "Muta um usuário",
   permissions: ["BAN_MEMBERS"],
   help: ":x: Como usar: `!mute <nick> <motivo>`",
-  validate: async ({ args, hasMentionedUsers }) => {
-    if (!hasMentionedUsers() || args.length <= 2) {
-      throw new InvalidArgsException(command.help)
-    }
-  },
+  validate: ({ args, hasMentionedUsers }) =>
+    yup
+      .array()
+      .min(2)
+      .required()
+      .test(hasMentionedUsers)
+      .isValid(args),
   run: async ({ args, send, user, getMentionedUsers, textChannels }) => {
     const [userToMute] = getMentionedUsers()
 
-    userToMute.roles.add(env.MUTED_ROLE)
+    await userToMute.roles.add(env.MUTED_ROLE)
 
     const muteReason = args.join(" ").trim()
 

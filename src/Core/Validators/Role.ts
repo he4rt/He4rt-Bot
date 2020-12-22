@@ -4,8 +4,9 @@ import Context from "@core/Contracts/Context"
 import Validator from "@core/Contracts/Validator"
 import Command from "@core/Contracts/Command"
 
-export default class RoleValidator implements Validator {
+export default new (class RoleValidator implements Validator {
   private _failed = false
+
   private _messages: string[] = []
 
   private validateRoles({ user }: Context, command: Command): void {
@@ -28,7 +29,12 @@ export default class RoleValidator implements Validator {
 
   private validatePermissions({ message }: Context, command: Command): void {
     for (const permission of command.permissions) {
-      if (!message.member!.hasPermission(permission as PermissionResolvable)) {
+      const { member } = message
+      if (!member) {
+        return
+      }
+
+      if (!member.hasPermission(permission as PermissionResolvable)) {
         this._failed = true
 
         const unauthorizedMessage =
@@ -61,4 +67,4 @@ export default class RoleValidator implements Validator {
   public messages(): string[] {
     return this._messages
   }
-}
+})()

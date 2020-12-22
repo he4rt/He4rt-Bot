@@ -1,6 +1,6 @@
 import env from "@/env"
 import Command from "@core/Contracts/Command"
-import InvalidArgsException from "@core/Exceptions/InvalidArgs"
+import * as yup from "yup"
 
 const command = Command({
   description: "Coloca o servidor em modo reunião.",
@@ -9,17 +9,12 @@ const command = Command({
     [env.ADMIN_ROLE]: "Apenas administradores podem usar esse comando",
   },
   help: ":x: Como usar: `!reuniao <on|off>`",
-  validate: async ({ arg }) => {
-    const states = {
-      on: 1,
-      off: 2,
-    }
-
-    if (!(arg in states)) {
-      throw new InvalidArgsException(command.help)
-    }
-  },
-  run: async ({ client, arg }) => {
+  validate: ({ arg }) =>
+    yup
+      .string()
+      .oneOf(["on", "off"])
+      .isValid(arg),
+  run: async (_context) => {
     /* redo this
     client.channels
       .filter(

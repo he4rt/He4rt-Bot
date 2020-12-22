@@ -33,7 +33,7 @@ export default interface Context {
   args: string[]
   user: GuildMember & {
     name(): string
-    role(name: string | RegExp): Role
+    role(name: string | RegExp): Role | undefined
     hasRole(name: string | RegExp): boolean
   }
   getMembers: () => Promise<GuildMember[]>
