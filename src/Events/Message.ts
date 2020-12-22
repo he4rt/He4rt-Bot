@@ -3,8 +3,8 @@ import { Message as DiscordMessage } from "discord.js"
 import env from "@/env"
 import EventHandler from "@/Core/Contracts/EventHandler"
 import Context from "@core/Contracts/Context"
-import roleValidator from "@core/Validators/Role"
-import messageTransformer from "@core/Transformers/Message"
+import * as roleValidator from "@core/Validators/Role"
+import * as messageTransformer from "@core/Transformers/Message"
 import bot from "@/Core/Bot"
 
 const onMessage: EventHandler = {
@@ -14,7 +14,7 @@ const onMessage: EventHandler = {
       return
     }
 
-    const context: Context = messageTransformer(message)
+    const context: Context = messageTransformer.toContext(message)
 
     try {
       const command = bot.getCommand(context.command)
@@ -26,10 +26,10 @@ const onMessage: EventHandler = {
         return
       }
 
-      await roleValidator.validate(context, command)
+      const validationMessages = await roleValidator.validate(context, command)
 
-      if (roleValidator.failed()) {
-        await message.channel.send(roleValidator.messages())
+      if (validationMessages.length > 0) {
+        await message.channel.send(validationMessages)
         return
       }
 

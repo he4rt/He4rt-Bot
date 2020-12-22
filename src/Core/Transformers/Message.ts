@@ -13,7 +13,7 @@ import {
 import env from "@/env"
 import Context from "@core/Contracts/Context"
 
-const messageTransformer = (message: Message): Context => {
+export const toContext = (message: Message): Context => {
   const [command, ...args] = message.content.slice(1).split(" ")
 
   return {
@@ -109,5 +109,3 @@ const messageTransformer = (message: Message): Context => {
     },
   }
 }
-
-export default messageTransformer
