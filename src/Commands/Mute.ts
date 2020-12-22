@@ -25,21 +25,18 @@ const command = Command({
 
     const [userToMute] = getMentionedUsers()
 
-    await userToMute.roles.add(env.MUTED_ROLE)
+    await userToMute.addRole(env.MUTED_ROLE)
 
     const muteReason = args.join(" ").trim()
 
     const infoEmbed = embed
       .info()
       .setTitle("``🚔`` » Punição")
-      .addField("``👤`` **Usuário mutado:**", userToMute.user)
+      .addField("``👤`` **Usuário mutado:**", userToMute)
       .addField("``👮`` **Mutado por:**", user.name)
       .addField("``📄`` **Tipo:**", "Mute")
       .addField("``📣`` **Motivo:**", muteReason)
-
-    if (userToMute.user.avatar) {
-      infoEmbed.setThumbnail(userToMute.user.avatar)
-    }
+      .setThumbnail(userToMute.avatar)
 
     await Promise.all([
       send(
@@ -48,7 +45,7 @@ const command = Command({
           .setTitle("``✅`` Usuário mutado com sucesso.")
           .addField("**Motivo: **", muteReason)
       ),
-      userToMute.send("Você foi mutado, mais informações abaixo.", infoEmbed),
+      send("Você foi mutado, mais informações abaixo.", infoEmbed),
       punishmentChannel.send(infoEmbed),
     ])
   },
