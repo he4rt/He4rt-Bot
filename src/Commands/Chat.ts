@@ -1,6 +1,6 @@
 import env from "@/env"
 import Command from "@core/Contracts/Command"
-import InvalidArgsException from "@core/Exceptions/InvalidArgs"
+import * as yup from "yup"
 
 const command = Command({
   description: "Ao usar o comando irá ativar ou desativar o chat",
@@ -9,11 +9,12 @@ const command = Command({
     [env.ADMIN_ROLE]: "Apenas administradores podem usar esse comando",
   },
   help: ":x: Como usar: `!chat <on/off>`",
-  validate: async ({ arg }) => {
-    if (arg !== "on" && arg !== "off") {
-      throw new InvalidArgsException(command.help)
-    }
-  },
+  validate: ({ arg }) =>
+    yup
+      .string()
+      .oneOf(["on", "off"])
+      .required()
+      .isValid(arg),
   run: async ({ arg, send, setRolePermissions }) => {
     const SEND_MESSAGES = arg === "on"
 

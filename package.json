@@ -1,6 +1,6 @@
 {
-  "name": "rewardy",
-  "version": "1.0.0",
+  "name": "heart_bot_v2",
+  "version": "2.0.0",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
@@ -21,20 +21,24 @@
   },
   "devDependencies": {
     "@types/jest": "^24.0.25",
-    "@typescript-eslint/eslint-plugin": "^2.14.0",
-    "@typescript-eslint/parser": "^2.14.0",
-    "eslint": "^5.16.0",
+    "@types/node": "^14.14.14",
+    "@types/ramda": "^0.27.34",
+    "@types/yup": "^0.29.11",
+    "@typescript-eslint/eslint-plugin": "^4.11.0",
+    "@typescript-eslint/parser": "^4.11.0",
+    "eslint": "^7.16.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-airbnb-typescript": "^12.0.0",
     "eslint-config-prettier": "^6.9.0",
     "eslint-config-standard": "^14.1.0",
-    "eslint-plugin-import": "^2.18.2",
+    "eslint-import-resolver-typescript": "^2.3.0",
+    "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-node": "^11.0.0",
     "eslint-plugin-prettier": "^3.1.2",
     "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-standard": "^4.0.1",
     "husky": "^4.0.0-beta.5",
     "jest": "^24.9.0",
     "lint-staged": "^9.5.0",
-    "module-alias": "^2.2.2",
     "prettier": "^1.19.1",
     "ts-node": "^9.1.1",
     "typescript": "^3.7.4"
@@ -42,7 +46,11 @@
   "dependencies": {
     "@vitalets/google-translate-api": "^3.0.0",
     "discord.js": "^12.5.1",
-    "dotenv": "^8.2.0"
+    "dotenv": "^8.2.0",
+    "minisearch": "^3.0.2",
+    "module-alias": "^2.2.2",
+    "ramda": "^0.27.1",
+    "yup": "^0.32.8"
   },
   "husky": {
     "hooks": {
@@ -56,5 +64,59 @@
     "semi": false,
     "singleQuote": false,
     "arrowParens": "always"
+  },
+  "eslintConfig": {
+    "parserOptions": {
+      "project": "./tsconfig.json"
+    },
+    "extends": [
+      "airbnb-typescript/base",
+      "plugin:@typescript-eslint/recommended",
+      "plugin:@typescript-eslint/recommended-requiring-type-checking",
+      "plugin:prettier/recommended",
+      "prettier/@typescript-eslint"
+    ],
+    "rules": {
+      "import/prefer-default-export": "off",
+      "@typescript-eslint/no-unsafe-return": "off",
+      "@typescript-eslint/no-unsafe-assignment": "off",
+      "@typescript-eslint/no-unsafe-call": "off",
+      "@typescript-eslint/no-unsafe-member-access": "off",
+      "class-methods-use-this": "off",
+      "no-underscore-dangle": "off",
+      "no-unused-vars": [
+        2,
+        {
+          "args": "all",
+          "argsIgnorePattern": "^_+"
+        }
+      ],
+      "@typescript-eslint/no-unused-vars": [
+        2,
+        {
+          "args": "all",
+          "argsIgnorePattern": "^_+"
+        }
+      ],
+      "no-restricted-syntax": "off",
+      "@typescript-eslint/no-floating-promises": "error",
+      "@typescript-eslint/explicit-function-return-type": "off",
+      "@typescript-eslint/require-await": "off",
+      "no-shadow": "off",
+      "no-console": "off"
+    },
+    "settings": {
+      "import/parsers": {
+        "@typescript-eslint/parser": [
+          ".ts",
+          ".tsx"
+        ]
+      },
+      "import/resolver": {
+        "typescript": {
+          "alwaysTryTypes": true
+        }
+      }
+    }
   }
 }

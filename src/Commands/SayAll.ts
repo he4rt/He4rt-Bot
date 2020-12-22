@@ -1,6 +1,6 @@
 import env from "@/env"
 import Command from "@core/Contracts/Command"
-import InvalidArgsException from "@core/Exceptions/InvalidArgs"
+import * as yup from "yup"
 
 const command = Command({
   description: "Manda uma mensagem pelo bot para cada usuário do servidor.",
@@ -9,11 +9,12 @@ const command = Command({
     [env.ADMIN_ROLE]: "Apenas administradores podem usar esse comando.",
   },
   help: ":x: Como usar: `!sayall <message>`",
-  validate: async ({ args }) => {
-    if (args.length === 0) {
-      throw new InvalidArgsException(command.help)
-    }
-  },
+  validate: ({ args }) =>
+    yup
+      .array()
+      .min(1)
+      .required()
+      .isValid(args),
   run: async ({ args, send, getMembers }) => {
     const message = args.join(" ")
 

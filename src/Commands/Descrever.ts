@@ -1,19 +1,22 @@
+import bot from "@/Core/Bot"
 import Command from "@core/Contracts/Command"
-import InvalidArgsException from "@core/Exceptions/InvalidArgs"
-import Ioc from "@core/IoC/Ioc"
+import * as yup from "yup"
 
 const command = Command({
   description: "Mostra a descrição de um comando.",
   help: ":x: Como usar: `!descrever <comando>`",
-  validate: async ({ arg }) => {
-    if (!arg) {
-      throw new InvalidArgsException(command.help)
-    }
-  },
+  validate: ({ arg }) =>
+    yup
+      .string()
+      .required()
+      .isValid(arg),
   run: async ({ arg, send }) => {
-    const command = Ioc.use<Command>(arg)
+    const commandToDescribe = bot.getCommand(arg)
 
-    await send(command.description)
+    const answer =
+      commandToDescribe.description ?? bot.getCommandSuggestion(arg)
+
+    await send(answer)
   },
 })
 export default command

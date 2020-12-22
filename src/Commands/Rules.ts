@@ -1,3 +1,4 @@
+import { permissions } from "@/Core/Misc/Permissions"
 import env from "@/env"
 import Command from "@core/Contracts/Command"
 
@@ -22,10 +23,17 @@ const rules = `
 
 const command = Command({
   description: "Envia as regras para o usuário.",
-  permissions: ["MANAGE_GUILD"],
-  help: ":x:Como usar: `!rules`",
-  run: async ({ textChannels }) => {
-    await textChannels.get(env.RULES_CHAT)!.send(rules)
+  permissions: [permissions.MANAGE_GUILD],
+  help: ":x: Como usar: `!rules`",
+  run: async ({ textChannels, send }) => {
+    const rulesChannel = textChannels.get(env.RULES_CHAT)
+
+    if (!rulesChannel) {
+      await send("Sala de regras não encontrada")
+      return
+    }
+
+    await rulesChannel.send(rules)
   },
 })
 export default command

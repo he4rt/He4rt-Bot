@@ -1,10 +1,9 @@
 import env from "@/env"
 import Command from "@core/Contracts/Command"
-import InvalidArgsException from "@core/Exceptions/InvalidArgs"
+import * as yup from "yup"
 
-const isHex = (value: string): boolean => {
-  return parseInt(value, 16).toString(16) === value.toLowerCase()
-}
+const isHex = (value: string): boolean =>
+  parseInt(value, 16).toString(16) === value.toLowerCase()
 
 const command = Command({
   description: "Troca a cor do seu nick",
@@ -13,11 +12,12 @@ const command = Command({
     [env.DONATOR_ROLE]: "Esse comando está disponivel apenas para apoiadores!",
   },
   help: ":x: Como usar: `!color <hex>` (código hexadecimal da cor)",
-  validate: async ({ arg }) => {
-    if (!isHex(arg)) {
-      throw new InvalidArgsException(command.help)
-    }
-  },
+  validate: ({ arg }) =>
+    yup
+      .string()
+      .required()
+      .test(() => isHex(arg))
+      .isValid(arg),
   run: async ({ arg: color, send, user, createRole }) => {
     const roleName = /.+#\d{4}/i
 
@@ -38,6 +38,10 @@ const command = Command({
     }
 
     const role = user.role(roleName)
+
+    if (!role) {
+      return
+    }
 
     const username = user.name()
     if (role.name !== username) {

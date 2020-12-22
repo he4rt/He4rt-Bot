@@ -4,61 +4,51 @@ import Context from "@core/Contracts/Context"
 import Validator from "@core/Contracts/Validator"
 import Command from "@core/Contracts/Command"
 
-export default class RoleValidator implements Validator {
-  private _failed = false
-  private _messages: string[] = []
+export const validate: Validator = (ctx: Context, command: Command) => {
+  const messages: string[] = []
+  let failed = false
 
-  private validateRoles({ user }: Context, command: Command): void {
-    for (const role of command.roles) {
-      if (!user.hasRole(role)) {
-        this._failed = true
+  for (const permission of command.permissions) {
+    const { member } = ctx.message
+    if (!member) {
+      return []
+    }
 
-        const unauthorizedMessage = command.roleValidationMessages[role]
+    if (!member.hasPermission(permission as PermissionResolvable)) {
+      failed = true
 
-        if (unauthorizedMessage) {
-          this._messages.push(unauthorizedMessage)
-        }
+      const unauthorizedMessage =
+        command.permissionValidationMessages[permission]
 
-        if (!command.validateAllRoles) {
-          break
-        }
+      if (unauthorizedMessage) {
+        messages.push(unauthorizedMessage)
+      }
+
+      if (!command.validateAllPermissions) {
+        break
       }
     }
   }
 
-  private validatePermissions({ message }: Context, command: Command): void {
-    for (const permission of command.permissions) {
-      if (!message.member!.hasPermission(permission as PermissionResolvable)) {
-        this._failed = true
+  for (const role of command.roles) {
+    if (!ctx.user.hasRole(role)) {
+      failed = true
 
-        const unauthorizedMessage =
-          command.permissionValidationMessages[permission]
+      const unauthorizedMessage = command.roleValidationMessages[role]
 
-        if (unauthorizedMessage) {
-          this._messages.push(unauthorizedMessage)
-        }
+      if (unauthorizedMessage) {
+        messages.push(unauthorizedMessage)
+      }
 
-        if (!command.validateAllPermissions) {
-          break
-        }
+      if (!command.validateAllRoles) {
+        break
       }
     }
   }
 
-  public async validate(ctx: Context, command: Command): Promise<void> {
-    this.validateRoles(ctx, command)
-    this.validatePermissions(ctx, command)
-
-    if (this._failed && this._messages.length === 0) {
-      this._messages.push("Você não está autorizado a usar esse comando :(")
-    }
+  if (failed && messages.length === 0) {
+    messages.push("Você não está autorizado a usar esse comando :(")
   }
 
-  public failed(): boolean {
-    return this._failed
-  }
-
-  public messages(): string[] {
-    return this._messages
-  }
+  return messages
 }

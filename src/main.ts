@@ -1,5 +1,8 @@
 import "dotenv/config"
 import "module-alias/register"
-import Ignitor from "@core/Bot/Ignitor"
+import bot from "@/Core/Bot"
 
-new Ignitor().boostrap()
+bot
+  .start()
+  .then(() => console.log("Bot on"))
+  .catch(console.error)
