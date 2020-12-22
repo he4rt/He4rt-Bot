@@ -2,8 +2,11 @@ import env from "@/env"
 import Command from "@core/Contracts/Command"
 import * as yup from "yup"
 
-const isHex = (value: string): boolean =>
-  parseInt(value, 16).toString(16) === value.toLowerCase()
+const isHex = (value: string): boolean => {
+  const hexNumber = value.replace("#", "")
+
+  return parseInt(hexNumber, 16).toString(16) === hexNumber.toLowerCase()
+}
 
 const command = Command({
   description: "Troca a cor do seu nick",
@@ -11,11 +14,14 @@ const command = Command({
   roleValidationMessages: {
     [env.DONATOR_ROLE]: "Esse comando está disponivel apenas para apoiadores!",
   },
-  help: ":x: Como usar: `!color <hex>` (código hexadecimal da cor)",
+  help: ":x: Como usar: `!color <#hex>` (código hexadecimal da cor)",
   validate: ({ arg }) =>
     yup
       .string()
       .required()
+      .matches(/^#/)
+      .min(4)
+      .max(7)
       .test(() => isHex(arg))
       .isValid(arg),
   run: async ({ arg: color, send, user, createRole }) => {
