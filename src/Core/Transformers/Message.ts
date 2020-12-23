@@ -22,10 +22,10 @@ const memberToUser = (member: GuildMember) => ({
   avatarURL: member.user.avatarURL.bind(member.user),
   addRole: (role: Role | string) => member.roles.add(role),
   removeRole: (role: Role | string) => member.roles.remove(role),
-  getRole: (roleName: string) =>
-    member.roles.cache.find((role) => role.name.includes(roleName)),
-  hasRole: (roleId: string) =>
-    member.roles.cache.some((role) => role.id === roleId),
+  getRole: (value: string) =>
+    member.roles.cache.find((role) => role.id === value || role.name === value),
+  hasRole: (value: string) =>
+    member.roles.cache.some((role) => role.id === value || role.name === value),
   sendDirectMessage: member.send.bind(member),
 })
 

@@ -25,9 +25,9 @@ const command = Command({
       .test(() => isHex(arg))
       .isValid(arg),
   run: async ({ arg: color, send, user, createRole }) => {
-    const roleName = /.+#\d{4}/i
+    const role = user.getRole(user.name)
 
-    if (!user.hasRole(roleName)) {
+    if (!role) {
       const newRole = await createRole({
         name: user.name,
         mentionable: false,
@@ -43,18 +43,9 @@ const command = Command({
       return
     }
 
-    const role = user.getRole(roleName)
+    await role.setColor(color)
 
-    if (!role) {
-      return
-    }
-
-    if (role.name !== user.name) {
-      await role.setName(user.name)
-    }
-
-    const newRole = await role.setColor(color)
-    await send(`Cor atualizada com sucesso! hex(${newRole.color})`)
+    await send(`Cor atualizada com sucesso! hex(${color})`)
   },
 })
 export default command
