@@ -1,6 +1,8 @@
 import bot from "@/Core/Bot"
 import Command from "@core/Contracts/Command"
 import * as yup from "yup"
+import * as embed from "@/Core/Misc/Embeds"
+import env from "@/env"
 
 const command = Command({
   description: "Mostra a descrição de um comando.",
@@ -10,13 +12,19 @@ const command = Command({
       .string()
       .required()
       .isValid(arg),
-  run: async ({ arg, send }) => {
+  run: ({ arg, send }) => {
     const commandToDescribe = bot.getCommand(arg)
 
-    const answer =
-      commandToDescribe.description ?? bot.getCommandSuggestion(arg)
+    if (!commandToDescribe) {
+      return send(bot.getCommandSuggestion(arg))
+    }
 
-    await send(answer)
+    const answer = embed
+      .info()
+      .setTitle(`**${env.COMMAND_PREFIX}${arg}**`)
+      .setDescription(command.description)
+
+    return send(answer)
   },
 })
 export default command
