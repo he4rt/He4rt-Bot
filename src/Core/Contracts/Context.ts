@@ -13,9 +13,27 @@ import {
   Client,
   PermissionOverwriteOption,
   MessageEmbed,
+  ImageURLOptions,
 } from "discord.js"
 
 type MessageContent = StringResolvable | MessageEmbed
+
+type User = {
+  id: Snowflake
+  name: string
+  avatar: string
+  avatarURL: (
+    options?: ImageURLOptions & { dynamic?: boolean }
+  ) => string | null
+  addRole: (role: Role | string) => Promise<GuildMember>
+  removeRole: (role: Role | string) => Promise<GuildMember>
+  getRole(role: string | RegExp): Role | undefined
+  hasRole(role: string | RegExp): boolean
+  sendDirectMessage: (
+    content: MessageContent,
+    options?: MessageOptions
+  ) => Promise<Message | Message[]>
+}
 
 export default interface Context {
   client: Client
@@ -31,13 +49,7 @@ export default interface Context {
   command: string
   arg: string
   args: string[]
-  user: {
-    name: string
-    addRole: (role: Role | string) => Promise<GuildMember>
-    removeRole: (role: Role | string) => Promise<GuildMember>
-    getRole(role: string | RegExp): Role | undefined
-    hasRole(role: string | RegExp): boolean
-  }
+  user: User
   getMembers: () => Promise<GuildMember[]>
   textChannels: Collection<Snowflake, TextChannel>
   voiceChannels: Collection<Snowflake, VoiceChannel>
@@ -50,6 +62,6 @@ export default interface Context {
     options?: ChannelLogsQueryOptions
   ): Promise<Collection<string, Message>>
   deleteChannelMessages(options?: ChannelLogsQueryOptions): Promise<void>
-  getMentionedUsers: () => GuildMember[]
+  getMentionedUsers: () => User[]
   hasMentionedUsers: () => boolean
 }

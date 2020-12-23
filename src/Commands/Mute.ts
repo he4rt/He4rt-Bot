@@ -2,15 +2,16 @@ import env from "@/env"
 import Command from "@core/Contracts/Command"
 import * as embed from "@/Core/Misc/Embeds"
 import * as yup from "yup"
+import { permissions } from "@core/Misc/Permissions"
 
 const command = Command({
   description: "Muta um usuário",
-  permissions: ["BAN_MEMBERS"],
+  permissions: [permissions.BAN_MEMBERS],
   help: ":x: Como usar: `!mute <nick> <motivo>`",
   validate: ({ args, hasMentionedUsers }) =>
     yup
       .array()
-      .min(2)
+      .min(1)
       .required()
       .test(hasMentionedUsers)
       .isValid(args),
@@ -24,31 +25,38 @@ const command = Command({
 
     const [userToMute] = getMentionedUsers()
 
-    await userToMute.roles.add(env.MUTED_ROLE)
+    await userToMute.addRole(env.MUTED_ROLE)
 
     const muteReason = args.join(" ").trim()
 
-    const infoEmbed = embed
+    const punishmentEmbed = embed
       .info()
       .setTitle("``🚔`` » Punição")
-      .addField("``👤`` **Usuário mutado:**", userToMute.user)
-      .addField("``👮`` **Mutado por:**", user.name)
-      .addField("``📄`` **Tipo:**", "Mute")
-      .addField("``📣`` **Motivo:**", muteReason)
+      .addFields(
+        { name: "``👤`` **Usuário mutado:**", value: userToMute.name },
+        { name: "``👮`` **Mutado por:**", value: user.name },
+        { name: "``📄`` **Tipo:**", value: "Mute" },
+        { name: "``📣`` **Motivo:**", value: muteReason }
+      )
 
-    if (userToMute.user.avatar) {
-      infoEmbed.setThumbnail(userToMute.user.avatar)
+    const avatarUrl = userToMute.avatarURL()
+
+    if (avatarUrl) {
+      punishmentEmbed.setThumbnail(avatarUrl)
     }
 
+    const channelEmbed = embed
+      .info()
+      .setTitle("``✅`` Usuário mutado com sucesso.")
+      .addFields({ name: "**Motivo: **", value: muteReason })
+
     await Promise.all([
-      send(
-        embed
-          .success()
-          .setTitle("``✅`` Usuário mutado com sucesso.")
-          .addField("**Motivo: **", muteReason)
+      send(channelEmbed),
+      userToMute.sendDirectMessage(
+        "Você foi mutado, mais informações abaixo.",
+        punishmentEmbed
       ),
-      userToMute.send("Você foi mutado, mais informações abaixo.", infoEmbed),
-      punishmentChannel.send(infoEmbed),
+      punishmentChannel.send(punishmentEmbed),
     ])
   },
 })

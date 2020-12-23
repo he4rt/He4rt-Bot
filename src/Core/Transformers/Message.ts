@@ -15,6 +15,22 @@ import {
 import env from "@/env"
 import Context from "@core/Contracts/Context"
 
+const memberToUser = (member: GuildMember) => ({
+  id: member.id,
+  name: member.user.tag,
+  avatar: member.user.avatar ?? "",
+  avatarURL: member.user.avatarURL.bind(member.user),
+  addRole: (role: Role | string) => member.roles.add(role),
+  removeRole: (role: Role | string) => member.roles.remove(role),
+  getRole: (roleName: string) =>
+    member.roles.cache.find((role) => role.name.includes(roleName)),
+  hasRole: (roleId: string) =>
+    member.roles.cache.some((role) => role.id === roleId),
+  sendDirectMessage: member.send.bind(member),
+})
+
+const isMention = (value: string) => /(^<@!\d+>$)/.test(value)
+
 export const toContext = (message: Message): Context => {
   const [command, ...args] = message.content.slice(1).split(" ")
 
@@ -33,13 +49,14 @@ export const toContext = (message: Message): Context => {
         (role) => role.id === value || role.name === value
       ),
   }
+  const argsWithoutMentions = args.filter((arg) => !isMention(arg))
 
   return {
     client: message.client,
     message,
     command,
-    arg: args[0] || "",
-    args,
+    arg: argsWithoutMentions[0] || "",
+    args: argsWithoutMentions,
     getMembers: () =>
       message.client.guilds
         .fetch(env.GUILD_ID)
@@ -47,7 +64,7 @@ export const toContext = (message: Message): Context => {
         .then((members) => members.array()),
     send: message.channel.send.bind(message.channel),
     reply: message.reply.bind(message),
-    user,
+    user: memberToUser(member),
     textChannels: message.client.channels.cache as Collection<
       string,
       TextChannel
@@ -95,7 +112,11 @@ export const toContext = (message: Message): Context => {
 
       await textChannel.bulkDelete(messages)
     },
-    getMentionedUsers: () => message.mentions.members?.array() ?? [],
+    getMentionedUsers: () => {
+      const members = message.mentions.members?.array() ?? []
+
+      return members.map(memberToUser)
+    },
     hasMentionedUsers: () => {
       const { members } = message.mentions
 
