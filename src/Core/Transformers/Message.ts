@@ -36,19 +36,6 @@ export const toContext = (message: Message): Context => {
 
   const member = message.member as GuildMember
 
-  const user = {
-    name: message.author.tag,
-    addRole: (role: Role | string) => member.roles.add(role),
-    removeRole: (role: Role | string) => member.roles.remove(role),
-    getRole: (value: string) =>
-      member.roles.cache.find(
-        (role) => role.name.includes(value) || role.id === value
-      ),
-    hasRole: (value: string) =>
-      member.roles.cache.some(
-        (role) => role.id === value || role.name === value
-      ),
-  }
   const argsWithoutMentions = args.filter((arg) => !isMention(arg))
 
   return {
