@@ -17,6 +17,7 @@ const keys = [
   "RULES_CHAT",
   "NOTIFY_ROLE",
   "GUILD_ID",
+  "JOBS_ROLE",
 ] as const
 
 export default Object.fromEntries(keys.map((key) => [key, env(key)])) as {
