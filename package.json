@@ -6,6 +6,7 @@
   "scripts": {
     "build": "tsc",
     "start": "tsc && node dist/main",
+    "dev": "nodemon -e ts --exec \"npm run start\"",
     "test": "jest --colors --noStackTrace --passWithNoTests",
     "lint": "eslint .",
     "lint:fix": "eslint --fix --ext .ts ."
