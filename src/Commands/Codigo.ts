@@ -5,7 +5,7 @@ const command = Command({
   help: ":x: Como usar: `!codigo`",
   run: async ({ send }) => {
     const answer =
-      "Formate seu código:\n\\`\\`\\`js\n    CODIGO AQUI\n\\`\\`\\`\nTroque 'js' por sua lang \n```js\n const foo = 10\n```"
+      "Formate seu código:\n\\`\\`\\`js\n    CODIGO AQUI\n\\`\\`\\`\nTroque 'js' por sua lang \n```js\nconst foo = 10\n```"
 
     await send(answer)
   },
