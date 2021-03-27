@@ -18,7 +18,7 @@ import {
 
 type MessageContent = StringResolvable | MessageEmbed
 
-type User = {
+export type User = {
   id: Snowflake
   name: string
   avatar: string
