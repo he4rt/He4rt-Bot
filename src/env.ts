@@ -20,6 +20,7 @@ const keys = [
   "JOBS_ROLE",
   "HE4RT_API",
   "HE4RT_TOKEN",
+  "COMMANDS_CHAT",
 ] as const
 
 export default Object.fromEntries(keys.map((key) => [key, env(key)])) as {
