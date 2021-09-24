@@ -23,14 +23,11 @@
 		"name": {
 			"title": "> 1. **Como você se chama e por quais pronomes atende?** (Exemplo: Daniel Reis - ele/dele)"
 		},
-		"nick": {
-			"title": "> 2. **Qual é seu nick do discord?** (Exemplo: DanielHe4rt)"
-		},
-		"git": {
-			"title": "> 3. **Qual é seu GitHub?** (Exemplo: https://github.com/DanielHe4rt)"
+		"github": {
+			"title": "> 3. **Qual é seu GitHub?** (Exemplo: https://github.com/juntossomosmais)"
 		},
 		"linkedin": {
-			"title": "> 4. **Qual é seu LinkedIn?** (Exemplo: https://www.linkedin.com/in/danielheart/)"
+			"title": "> 4. **Qual é seu LinkedIn?** (Exemplo: https://www.linkedin.com/in/dbfarias/)"
 		},
 		"role": {
 			"title": "> 5. **Em quais áreas de atuação você trabalha ou tem interesse?**\n Reaja com os emojis das áreas e, quando terminar, reaja com o emoji de :white_check_mark: para prosseguir"
