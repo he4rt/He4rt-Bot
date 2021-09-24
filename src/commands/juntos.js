@@ -71,13 +71,23 @@ const sendChannelMessage = message =>
 
 module.exports = {
 	async run(client, message) {
-		const collectors = {};
+		const collectors = {
+			name: '',
+			github: '',
+			linkedin: '',
+		};
 
 		sendChannelMessage(message);
 		await sendInitialMessage(message);
 
 		await message.author.send(langPTBR.responder.name.title);
 		collectors.name = await collectMessage(message);
+
+		await message.author.send(langPTBR.responder.github.title);
+		collectors.github = await collectMessage(message);
+
+		await message.author.send(langPTBR.responder.linkedin.title);
+		collectors.linkedin = await collectMessage(message);
 	},
 
 	get command() {
