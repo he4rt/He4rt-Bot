@@ -11,7 +11,7 @@
     "linebreak-style": ["off", "windows"],
     "no-restricted-globals": "off",
     "no-console": "off",
-    "no-restricted-syntax": ["BinaryExpression[operator='in']"]
+    "no-restricted-syntax": ["error", "WithStatement"]
   },
   "parserOptions": {
     "ecmaVersion": 2018,
