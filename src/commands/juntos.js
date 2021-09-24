@@ -4,6 +4,7 @@ const categories = require('../userCategory');
 const util = require('../util');
 
 const langPTBR = require('../../assets/pt_BR.json');
+const roles = require('../../assets/roles.json');
 
 const typesEnum = {
 	NAME: 'name',
@@ -85,12 +86,31 @@ const sendTextQuestions = async message => {
 	return collectors;
 };
 
+const createEmojiQuestionText = questions => {
+	const reactionTextLine = questions
+		.map(question => `${question.emoji} - ${question.name}`)
+		.join('\n');
+	return `${reactionTextLine}\n\n\n✅ - Pronto.`;
+};
+const sendReactQuestions = async message => {
+	const emojiQuestionText = createEmojiQuestionText(roles.tech_roles);
+	const techRoles = await message.author
+		.send(`${langPTBR.responder.role.title}\n${emojiQuestionText}\n\n
+  `);
+	for await (const role of roles.tech_roles) {
+		await techRoles.react(role.emoji);
+	}
+	await techRoles.react('✅');
+
+	return message;
+};
+
 module.exports = {
 	async run(client, message) {
 		sendChannelMessage(message);
 		await sendInitialMessage(message);
-		const textQuestionsCollector = await sendTextQuestions(message);
-		console.log(textQuestionsCollector.name.collected.first().content);
+		await sendTextQuestions(message);
+		await sendReactQuestions(message);
 	},
 
 	get command() {
