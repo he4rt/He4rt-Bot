@@ -10,7 +10,8 @@
     "prettier/prettier": ["error"],
     "linebreak-style": ["off", "windows"],
     "no-restricted-globals": "off",
-    "no-console": "off"
+    "no-console": "off",
+    "no-restricted-syntax": ["BinaryExpression[operator='in']"]
   },
   "parserOptions": {
     "ecmaVersion": 2018,
