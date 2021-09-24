@@ -75,21 +75,22 @@ const sendChannelMessage = message =>
 			.setTimestamp()
 	);
 
-const sendTextQuestions = async (message, collectors) => {
+const sendTextQuestions = async message => {
+	const collectors = {};
 	const questions = Object.values(typesEnum);
 	for await (const question of questions) {
 		await message.author.send(langPTBR.responder[question].title);
 		collectors[question] = await collectMessage(message);
 	}
+	return collectors;
 };
 
 module.exports = {
 	async run(client, message) {
-		const collectors = {};
-
 		sendChannelMessage(message);
 		await sendInitialMessage(message);
-    await sendTextQuestions(message, collectors)
+		const textQuestionsCollector = await sendTextQuestions(message);
+		console.log(textQuestionsCollector.name.collected.first().content);
 	},
 
 	get command() {
