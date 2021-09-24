@@ -5,6 +5,12 @@ const util = require('../util');
 
 const langPTBR = require('../../assets/pt_BR.json');
 
+const typesEnum = {
+	NAME: 'name',
+	GITHUB: 'github',
+	LINKEDIN: 'linkedin',
+};
+
 const TIMEOUT = 60 * 1000;
 
 const isAuthor = (message, author) => message.author.id === author.id;
@@ -71,23 +77,16 @@ const sendChannelMessage = message =>
 
 module.exports = {
 	async run(client, message) {
-		const collectors = {
-			name: '',
-			github: '',
-			linkedin: '',
-		};
+		const collectors = {};
 
 		sendChannelMessage(message);
 		await sendInitialMessage(message);
 
-		await message.author.send(langPTBR.responder.name.title);
-		collectors.name = await collectMessage(message);
-
-		await message.author.send(langPTBR.responder.github.title);
-		collectors.github = await collectMessage(message);
-
-		await message.author.send(langPTBR.responder.linkedin.title);
-		collectors.linkedin = await collectMessage(message);
+		const questions = Object.values(typesEnum);
+		for await (const question of questions) {
+			await message.author.send(langPTBR.responder[question].title);
+			collectors[question] = await collectMessage(message);
+		}
 	},
 
 	get command() {
