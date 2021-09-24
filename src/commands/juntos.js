@@ -3,10 +3,36 @@ const Discord = require('discord.js');
 const categories = require('../userCategory');
 const util = require('../util');
 
+const langPTBR = require('../../assets/pt_BR.json');
+
+const TIMEOUT = 60 * 1000;
+
+const isAuthor = (message, author) => message.author.id === author.id;
+const collect = promisify((collector, cb) => {
+	collector.on('end', (collected, reason) => {
+		const collectedArray = collected.array();
+		return collectedArray.length
+			? cb(null, collectedArray)
+			: cb(new Error(reason));
+	});
+});
+const collectMessage = message => {
+	const collector = message.author.dmChannel.createMessageCollector(
+		({ author }) => isAuthor(message, author),
+		{ time: TIMEOUT }
+	);
+	collector.on('collect', msg => {
+		if (!util.isCommand(msg)) {
+			collector.stop();
+		}
+	});
+	return collect(collector).then(() => collector);
+};
+
 const sendInitialMessage = message =>
 	message.author.send(
 		new Discord.RichEmbed()
-			.setTitle('Processo seletivo da Juntos Somos Mais')
+			.setTitle('Questionário da Juntos Somos Mais')
 			.setDescription(
 				`Vamos fazer algumas perguntas para te conhecer melhor.
         São 9 perguntinhas, sendo apenas uma dissertativa, é rapidinho!
@@ -45,8 +71,13 @@ const sendChannelMessage = message =>
 
 module.exports = {
 	async run(client, message) {
+		const collectors = {};
+
 		sendChannelMessage(message);
 		await sendInitialMessage(message);
+
+		await message.author.send(langPTBR.responder.name.title);
+		collectors.name = await collectMessage(message);
 	},
 
 	get command() {
