@@ -92,17 +92,39 @@ const createEmojiQuestionText = questions => {
 		.join('\n');
 	return `${reactionTextLine}\n\n\n✅ - Pronto.`;
 };
-const sendReactQuestions = async message => {
-	const emojiQuestionText = createEmojiQuestionText(roles.tech_roles);
-	const techRoles = await message.author
+const sendReactQuestions = async (message, questionJson) => {
+	const emojiQuestionText = createEmojiQuestionText(questionJson);
+	const question = await message.author
 		.send(`${langPTBR.responder.role.title}\n${emojiQuestionText}\n\n
   `);
-	for await (const role of roles.tech_roles) {
-		await techRoles.react(role.emoji);
+	for await (const role of questionJson) {
+		await question.react(role.emoji);
 	}
-	await techRoles.react('✅');
+	await question.react('✅');
 
-	return message;
+	return question;
+};
+
+const collectReactions = async ({ author, message, options }) => {
+	const collector = message.createReactionCollector(
+		(reaction, user) => isAuthor({ author }, user),
+		{ time: TIMEOUT }
+	);
+	collector.on('collect', async reaction => {
+		const hasFinished = reaction.emoji.name === '✅';
+		if (hasFinished) {
+			collector.stop();
+			return;
+		}
+
+		const selectedRole = options.find(
+			role => role.emoji === reaction.emoji.name
+		);
+		if (!selectedRole) return;
+
+		await author.send('``✅`` Opção adicionada com sucesso!');
+	});
+	return collect(collector).then(() => collector);
 };
 
 module.exports = {
@@ -110,7 +132,17 @@ module.exports = {
 		sendChannelMessage(message);
 		await sendInitialMessage(message);
 		await sendTextQuestions(message);
-		await sendReactQuestions(message);
+
+		const techRolesMessage = await sendReactQuestions(
+			message,
+			roles.tech_roles
+		);
+		const answer = await collectReactions({
+			author: message.author,
+			message: techRolesMessage,
+			options: roles.tech_roles,
+		});
+		console.log('answer:', answer);
 	},
 
 	get command() {
