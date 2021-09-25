@@ -13,6 +13,7 @@ const typesEnum = {
 	ROLE: 'role',
 	LANGUAGES: 'languages',
 	JOB: 'job',
+	EXPERIENCE: 'experience',
 };
 
 const TIMEOUT = 60 * 1000;
@@ -94,7 +95,7 @@ const createEmojiQuestionText = (questions, allowMultipleReactions) => {
 		.map(question => `${question.emoji} - ${question.name}`)
 		.join('\n');
 	const text = allowMultipleReactions
-		? `${reactionTextLine}\n\n\n✅ - Pronto.`
+		? `${reactionTextLine}\n\n✅ - Pronto.`
 		: reactionTextLine;
 
 	return `${text}\n`;
@@ -199,6 +200,20 @@ module.exports = {
 			allowMultipleReactions: false,
 		});
 		console.log('jobAnswer:', jobAnswer);
+
+		const experienceMessage = await sendReactQuestions({
+			message,
+			questionJson: juntosOptions.experience_roles,
+			questionType: typesEnum.EXPERIENCE,
+			allowMultipleReactions: false,
+		});
+		const experienceAnswer = await collectReactions({
+			author: message.author,
+			message: experienceMessage,
+			options: juntosOptions.experience_roles,
+			allowMultipleReactions: false,
+		});
+		console.log('experienceAnswer:', experienceAnswer);
 	},
 
 	get command() {
