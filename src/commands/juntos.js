@@ -10,6 +10,8 @@ const typesEnum = {
 	NAME: 'name',
 	GITHUB: 'github',
 	LINKEDIN: 'linkedin',
+	ROLE: 'role',
+	LANGUAGES: 'languages',
 };
 
 const TIMEOUT = 60 * 1000;
@@ -78,7 +80,7 @@ const sendChannelMessage = message =>
 
 const sendTextQuestions = async message => {
 	const collectors = {};
-	const questions = Object.values(typesEnum);
+	const questions = [typesEnum.NAME, typesEnum.GITHUB, typesEnum.LINKEDIN];
 	for await (const question of questions) {
 		await message.author.send(langPTBR.responder[question].title);
 		collectors[question] = await collectMessage(message);
@@ -92,10 +94,10 @@ const createEmojiQuestionText = questions => {
 		.join('\n');
 	return `${reactionTextLine}\n\n\n✅ - Pronto.`;
 };
-const sendReactQuestions = async (message, questionJson) => {
+const sendReactQuestions = async (message, questionJson, questionType) => {
 	const emojiQuestionText = createEmojiQuestionText(questionJson);
 	const question = await message.author
-		.send(`${langPTBR.responder.role.title}\n${emojiQuestionText}\n\n
+		.send(`${langPTBR.responder[questionType].title}\n${emojiQuestionText}\n\n
   `);
 	for await (const role of questionJson) {
 		await question.react(role.emoji);
@@ -135,12 +137,25 @@ module.exports = {
 
 		const techRolesMessage = await sendReactQuestions(
 			message,
-			roles.tech_roles
+			roles.tech_roles,
+			typesEnum.ROLE
 		);
-		const answer = await collectReactions({
+		const techRolesReactions = await collectReactions({
 			author: message.author,
 			message: techRolesMessage,
 			options: roles.tech_roles,
+		});
+		console.log('techRolesReactions:', techRolesReactions);
+
+		const languagesMessage = await sendReactQuestions(
+			message,
+			roles.dev_roles,
+			typesEnum.LANGUAGES
+		);
+		const answer = await collectReactions({
+			author: message.author,
+			message: languagesMessage,
+			options: roles.dev_roles,
 		});
 		console.log('answer:', answer);
 	},
