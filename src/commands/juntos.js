@@ -14,6 +14,7 @@ const typesEnum = {
 	LANGUAGES: 'languages',
 	JOB: 'job',
 	EXPERIENCE: 'experience',
+	ABOUT: 'about',
 };
 
 const TIMEOUT = 60 * 1000;
@@ -100,7 +101,7 @@ const createEmojiQuestionText = (questions, allowMultipleReactions) => {
 
 	return `${text}\n`;
 };
-const sendReactQuestions = async ({
+const sendReactQuestion = async ({
 	message,
 	questionJson,
 	questionType,
@@ -153,67 +154,85 @@ const collectReactions = async ({
 	return collect(collector).then(() => collector);
 };
 
+const sendReactionQuestions = async message => {
+	const techRolesMessage = await sendReactQuestion({
+		message,
+		questionJson: juntosOptions.tech_roles,
+		questionType: typesEnum.ROLE,
+		allowMultipleReactions: true,
+	});
+	const techRolesReactions = await collectReactions({
+		author: message.author,
+		message: techRolesMessage,
+		options: juntosOptions.tech_roles,
+		allowMultipleReactions: true,
+	});
+
+	const languagesMessage = await sendReactQuestion({
+		message,
+		questionJson: juntosOptions.dev_roles,
+		questionType: typesEnum.LANGUAGES,
+		allowMultipleReactions: true,
+	});
+	const languagesAnswer = await collectReactions({
+		author: message.author,
+		message: languagesMessage,
+		options: juntosOptions.dev_roles,
+		allowMultipleReactions: true,
+	});
+
+	const jobMessage = await sendReactQuestion({
+		message,
+		questionJson: juntosOptions.jobs_roles,
+		questionType: typesEnum.JOB,
+		allowMultipleReactions: false,
+	});
+	const jobAnswer = await collectReactions({
+		author: message.author,
+		message: jobMessage,
+		options: juntosOptions.jobs_roles,
+		allowMultipleReactions: false,
+	});
+
+	const experienceMessage = await sendReactQuestion({
+		message,
+		questionJson: juntosOptions.experience_roles,
+		questionType: typesEnum.EXPERIENCE,
+		allowMultipleReactions: false,
+	});
+	const experienceAnswer = await collectReactions({
+		author: message.author,
+		message: experienceMessage,
+		options: juntosOptions.experience_roles,
+		allowMultipleReactions: false,
+	});
+
+	return {
+		[typesEnum.ROLE]: techRolesReactions,
+		[typesEnum.LANGUAGES]: languagesAnswer,
+		[typesEnum.JOB]: jobAnswer,
+		[typesEnum.EXPERIENCE]: experienceAnswer,
+	};
+};
+
 module.exports = {
 	async run(client, message) {
 		sendChannelMessage(message);
 		await sendInitialMessage(message);
-		await sendTextQuestions(message);
 
-		const techRolesMessage = await sendReactQuestions({
-			message,
-			questionJson: juntosOptions.tech_roles,
-			questionType: typesEnum.ROLE,
-			allowMultipleReactions: true,
-		});
-		const techRolesReactions = await collectReactions({
-			author: message.author,
-			message: techRolesMessage,
-			options: juntosOptions.tech_roles,
-			allowMultipleReactions: true,
-		});
-		console.log('techRolesReactions:', techRolesReactions);
+		const textQuestions = await sendTextQuestions(message);
+		const reactionQuestions = await sendReactionQuestions(message)
 
-		const languagesMessage = await sendReactQuestions({
-			message,
-			questionJson: juntosOptions.dev_roles,
-			questionType: typesEnum.LANGUAGES,
-			allowMultipleReactions: true,
-		});
-		const languagesAnswer = await collectReactions({
-			author: message.author,
-			message: languagesMessage,
-			options: juntosOptions.dev_roles,
-			allowMultipleReactions: true,
-		});
-		console.log('languagesAnswer:', languagesAnswer);
+		await message.author.send(langPTBR.responder[typesEnum.ABOUT].title);
+		const aboutAnswer = await collectMessage(message);
 
-		const jobMessage = await sendReactQuestions({
-			message,
-			questionJson: juntosOptions.jobs_roles,
-			questionType: typesEnum.JOB,
-			allowMultipleReactions: false,
-		});
-		const jobAnswer = await collectReactions({
-			author: message.author,
-			message: jobMessage,
-			options: juntosOptions.jobs_roles,
-			allowMultipleReactions: false,
-		});
-		console.log('jobAnswer:', jobAnswer);
+		const collectors = {
+			...textQuestions,
+			...reactionQuestions,
+			[typesEnum.ABOUT]: aboutAnswer,
+		};
 
-		const experienceMessage = await sendReactQuestions({
-			message,
-			questionJson: juntosOptions.experience_roles,
-			questionType: typesEnum.EXPERIENCE,
-			allowMultipleReactions: false,
-		});
-		const experienceAnswer = await collectReactions({
-			author: message.author,
-			message: experienceMessage,
-			options: juntosOptions.experience_roles,
-			allowMultipleReactions: false,
-		});
-		console.log('experienceAnswer:', experienceAnswer);
+		console.log(collectors);
 	},
 
 	get command() {
