@@ -185,6 +185,20 @@ module.exports = {
 			allowMultipleReactions: true,
 		});
 		console.log('languagesAnswer:', languagesAnswer);
+
+		const jobMessage = await sendReactQuestions({
+			message,
+			questionJson: juntosOptions.jobs_roles,
+			questionType: typesEnum.JOB,
+			allowMultipleReactions: false,
+		});
+		const jobAnswer = await collectReactions({
+			author: message.author,
+			message: jobMessage,
+			options: juntosOptions.jobs_roles,
+			allowMultipleReactions: false,
+		});
+		console.log('jobAnswer:', jobAnswer);
 	},
 
 	get command() {

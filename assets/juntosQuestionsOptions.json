@@ -82,5 +82,57 @@
       "id": "547606728179449895",
       "react": ":art:"
     }
+  ],
+
+  "jobs_roles" : [
+    {
+      "name": "Back-end Software Engineer - .NET/C#",
+      "emoji": "1⃣",
+      "id": "541021498064896000",
+      "react": ":one:"
+    },
+    {
+      "name": "Back-end Software Engineer - Python",
+      "emoji": "2⃣",
+      "id": "540994295541399552",
+      "react": ":two:"
+    },
+    {
+      "name": "Front-end Software Engineer - Vue",
+      "emoji": "3⃣",
+      "id": "540995072246939648",
+      "react": ":three:"
+
+    },
+    {
+      "name": "Front-end Software Engineer - React",
+      "emoji": "4⃣",
+      "id": "540995627559944207",
+      "react": ":four:"
+    },
+    {
+      "name": "QA Analyst",
+      "emoji": "5⃣",
+      "id": "540995379538165774",
+      "react": ":five:"
+    },
+    {
+      "name": "Data Engineer",
+      "emoji": "6⃣",
+      "id": "540994118634176512",
+      "react": ":six:"
+    },
+    {
+      "name": "UI/UX Designer",
+      "emoji": "7⃣",
+      "id": "540993488410378281",
+      "react": ":seven:"
+    },
+    {
+      "name": "Outros",
+      "emoji": "🎨",
+      "id": "547606728179449895",
+      "react": ":art:"
+    }
   ]
 }
