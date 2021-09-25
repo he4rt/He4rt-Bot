@@ -88,32 +88,51 @@ const sendTextQuestions = async message => {
 	return collectors;
 };
 
-const createEmojiQuestionText = questions => {
+const createEmojiQuestionText = (questions, allowMultipleReactions) => {
 	const reactionTextLine = questions
 		.map(question => `${question.emoji} - ${question.name}`)
 		.join('\n');
-	return `${reactionTextLine}\n\n\n✅ - Pronto.`;
+	const text = allowMultipleReactions
+		? `${reactionTextLine}\n\n\n✅ - Pronto.`
+		: reactionTextLine;
+
+	return `${text}\n`;
 };
-const sendReactQuestions = async (message, questionJson, questionType) => {
-	const emojiQuestionText = createEmojiQuestionText(questionJson);
+const sendReactQuestions = async ({
+	message,
+	questionJson,
+	questionType,
+	allowMultipleReactions,
+}) => {
+	const emojiQuestionText = createEmojiQuestionText(
+		questionJson,
+		allowMultipleReactions
+	);
 	const question = await message.author
 		.send(`${langPTBR.responder[questionType].title}\n${emojiQuestionText}\n\n
   `);
 	for await (const role of questionJson) {
 		await question.react(role.emoji);
 	}
-	await question.react('✅');
+
+	if (allowMultipleReactions) await question.react('✅');
 
 	return question;
 };
 
-const collectReactions = async ({ author, message, options }) => {
+const collectReactions = async ({
+	author,
+	message,
+	options,
+	allowMultipleReactions,
+}) => {
 	const collector = message.createReactionCollector(
 		(reaction, user) => isAuthor({ author }, user),
 		{ time: TIMEOUT }
 	);
 	collector.on('collect', async reaction => {
-		const hasFinished = reaction.emoji.name === '✅';
+		const hasFinished =
+			allowMultipleReactions && reaction.emoji.name === '✅';
 		if (hasFinished) {
 			collector.stop();
 			return;
@@ -125,7 +144,10 @@ const collectReactions = async ({ author, message, options }) => {
 		if (!selectedRole) return;
 
 		await author.send('``✅`` Opção adicionada com sucesso!');
+
+		if (!allowMultipleReactions) collector.stop();
 	});
+
 	return collect(collector).then(() => collector);
 };
 
@@ -135,29 +157,33 @@ module.exports = {
 		await sendInitialMessage(message);
 		await sendTextQuestions(message);
 
-		const techRolesMessage = await sendReactQuestions(
+		const techRolesMessage = await sendReactQuestions({
 			message,
-			roles.tech_roles,
-			typesEnum.ROLE
-		);
+			questionJson: roles.tech_roles,
+			questionType: typesEnum.ROLE,
+			allowMultipleReactions: true,
+		});
 		const techRolesReactions = await collectReactions({
 			author: message.author,
 			message: techRolesMessage,
 			options: roles.tech_roles,
+			allowMultipleReactions: true,
 		});
 		console.log('techRolesReactions:', techRolesReactions);
 
-		const languagesMessage = await sendReactQuestions(
+		const languagesMessage = await sendReactQuestions({
 			message,
-			roles.dev_roles,
-			typesEnum.LANGUAGES
-		);
-		const answer = await collectReactions({
+			questionJson: roles.dev_roles,
+			questionType: typesEnum.LANGUAGES,
+			allowMultipleReactions: true,
+		});
+		const languageAnswer = await collectReactions({
 			author: message.author,
 			message: languagesMessage,
 			options: roles.dev_roles,
+			allowMultipleReactions: true,
 		});
-		console.log('answer:', answer);
+		console.log('languageAnswer:', languageAnswer);
 	},
 
 	get command() {
