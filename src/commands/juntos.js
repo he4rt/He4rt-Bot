@@ -4,7 +4,7 @@ const categories = require('../userCategory');
 const util = require('../util');
 
 const langPTBR = require('../../assets/pt_BR.json');
-const roles = require('../../assets/roles.json');
+const juntosOptions = require('../../assets/juntosQuestionsOptions.json');
 
 const typesEnum = {
 	NAME: 'name',
@@ -12,6 +12,7 @@ const typesEnum = {
 	LINKEDIN: 'linkedin',
 	ROLE: 'role',
 	LANGUAGES: 'languages',
+	JOB: 'job',
 };
 
 const TIMEOUT = 60 * 1000;
@@ -159,31 +160,31 @@ module.exports = {
 
 		const techRolesMessage = await sendReactQuestions({
 			message,
-			questionJson: roles.tech_roles,
+			questionJson: juntosOptions.tech_roles,
 			questionType: typesEnum.ROLE,
 			allowMultipleReactions: true,
 		});
 		const techRolesReactions = await collectReactions({
 			author: message.author,
 			message: techRolesMessage,
-			options: roles.tech_roles,
+			options: juntosOptions.tech_roles,
 			allowMultipleReactions: true,
 		});
 		console.log('techRolesReactions:', techRolesReactions);
 
 		const languagesMessage = await sendReactQuestions({
 			message,
-			questionJson: roles.dev_roles,
+			questionJson: juntosOptions.dev_roles,
 			questionType: typesEnum.LANGUAGES,
 			allowMultipleReactions: true,
 		});
-		const languageAnswer = await collectReactions({
+		const languagesAnswer = await collectReactions({
 			author: message.author,
 			message: languagesMessage,
-			options: roles.dev_roles,
+			options: juntosOptions.dev_roles,
 			allowMultipleReactions: true,
 		});
-		console.log('languageAnswer:', languageAnswer);
+		console.log('languagesAnswer:', languagesAnswer);
 	},
 
 	get command() {

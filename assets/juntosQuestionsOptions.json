@@ -1,0 +1,86 @@
+{
+  "tech_roles" : [
+    {
+      "name": "Back-end",
+      "emoji": "1⃣",
+      "id": "541021498064896000",
+      "react": ":one:"
+    },
+    {
+      "name": "Front-end",
+      "emoji": "2⃣",
+      "id": "540994295541399552",
+      "react": ":two:"
+    },
+    {
+      "name": "Dados",
+      "emoji": "3⃣",
+      "id": "540995072246939648",
+      "react": ":three:"
+    },
+    {
+      "name": "UI/UX",
+      "emoji": "4⃣",
+      "id": "540995627559944207",
+      "react": ":four:"
+    },
+    {
+      "name": "Produto",
+      "emoji": "5⃣",
+      "id": "540995379538165774",
+      "react": ":five:"
+    }
+  ],
+
+  "dev_roles" : [
+    {
+      "name": "C, C++",
+      "emoji": "1⃣",
+      "id": "541021498064896000",
+      "react": ":one:"
+    },
+    {
+      "name": "Python",
+      "emoji": "2⃣",
+      "id": "540994295541399552",
+      "react": ":two:"
+    },
+    {
+      "name": "C#, .net",
+      "emoji": "3⃣",
+      "id": "540995072246939648",
+      "react": ":three:"
+
+    },
+    {
+      "name": "Java",
+      "emoji": "4⃣",
+      "id": "540995627559944207",
+      "react": ":four:"
+    },
+    {
+      "name": "PHP",
+      "emoji": "5⃣",
+      "id": "540995379538165774",
+      "react": ":five:"
+    },
+    {
+      "name": "JavaScript",
+      "emoji": "6⃣",
+      "id": "540994118634176512",
+      "react": ":six:"
+    },
+    {
+      "name": "Outras linguagens",
+      "emoji": "7⃣",
+      "id": "540993488410378281",
+      "react": ":seven:"
+    },
+    {
+      "name": "Sou de outra área",
+      "emoji": "🎨",
+      "id": "547606728179449895",
+      "react": ":art:"
+    }
+  ]
+}
