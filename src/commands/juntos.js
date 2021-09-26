@@ -81,7 +81,7 @@ const sendChannelMessage = message =>
 			.setTimestamp()
 	);
 
-const sendTextQuestions = async message => {
+const getTextAnswers = async message => {
 	const collectors = {};
 	const questions = [typesEnum.NAME, typesEnum.GITHUB, typesEnum.LINKEDIN];
 	for await (const question of questions) {
@@ -154,7 +154,7 @@ const collectReactions = async ({
 	return collect(collector).then(() => collector);
 };
 
-const getReactionsAnswer = async message => {
+const getReactionsAnswers = async message => {
 	const collector = {};
 
 	const reactionsQuestions = [
@@ -205,15 +205,19 @@ module.exports = {
 		sendChannelMessage(message);
 		await sendInitialMessage(message);
 
-		const textQuestions = await sendTextQuestions(message);
-		const reactionQuestions = await getReactionsAnswer(message);
+		const textAnswers = await getTextAnswers(message);
+		const reactionAnswers = await getReactionsAnswers(message);
 
 		await message.author.send(langPTBR.responder[typesEnum.ABOUT].title);
 		const aboutAnswer = await collectMessage(message);
 
+		await message.author.send(
+			'Agradecemos pela inscrição!\nSuas informações serão encaminhadas ao time de People da Juntos Somos Mais, que poderá entrar em contato contigo hoje através do Discord ou posteriormente através do LinkedIn.\nSe quiser conhecer um pouco mais sobre a Juntos, acesse nosso site (https://www.juntossomosmais.com.br/) e veja nossas vagas na Gupy (https://juntossomosmais.gupy.io/).'
+		);
+
 		const collectors = {
-			...textQuestions,
-			...reactionQuestions,
+			...textAnswers,
+			...reactionAnswers,
 			[typesEnum.ABOUT]: aboutAnswer,
 		};
 
