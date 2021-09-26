@@ -200,6 +200,55 @@ const getReactionsAnswers = async message => {
 	return collector;
 };
 
+const createEmbedResponse = ({ author, collectors }) => {
+	console.log(collectors);
+	return new Discord.RichEmbed()
+		.setTitle(`**Apresentação** » ${author.username}`)
+		.setThumbnail(author.avatarURL)
+		.setColor('#8146DC')
+		.addField(
+			'**Sobre:**',
+			collectors[typesEnum.ABOUT].collected.first().content
+		)
+		.addField(
+			'**Nome:**',
+			collectors[typesEnum.NAME].collected.first().content
+		)
+		.addField(
+			'**GitHub:**',
+			collectors[typesEnum.GITHUB].collected.first().content,
+			true
+		)
+		.addField(
+			'**LinkedIn:**',
+			collectors[typesEnum.LINKEDIN].collected.first().content,
+			true
+		)
+		.addField(
+			'**Linguagens que conhece:**',
+			collectors[typesEnum.LANGUAGES].collected.first().content
+		)
+		.addField(
+			'**Áreas de atuação que já trabalhou e/ou tem interesse:**',
+			collectors[typesEnum.LINKEDIN].collected.first().content,
+			true
+		)
+		.addField(
+			'**Vaga que possui interesse:**',
+			collectors[typesEnum.LANGUAGES].collected.first().content,
+			true
+		)
+		.addField(
+			'**Tempo de experiência:**',
+			collectors[typesEnum.EXPERIENCE].collected.first().content
+		)
+		.setFooter(
+			`${util.getYear()} © He4rt Developers e Juntos Somos Mais`,
+			'https://i.imgur.com/14yqEKn.png'
+		)
+		.setTimestamp();
+};
+
 module.exports = {
 	async run(client, message) {
 		sendChannelMessage(message);
@@ -221,7 +270,12 @@ module.exports = {
 			[typesEnum.ABOUT]: aboutAnswer,
 		};
 
-		console.log(collectors);
+		const embedResponse = createEmbedResponse({
+			collectors,
+			author: message.author,
+		});
+
+		await client.channels.get(process.env.JUNTOS_CHAT).send(embedResponse);
 	},
 
 	get command() {
