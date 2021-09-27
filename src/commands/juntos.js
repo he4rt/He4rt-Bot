@@ -17,6 +17,13 @@ const typesEnum = {
 	ABOUT: 'about',
 };
 
+const typesToRoles = {
+	[typesEnum.ROLE]: 'tech_roles',
+	[typesEnum.LANGUAGES]: 'dev_roles',
+	[typesEnum.JOB]: 'jobs_roles',
+	[typesEnum.EXPERIENCE]: 'experience_roles',
+};
+
 const TIMEOUT = 60 * 1000;
 
 const isAuthor = (message, author) => message.author.id === author.id;
@@ -200,9 +207,32 @@ const getReactionsAnswers = async message => {
 	return collector;
 };
 
-const createEmbedResponse = ({ author, collectors }) => {
-	console.log(collectors);
-	return new Discord.RichEmbed()
+const formatRolesString = ({ emojis, key }) => {
+	const findEmoji = emoji => option => option.emoji === emoji;
+
+	return emojis
+		.map(
+			emoji =>
+				juntosOptions[typesToRoles[key]].find(findEmoji(emoji)).name
+		)
+		.join(', ');
+};
+
+const formatReactionsAnswers = values => {
+	const newValues = values;
+	const reactionAnswers = Object.keys(values);
+	return reactionAnswers.reduce((obj, key) => {
+		newValues[key].collected.delete('✅');
+
+		const emojis = [...newValues[key].collected.keys()];
+		const resultString = formatRolesString({ emojis, key });
+
+		return { ...obj, [key]: resultString } || null;
+	}, {});
+};
+
+const createEmbedResponse = ({ author, collectors }) =>
+	new Discord.RichEmbed()
 		.setTitle(`**Apresentação** » ${author.username}`)
 		.setThumbnail(author.avatarURL)
 		.setColor('#8146DC')
@@ -225,29 +255,20 @@ const createEmbedResponse = ({ author, collectors }) => {
 			true
 		)
 		.addField(
-			'**Linguagens que conhece:**',
-			collectors[typesEnum.LANGUAGES].collected.first().content
-		)
-		.addField(
 			'**Áreas de atuação que já trabalhou e/ou tem interesse:**',
-			collectors[typesEnum.LINKEDIN].collected.first().content,
-			true
+			collectors[typesEnum.ROLE]
 		)
+		.addField('**Vaga que possui interesse:**', collectors[typesEnum.JOB])
 		.addField(
-			'**Vaga que possui interesse:**',
-			collectors[typesEnum.LANGUAGES].collected.first().content,
-			true
+			'**Linguagens que conhece:**',
+			collectors[typesEnum.LANGUAGES]
 		)
-		.addField(
-			'**Tempo de experiência:**',
-			collectors[typesEnum.EXPERIENCE].collected.first().content
-		)
+		.addField('**Tempo de experiência:**', collectors[typesEnum.EXPERIENCE])
 		.setFooter(
 			`${util.getYear()} © He4rt Developers e Juntos Somos Mais`,
 			'https://i.imgur.com/14yqEKn.png'
 		)
 		.setTimestamp();
-};
 
 module.exports = {
 	async run(client, message) {
@@ -264,9 +285,11 @@ module.exports = {
 			'Agradecemos pela inscrição!\nSuas informações serão encaminhadas ao time de People da Juntos Somos Mais, que poderá entrar em contato contigo hoje através do Discord ou posteriormente através do LinkedIn.\nSe quiser conhecer um pouco mais sobre a Juntos, acesse nosso site (https://www.juntossomosmais.com.br/) e veja nossas vagas na Gupy (https://juntossomosmais.gupy.io/).'
 		);
 
+		const formattedReactions = formatReactionsAnswers(reactionAnswers);
+
 		const collectors = {
 			...textAnswers,
-			...reactionAnswers,
+			...formattedReactions,
 			[typesEnum.ABOUT]: aboutAnswer,
 		};
 
