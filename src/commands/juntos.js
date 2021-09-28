@@ -23,6 +23,8 @@ const {
 } = require('../util/commands/juntos/errors');
 
 const cooldown = {};
+let collectors = {};
+
 module.exports = {
 	async run(client, message) {
 		if (cooldown[message.author.id]) {
@@ -32,7 +34,7 @@ module.exports = {
 
 		const answeredGuild = client.guilds
 			.get(process.env.GUILD_ID)
-			.roles.find(role => role.name === '🎓 Fomulário JS+ respondido');
+			.roles.find(role => role.id === process.env.JSM_FORM_ANSWERED_ROLE);
 		const alreadyAnswered = client.guilds
 			.get(process.env.GUILD_ID)
 			.members.get(message.author.id)
@@ -58,11 +60,19 @@ module.exports = {
 
 		const formattedReactions = formatReactionsAnswers(reactionAnswers);
 
-		const collectors = {
+		collectors = {
 			...textAnswers,
 			...formattedReactions,
 			[typesEnum.ABOUT]: aboutAnswer,
 		};
+
+		await client.guilds
+			.get(process.env.GUILD_ID)
+			.members.get(message.author.id)
+			.addRole(process.env.JSM_FORM_ANSWERED_ROLE);
+	},
+	async success(client, message) {
+		cooldown[message.author.id] = false;
 
 		const embedResponse = createEmbedResponse({
 			collectors,
@@ -71,11 +81,6 @@ module.exports = {
 		});
 
 		await client.channels.get(process.env.JSM_CHAT).send(embedResponse);
-
-		await client.guilds
-			.get(process.env.GUILD_ID)
-			.members.get(message.author.id)
-			.addRole(process.env.JSM_FORM_ANSWERED_ROLE);
 	},
 	async fail(err, client, message) {
 		const discordText = new Discord.RichEmbed();
