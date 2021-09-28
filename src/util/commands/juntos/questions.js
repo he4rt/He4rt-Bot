@@ -80,7 +80,7 @@ const sendReactQuestion = async ({
 		allowMultipleReactions
 	);
 	const question = await message.author
-		.send(`${langPTBR.responder[questionType].title}\n${emojiQuestionText}\n\n
+		.send(`${langPTBR.juntos[questionType].title}\n${emojiQuestionText}\n\n
   `);
 	for await (const role of questionJson) {
 		await question.react(role.emoji);
@@ -149,7 +149,7 @@ const getTextAnswers = async message => {
 	const collectors = {};
 	const questions = [typesEnum.NAME, typesEnum.GITHUB, typesEnum.LINKEDIN];
 	for await (const question of questions) {
-		await message.author.send(langPTBR.responder[question].title);
+		await message.author.send(langPTBR.juntos[question].title);
 		collectors[question] = await collectMessage(message);
 	}
 	return collectors;

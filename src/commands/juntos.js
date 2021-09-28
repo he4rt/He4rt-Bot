@@ -49,7 +49,7 @@ module.exports = {
 		const textAnswers = await getTextAnswers(message);
 		const reactionAnswers = await getReactionsAnswers(message);
 
-		await message.author.send(langPTBR.responder[typesEnum.ABOUT].title);
+		await message.author.send(langPTBR.juntos[typesEnum.ABOUT].title);
 		const aboutAnswer = await collectMessage(message);
 
 		await message.author.send(
