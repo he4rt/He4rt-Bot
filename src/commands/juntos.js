@@ -16,8 +16,23 @@ const {
 } = require('../util/commands/juntos/questions');
 const { createEmbedResponse } = require('../util/commands/juntos/answers');
 
+const cooldown = {};
 module.exports = {
 	async run(client, message) {
+		if (cooldown[message.author.id]) {
+			throw new Error('cooldown');
+		}
+		cooldown[message.author.id] = true;
+
+		const answeredGuild = client.guilds
+			.get(process.env.GUILD_ID)
+			.roles.find(role => role.name === '🎓 Fomulário JS+ respondido');
+		const alreadyAnswered = client.guilds
+			.get(process.env.GUILD_ID)
+			.members.get(message.author.id)
+			.roles.some(role => role.name === answeredGuild.name);
+		if (alreadyAnswered) throw new Error('already_answered');
+
 		const messageProps = {
 			message,
 			messageGenerator: new Discord.RichEmbed(),
@@ -49,7 +64,50 @@ module.exports = {
 			messageGenerator: new Discord.RichEmbed(),
 		});
 
-		await client.channels.get(process.env.JUNTOS_CHAT).send(embedResponse);
+		await client.channels.get(process.env.JSM_CHAT).send(embedResponse);
+
+		await client.guilds
+			.get(process.env.GUILD_ID)
+			.members.get(message.author.id)
+			.addRole(process.env.JSM_FORM_ANSWERED_ROLE);
+	},
+	async fail(err, client, message) {
+		if (err.message === 'cooldown') {
+			const cooldownEmbed = new Discord.RichEmbed()
+				.setTitle(
+					'``❌`` **Você já utilizou este comando, verifique sua DM para mais informações.**'
+				)
+				.setColor('#36393E');
+			return message.channel.send(cooldownEmbed);
+		}
+		cooldown[message.author.id] = false;
+
+		// geralmente quando user ta com dm desativada
+		if (err.message === 'Cannot send messages to this user') {
+			const dmDisabled = new Discord.RichEmbed()
+				.setTitle('``❌`` **Sua DM do Discord está fechada.**')
+				.setDescription(
+					`Ops, parece que sua DM do Discord está fechada e não foi possível enviar mensagem.
+					Por favor, libere sua DM para receber mensagens e execute o comando novamente`
+				)
+				.setColor('#36393E');
+			return message.channel.send(dmDisabled);
+		}
+		if (err.message === 'already_answered') {
+			return message.channel
+				.send('``❌`` Você já respondeu esse fomulário.')
+				.then(msg => msg.delete(10000));
+		}
+		if (err.message === 'time') {
+			const timeout = new Discord.RichEmbed()
+				.setTitle('``❌`` **Tempo limite de resposta excedido.**')
+				.setDescription(
+					'Para enviar as respostas será necessário executar o comando !juntos novamente.'
+				)
+				.setColor('#36393E');
+			return message.author.send(timeout);
+		}
+		return null;
 	},
 
 	get command() {
