@@ -5,7 +5,9 @@ const cooldownError = ({ err, message, discordText }) => {
 				'``❌`` **Você já utilizou este comando, verifique sua DM para mais informações.**'
 			)
 			.setColor('#36393E');
-		return message.channel.send(cooldownEmbed);
+		return message.channel
+			.send(cooldownEmbed)
+			.then(msg => msg.delete(8000));
 	}
 };
 
@@ -17,7 +19,7 @@ const dmDisabledError = ({ message, discordText }) => {
       Por favor, libere sua DM para receber mensagens e execute o comando novamente`
 		)
 		.setColor('#36393E');
-	return message.channel.send(dmDisabled);
+	return message.channel.send(dmDisabled).then(msg => msg.delete(8000));
 };
 
 const alreadyAnsweredError = ({ message }) =>
