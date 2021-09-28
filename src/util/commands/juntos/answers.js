@@ -27,6 +27,10 @@ const createEmbedResponse = ({ author, collectors, messageGenerator }) =>
 			true
 		)
 		.addField(
+			'**E-mail:**',
+			collectors[typesEnum.EMAIL].collected.first().content
+		)
+		.addField(
 			'**Áreas de atuação que já trabalhou e/ou tem interesse:**',
 			collectors[typesEnum.ROLE]
 		)

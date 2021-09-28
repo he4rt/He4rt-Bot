@@ -2,6 +2,7 @@ const typesEnum = {
 	NAME: 'name',
 	GITHUB: 'github',
 	LINKEDIN: 'linkedin',
+	EMAIL: 'email',
 	ROLE: 'role',
 	LANGUAGES: 'languages',
 	JOB: 'job',

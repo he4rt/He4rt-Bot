@@ -147,7 +147,12 @@ const getReactionsAnswers = async message => {
 
 const getTextAnswers = async message => {
 	const collectors = {};
-	const questions = [typesEnum.NAME, typesEnum.GITHUB, typesEnum.LINKEDIN];
+	const questions = [
+		typesEnum.NAME,
+		typesEnum.GITHUB,
+		typesEnum.LINKEDIN,
+		typesEnum.EMAIL,
+	];
 	for await (const question of questions) {
 		await message.author.send(langPTBR.juntos[question].title);
 		collectors[question] = await collectMessage(message);
