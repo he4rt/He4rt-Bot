@@ -29,6 +29,11 @@ const reactionsQuestions = [
 		allowMultipleReactions: false,
 		questionJson: juntosOptions.experience_roles,
 	},
+	{
+		type: typesEnum.IS_EMPLOYED,
+		allowMultipleReactions: false,
+		questionJson: juntosOptions.is_employed,
+	},
 ];
 
 const collect = promisify((collector, cb) => {

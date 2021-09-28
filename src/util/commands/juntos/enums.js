@@ -6,6 +6,7 @@ const typesEnum = {
 	LANGUAGES: 'languages',
 	JOB: 'job',
 	EXPERIENCE: 'experience',
+	IS_EMPLOYED: 'is_employed',
 	ABOUT: 'about',
 };
 
@@ -14,6 +15,7 @@ const typesToRoles = {
 	[typesEnum.LANGUAGES]: 'dev_roles',
 	[typesEnum.JOB]: 'jobs_roles',
 	[typesEnum.EXPERIENCE]: 'experience_roles',
+	[typesEnum.IS_EMPLOYED]: 'is_employed',
 };
 
 module.exports = {

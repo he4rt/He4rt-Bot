@@ -8,7 +8,7 @@ const sendInitialMessage = ({ message, messageGenerator }) =>
 			.setTitle('Questionário da Juntos Somos Mais')
 			.setDescription(
 				`Vamos fazer algumas perguntas para te conhecer melhor.
-        São 8 perguntinhas, sendo apenas uma dissertativa, é rapidinho!
+        São 9 perguntinhas, sendo apenas uma dissertativa, é rapidinho!
 
         Todas as informações desse questionário serão enviadas ao time de People da Juntos Somos Mais, que poderá entrar em contato contigo através de DM no Discord durante a He4rt Conf ${getYear()} ou DM no LinkedIn após o evento.
 

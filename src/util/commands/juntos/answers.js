@@ -36,6 +36,10 @@ const createEmbedResponse = ({ author, collectors, messageGenerator }) =>
 			collectors[typesEnum.LANGUAGES]
 		)
 		.addField('**Tempo de experiência:**', collectors[typesEnum.EXPERIENCE])
+		.addField(
+			'**Está trabalhando atualmente:**',
+			collectors[typesEnum.IS_EMPLOYED]
+		)
 		.setFooter(
 			`${YEAR} © He4rt Developers e Juntos Somos Mais`,
 			'https://i.imgur.com/14yqEKn.png'

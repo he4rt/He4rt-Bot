@@ -41,8 +41,11 @@
 		"experience": {
 			"title": "> 7. **Você trabalha ou já trabalhou na área? Se sim, por quanto tempo?**\n\nReaja com o emoji de tempo de experiência para prosseguir\n"
 		},
+		"is_employed": {
+			"title": "> 8. **Está trabalhando atualmente?**\n"
+		},
 		"about": {
-			"title": "> 8. **Por fim, nos conte um pouco sobre você e sua trajetória**"
+			"title": "> 9. **Por fim, nos conte um pouco sobre você e sua trajetória**"
 		}
 	},
 	"tempban": {

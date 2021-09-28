@@ -2,31 +2,31 @@
   "tech_roles" : [
     {
       "name": "Back-end",
-      "emoji": "1⃣",
+      "emoji": "1️⃣",
       "id": "541021498064896000",
       "react": ":one:"
     },
     {
       "name": "Front-end",
-      "emoji": "2⃣",
+      "emoji": "2️⃣",
       "id": "540994295541399552",
       "react": ":two:"
     },
     {
       "name": "Dados",
-      "emoji": "3⃣",
+      "emoji": "3️⃣",
       "id": "540995072246939648",
       "react": ":three:"
     },
     {
       "name": "UI/UX",
-      "emoji": "4⃣",
+      "emoji": "4️⃣",
       "id": "540995627559944207",
       "react": ":four:"
     },
     {
       "name": "Produto",
-      "emoji": "5⃣",
+      "emoji": "5️⃣",
       "id": "540995379538165774",
       "react": ":five:"
     }
@@ -35,44 +35,44 @@
   "dev_roles" : [
     {
       "name": "C, C++",
-      "emoji": "1⃣",
+      "emoji": "1️⃣",
       "id": "541021498064896000",
       "react": ":one:"
     },
     {
       "name": "Python",
-      "emoji": "2⃣",
+      "emoji": "2️⃣",
       "id": "540994295541399552",
       "react": ":two:"
     },
     {
       "name": "C#, .net",
-      "emoji": "3⃣",
+      "emoji": "3️⃣",
       "id": "540995072246939648",
       "react": ":three:"
 
     },
     {
       "name": "Java",
-      "emoji": "4⃣",
+      "emoji": "4️⃣",
       "id": "540995627559944207",
       "react": ":four:"
     },
     {
       "name": "PHP",
-      "emoji": "5⃣",
+      "emoji": "5️⃣",
       "id": "540995379538165774",
       "react": ":five:"
     },
     {
       "name": "JavaScript",
-      "emoji": "6⃣",
+      "emoji": "6️⃣",
       "id": "540994118634176512",
       "react": ":six:"
     },
     {
       "name": "Outras linguagens",
-      "emoji": "7⃣",
+      "emoji": "7️⃣",
       "id": "540993488410378281",
       "react": ":seven:"
     },
@@ -87,44 +87,44 @@
   "jobs_roles" : [
     {
       "name": "Back-end Software Engineer - .NET/C#",
-      "emoji": "1⃣",
+      "emoji": "1️⃣",
       "id": "541021498064896000",
       "react": ":one:"
     },
     {
       "name": "Back-end Software Engineer - Python",
-      "emoji": "2⃣",
+      "emoji": "2️⃣",
       "id": "540994295541399552",
       "react": ":two:"
     },
     {
       "name": "Front-end Software Engineer - Vue",
-      "emoji": "3⃣",
+      "emoji": "3️⃣",
       "id": "540995072246939648",
       "react": ":three:"
 
     },
     {
       "name": "Front-end Software Engineer - React",
-      "emoji": "4⃣",
+      "emoji": "4️⃣",
       "id": "540995627559944207",
       "react": ":four:"
     },
     {
       "name": "QA Analyst",
-      "emoji": "5⃣",
+      "emoji": "5️⃣",
       "id": "540995379538165774",
       "react": ":five:"
     },
     {
       "name": "Data Engineer",
-      "emoji": "6⃣",
+      "emoji": "6️⃣",
       "id": "540994118634176512",
       "react": ":six:"
     },
     {
       "name": "UI/UX Designer",
-      "emoji": "7⃣",
+      "emoji": "7️⃣",
       "id": "540993488410378281",
       "react": ":seven:"
     },
@@ -139,34 +139,49 @@
   "experience_roles" : [
     {
       "name": "Nunca trabalhei na área",
-      "emoji": "1⃣",
+      "emoji": "1️⃣",
       "id": "541021498064896000",
       "react": ":one:"
     },
     {
       "name": "Até 1 ano",
-      "emoji": "2⃣",
+      "emoji": "2️⃣",
       "id": "540994295541399552",
       "react": ":two:"
     },
     {
       "name": "De 1 a 3 anos",
-      "emoji": "3⃣",
+      "emoji": "3️⃣",
       "id": "540995072246939648",
       "react": ":three:"
 
     },
     {
       "name": "De 3 a 5 anos",
-      "emoji": "4⃣",
+      "emoji": "4️⃣",
       "id": "540995627559944207",
       "react": ":four:"
     },
     {
       "name": "Mais de 5 anos",
-      "emoji": "5⃣",
+      "emoji": "5️⃣",
       "id": "540995379538165774",
       "react": ":five:"
+    }
+  ],
+
+  "is_employed": [
+    {
+      "name": "Sim",
+      "emoji": "☑️",
+      "id": "541021498064896000",
+      "react": ":ballot_box_with_check:"
+    },
+    {
+      "name": "Não",
+      "emoji": "❌",
+      "id": "540994295541399552",
+      "react": ":x:"
     }
   ]
 }
