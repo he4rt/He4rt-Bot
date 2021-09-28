@@ -22,8 +22,8 @@ const sendInitialMessage = ({ message, messageGenerator }) =>
 	);
 
 const sendChannelMessage = ({ message, messageGenerator }) =>
-	message.channel
-		.send(
+	message
+		.reply(
 			messageGenerator
 				.setTitle('Processo seletivo da Juntos Somos Mais')
 				.setDescription(
