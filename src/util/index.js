@@ -33,4 +33,5 @@ module.exports = {
 		}
 		return new Discord.RichEmbed(data);
 	},
+	isAuthor: (message, author) => message.author.id === author.id,
 };
