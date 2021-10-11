@@ -13,10 +13,16 @@ const runLevelUp = async (client, message) => {
 		r => r.id === process.env.DONATOR_ROLE
 	);
 
-	const {
-		data,
-	} = await client.axios.post(`/users/${message.author.id}/levelup`, {
-		donator,
+	console.log({
+		discord_id: message.author.id,
+		message: message.content,
+		donator: false,
+	});
+
+	const { data } = await client.axios.post(`bot/gamification/levelup`, {
+		discord_id: message.author.id,
+		message: message.content,
+		donator: false,
 	});
 
 	if (!data.is_levelup) return; // Check if is level up
@@ -38,6 +44,7 @@ const runLevelUp = async (client, message) => {
 	if (lvl === 50) {
 		message.member.addRole(process.env.HE4RT_ROLE); // He4rt
 	}
+
 	const level = new Discord.RichEmbed()
 		.setTitle(
 			`🆙 **${message.author.username}** subiu para o nível ${data.level}!`
@@ -45,11 +52,11 @@ const runLevelUp = async (client, message) => {
 		.setColor('#4c4cff')
 		.setThumbnail(message.author.avatarURL)
 		.setFooter(
-			util.getYear() + '© He4rt Developers',
+			`${util.getYear()}© He4rt Developers`,
 			'https://i.imgur.com/14yqEKn.png'
 		)
 		.setTimestamp();
-	client.channels.get('552332704381927424').send(level);
+	// client.channels.get('552332704381927424').send(level);
 	console.log(
 		'[#LOG]',
 		`${message.author.username} subiu para o nível ${data.level}!`
@@ -61,8 +68,8 @@ const runCommand = async (client, message) => {
 		message.channel.id === process.env.SUGGESTION_CHAT ||
 		message.channel.id === process.env.SEARCH_CHAT
 	) {
-		message.react('✅');
-		message.react('❌');
+		await message.react('✅');
+		await message.react('❌');
 	}
 
 	if (!util.isCommand(message)) return;
@@ -123,24 +130,6 @@ const runCommand = async (client, message) => {
 
 module.exports = async (client, message) => {
 	if (message.author.bot) return;
-
-	if (message.content.toLowerCase() === 'boa noite') {
-		message.react('💤');
-		message.channel.send('noite!');
-	}
-	if (message.content.toLowerCase() === 'bom dia') {
-		message.react('🌅');
-		message.channel.send('dia!');
-	}
-	if (message.content.toLowerCase() === 'boa tarde') {
-		message.react('🌞');
-		message.channel.send('tarde!');
-	}
-	if (message.channel.id === process.env.APPRENTICESHIP_CHAT) {
-		message.react(client.emojis.get('551856304759504910'));
-		message.react(client.emojis.get('551856305007231033'));
-		message.react(client.emojis.get('547614831432302631'));
-	}
 
 	await Promise.all([
 		runLevelUp(client, message).catch(res =>

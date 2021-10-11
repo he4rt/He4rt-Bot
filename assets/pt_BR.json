@@ -19,6 +19,38 @@
 			"title": "> **Nível de inglês?**"
 		}
 	},
+	"juntos": {
+		"name": {
+			"title": "> 1. **Como você se chama e por quais pronomes atende?** (Exemplo: Daniel Reis - ele/dele)"
+		},
+		"github": {
+			"title": "> 2. **Qual é seu GitHub?** (Exemplo: https://github.com/juntossomosmais)"
+		},
+		"linkedin": {
+			"title": "> 3. **Qual é seu LinkedIn?** (Exemplo: https://www.linkedin.com/in/dbfarias/)"
+		},
+		"email": {
+			"title": "> 4. **Qual o seu melhor e-mail?**"
+		},
+		"role": {
+			"title": "> 5. **Em quais áreas de atuação você trabalha ou tem interesse?**\n\nReaja com os emojis das áreas e, quando terminar, reaja com o emoji de :white_check_mark: para prosseguir\n"
+		},
+		"languages": {
+			"title": "> 6. **Você possui familiaridade com quais linguagens de programação?**\n\nReaja com os emojis das linguagens e, quando terminar, reaja com o emoji de :white_check_mark: para prosseguir\n"
+		},
+		"job": {
+			"title": "> 7. **Em qual vaga da Juntos Somos Mais tem interesse?**\n\nReaja com o emoji da vaga para prosseguir\n"
+		},
+		"experience": {
+			"title": "> 8. **Você trabalha ou já trabalhou na área? Se sim, por quanto tempo?**\n\nReaja com o emoji de tempo de experiência para prosseguir\n"
+		},
+		"is_employed": {
+			"title": "> 9. **Está trabalhando atualmente?**\n"
+		},
+		"about": {
+			"title": "> 10. **Por fim, nos conte um pouco sobre você e sua trajetória**"
+		}
+	},
 	"tempban": {
 		"fail": {
 			"permission": {
