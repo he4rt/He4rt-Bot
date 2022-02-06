@@ -13,7 +13,7 @@ module.exports = {
 		client.channels
 			.get(process.env.RULES_CHAT)
 			.send(
-				'<:he4rt:546395281093034015> Sejam bem-vindos ao servidor He4rt Developers! [:flag_br:]\n\n``❗`` Nesta detalhada mensagem irá ser informado sobre tais artigos e cumprimentos a serem exercidos pelos usuários, impondo ordem, organização e respeito mútuo.\n``❗`` Para melhor organização do nosso discord, foi desenvolvido um sistema de apresentações em que poderá nos contar mais sobre você, suas linguagens e mais alguns detalhes. Apenas a partir do uso do comando ``!apresentar`` você terá acesso aos demais chats disponíveis em nosso discord.\n\n``$1`` - **Mensagens de caráter irritante, negativo, ou com o intuito de causar transtornos ou perturbar a ordem, não serão toleradas.**```objectivec\n\n• Flood/SPAM;\n• Excesso de CAPSLOCK;\n• Mensagens irritantes, repetitivas ou com a intenção de perturbar a ordem;\n• Sobrecarregar algum sistema.\n\n# Ocorrência (1º Ocorrência): Mudo por 8 horas;\n# Ocorrência (2º Ocorrência): Banimento de 2 dias;\n# Insistência (3º Ocorrênncia): Banimento permanente.```'
+				'<:he4rt:629035176755724299> Sejam bem-vindos ao servidor He4rt Developers! [:flag_br:]\n\n``❗`` Nesta detalhada mensagem irá ser informado sobre tais artigos e cumprimentos a serem exercidos pelos usuários, impondo ordem, organização e respeito mútuo.\n``❗`` Para melhor organização do nosso discord, foi desenvolvido um sistema de apresentações em que poderá nos contar mais sobre você, suas linguagens e mais alguns detalhes. Apenas a partir do uso do comando ``!apresentar`` você terá acesso aos demais chats disponíveis em nosso discord.\n\n``$1`` - **Mensagens de caráter irritante, negativo, ou com o intuito de causar transtornos ou perturbar a ordem, não serão toleradas.**```objectivec\n\n• Flood/SPAM;\n• Excesso de CAPSLOCK;\n• Mensagens irritantes, repetitivas ou com a intenção de perturbar a ordem;\n• Sobrecarregar algum sistema.\n\n# Ocorrência (1º Ocorrência): Mudo por 8 horas;\n# Ocorrência (2º Ocorrência): Banimento de 2 dias;\n# Insistência (3º Ocorrênncia): Banimento permanente.```'
 			);
 
 		// #2
@@ -30,7 +30,7 @@ module.exports = {
 			client.channels
 				.get(process.env.RULES_CHAT)
 				.send(
-					'``$3`` - **Anúncios externos serão tratados. (Contatar <@241070790383108096>)**```objectivec\n• Divulgações de outras comunidades são proibidas;\n\n# Ocorrência (1º Ocorrência): Aviso e mensagem deletada;\n# Ocorrência (2º Ocorrência): Mudo por 8 horas;\n# Insistência (3º Ocorrência): Banimento permanentemente.```'
+					'``$3`` - **Estamos sempre abertos a novas comunidades de tecnologia, mas divulgações devem ser discutidas com o <@241070790383108096> para garantir um ambiente saudável em nosso discord sem ofender ou afetar membros diretamente**```objectivec\n•  Divulgações de outras comunidades são permitidas mediante contato com o @Pride; \n\n# Ocorrência (1º Ocorrência): Aviso e mensagem deletada;\n# Ocorrência (2º Ocorrência): Mudo por 8 horas;\n# Insistência (3º Ocorrência): Banimento permanentemente.```'
 				);
 		}, 2000);
 
@@ -55,7 +55,7 @@ module.exports = {
 			client.channels
 				.get(process.env.RULES_CHAT)
 				.send(
-					'``$6`` - **Free-rank**```objectivec\n• Mensagens descontextualizados, totalmente inúteis, para promoção de rank no servidor.\n\n# Ocorrência (1º Ocorrência): Mudo por 3 horas;\n# Ocorrência (2º Ocorrência): Mudo por 9 horas e aviso de ban;\n# Isistência (3º Ocorrência): Banimento permanentemente.```'
+					'``$6`` - **Free-rank**```objectivec\n• Mensagens descontextualizados, totalmente inúteis, para promoção de rank no servidor.\n\n# Ocorrência (1º Ocorrência): Mudo por 3 horas;\n# Ocorrência (2º Ocorrência): Mudo por 9 horas e aviso de ban;\n# Insistência (3º Ocorrência): Banimento permanentemente.```'
 				);
 		}, 3000);
 

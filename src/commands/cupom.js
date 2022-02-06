@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const categories = require('../userCategory');
-
+const util = require('../util');
 module.exports = {
 	async run(client, message, args) {
 		const { member } = message;
@@ -16,8 +16,8 @@ module.exports = {
 								'Infelizmente você não tem permissão para utilizar esse comando'
 							)
 							.setFooter(
-								'2019 © He4rt Developers',
-								'https://heartdevs.com/wp-content/uploads/2018/12/logo.png'
+								util.getYear() + ' © He4rt Developers',
+								'https://i.imgur.com/14yqEKn.png'
 							)
 							.setColor('RED')
 							.setTimestamp()
@@ -64,13 +64,11 @@ module.exports = {
 							.setTitle('``👑`` » !cupom')
 							.setColor('#8146DC')
 							.setDescription(
-								`Cupom utilizado com sucesso.\n\nVocê ganhou: \`\` ${
-									res.data.coupon.value
-								} ${type}\`\`.`
+								`Cupom utilizado com sucesso.\n\nVocê ganhou: \`\` ${res.data.coupon.value} ${type}\`\`.`
 							)
 							.setFooter(
 								`Comando utilizado por: ${message.author.tag}`,
-								'https://heartdevs.com/wp-content/uploads/2018/12/logo.png'
+								'https://i.imgur.com/14yqEKn.png'
 							)
 							.setTimestamp();
 
@@ -85,7 +83,7 @@ module.exports = {
 							)
 							.setFooter(
 								`Comando utilizado por: ${message.author.tag}`,
-								'https://heartdevs.com/wp-content/uploads/2018/12/logo.png'
+								'https://i.imgur.com/14yqEKn.png'
 							)
 							.setTimestamp();
 

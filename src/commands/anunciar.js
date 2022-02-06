@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const categories = require('../userCategory');
+const util = require('../util');
 
 module.exports = {
 	validate(client, message) {
@@ -18,8 +19,8 @@ module.exports = {
 			.setDescription(mensg)
 			.setColor('#8146DC')
 			.setFooter(
-				'2019 © He4rt Developers',
-				'https://heartdevs.com/wp-content/uploads/2018/12/logo.png'
+				util.getYear() + ' © He4rt Developers',
+				'https://i.imgur.com/14yqEKn.png'
 			)
 			.setTimestamp();
 

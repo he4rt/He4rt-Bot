@@ -1,163 +1,196 @@
 {
-  "continuar": {
-    "name": {
-      "title": "**Qual é seu nome?** (Exemplo: Daniel Reis)",
-      "color": "#36393E"
-    },
-    "nick": {
-      "title": "**Qual é seu nick?** (Exemplo: DanielHe4rt)",
-      "color": "#36393E"
-    },
-    "about": {
-      "title": "**Diga um pouco sobre você:** (Exemplo: Me chamo Gustavo...)",
-      "color": "#36393E"
-    },
-    "git": {
-      "title": "**Qual é seu Git?** (Exemplo: https://github.com/DanielHe4rt)",
-      "color": "#36393E"
-    }
-  },
-  "tempban": {
-    "fail": {
-      "permission": {
-        "description": "``❌`` Você não possui permissão para utilizar este comando. ``[BAN_MEMBERS]``"
-      },
-      "no_user": {
-        "description": "Você deve informar um user"
-      },
-      "no_time": {
-        "description": "Você deve informar o tempo do ban (em minutos)"
-      },
-      "no_reason": {
-        "description": "Você deve informar uma razão"
-      },
-      "default": {
-        "description": "``❌`` Ocorreu um problema para punir este usuário."
-      }
-    }
-  },
-  "twitter": {
-    "fail": {
-      "no_permission": {
-        "description": "``❌`` Você não possui permissão para utilizar este comando. ``[MANAGE_GUILD]``"
-      }
-    }
-  },
-  "anunciar-img": {
-    "fail": {
-      "no_permission": {
-        "description": "``❌`` Você não possui permissão para utilizar este comando. ``[MANAGE_GUILD]``"
-      }
-    }
-  },
-  "anunciar": {
-    "fail": {
-      "no_permission": {
-        "description": "``❌`` Você não possui permissão para utilizar este comando. ``[MANAGE_GUILD]``"
-      }
-    }
-  },
-  "ban": {
-    "fail": {
-      "no_permission": {
-        "description": "``❌`` Você não possui permissão para utilizar este comando. ``[BAN_MEMBERS]``"
-      },
-      "invalid_syntax": {
-        "title": "``📌`` » !ban",
-        "description": "Para banir um usuário utilize:\n- ``!ban <@usuário> <motivo>``.",
-        "color": "#ff1919"
-      },
-      "default": {
-        "description": "``❌`` Ocorreu um problema para punir este usuário."
-      }
-    }
-  },
-  "apresentar": {
-    "fail": {
-      "registered": {
-        "description": "``❌`` Você já se apresentou."
-      }
-    }
-  },
-  "calcular": {
-    "fail": {
-      "default": {
-        "description": "``❌`` Utilize ``!calcular [cálculo]``."
-      }
-    }
-  },
-  "unban": {
-    "fail": {
-      "no_permission": {
-        "description": "``❌`` Você não possui permissão para utilizar este comando. ``[MANAGE_GUILD]``"
-      },
-      "invalid_syntax": {
-        "description": "Para desbanir um usuário utilize:\n- ``!unban <@usuário> <motivo>``."
-      }
-    }
-  },
-  "chat": {
-    "fail": {
-      "no_permission": {
-        "description": "``❌`` Você não possui permissão para utilizar este comando. ``[MANAGE_MESSAGES]``"
-      },
-      "no_state": {
-        "description": "Para ativar ou pausar o chat utilize:\n- ``!chat on``;\n- ``!chat off``.",
-        "color": "#ff1919"
-      }
-    }
-  },
-  "wipe": {
-    "fail": {
-      "no_permission": {
-        "description": "``❌`` Você não possui permissão para utilizar este comando. ``[MANAGE_GUILD]``"
-      }
-    }
-  },
-  "traduzir": {
-    "answer": {
-      "title": "``📡`` » !traduzir",
-      "color": "#8146DC",
-      "fields": [
-        { "name": "**Tradução:**", "inline": true },
-        { "name": "**Idioma:**", "inline": true }
-      ]
-    }
-  },
-  "silent": {
-    "enable": "``❕`` Todos os alertas estão visíveis para você.",
-    "disable": "``❕`` Todos os alertas estão escondidos de você."
-  },
-  "avatar": {
-    "answer": {
-      "title": "``🖼️`` » !avatar",
-      "description": "**[Clique aqui](${member.avatarURL})** para baixar a imagem!",
-      "color": "#8146DC"
-    }
-  },
-  "perfil": {
-    "answer": {
-      "title": "``👥`` » !profile",
-      "color": "#8146DC",
-      "fields": [
-        { "name": "**Nome:**", "inline": true },
-        { "name": "**Sobre:**", "inline": true },
-        { "name": "**Git:**", "inline": true },
-        { "name": "**Status:**", "inline": true },
-        { "name": "**Nível:**", "inline": true },
-        { "name": "**Experiência:**", "inline": true },
-        { "name": "**HCoins:**", "inline": true },
-        { "name": "**Linguagens:**", "inline": true },
-        { "name": "**Nível de inglês:**", "inline": true },
-        { "name": "**Juntou-se:**", "inline": true }
-      ]
-    }
-  },
-  "error_command": {
-    "description": "``❌`` Ocorreu um erro inesperado.",
-    "fields": [
-      { "name": "**Comando:**", "inline": true },
-      { "name": "**Mensagem:**", "inline": true }
-    ]
-  }
+	"continuar": {
+		"name": {
+			"title": "> **Qual é seu nome?** (Exemplo: Daniel Reis)"
+		},
+		"nick": {
+			"title": "> **Qual é seu nick?** (Exemplo: DanielHe4rt)"
+		},
+		"about": {
+			"title": "> **Diga um pouco sobre você:** (Exemplo: Me chamo Gustavo...)"
+		},
+		"git": {
+			"title": "> **Qual é seu Git?** (Exemplo: https://github.com/DanielHe4rt)"
+		},
+		"languages": {
+			"title": "> **Linguagens?** (Reaja para adquirir seu cargo e prosseguir)"
+		},
+		"english": {
+			"title": "> **Nível de inglês?**"
+		}
+	},
+	"juntos": {
+		"name": {
+			"title": "> 1. **Como você se chama e por quais pronomes atende?** (Exemplo: Daniel Reis - ele/dele)"
+		},
+		"github": {
+			"title": "> 2. **Qual é seu GitHub?** (Exemplo: https://github.com/juntossomosmais)"
+		},
+		"linkedin": {
+			"title": "> 3. **Qual é seu LinkedIn?** (Exemplo: https://www.linkedin.com/in/dbfarias/)"
+		},
+		"email": {
+			"title": "> 4. **Qual o seu melhor e-mail?**"
+		},
+		"role": {
+			"title": "> 5. **Em quais áreas de atuação você trabalha ou tem interesse?**\n\nReaja com os emojis das áreas e, quando terminar, reaja com o emoji de :white_check_mark: para prosseguir\n"
+		},
+		"languages": {
+			"title": "> 6. **Você possui familiaridade com quais linguagens de programação?**\n\nReaja com os emojis das linguagens e, quando terminar, reaja com o emoji de :white_check_mark: para prosseguir\n"
+		},
+		"job": {
+			"title": "> 7. **Em qual vaga da Juntos Somos Mais tem interesse?**\n\nReaja com o emoji da vaga para prosseguir\n"
+		},
+		"experience": {
+			"title": "> 8. **Você trabalha ou já trabalhou na área? Se sim, por quanto tempo?**\n\nReaja com o emoji de tempo de experiência para prosseguir\n"
+		},
+		"is_employed": {
+			"title": "> 9. **Está trabalhando atualmente?**\n"
+		},
+		"about": {
+			"title": "> 10. **Por fim, nos conte um pouco sobre você e sua trajetória**"
+		}
+	},
+	"tempban": {
+		"fail": {
+			"permission": {
+				"description": "``❌`` Você não possui permissão para utilizar este comando. ``[BAN_MEMBERS]``"
+			},
+			"no_user": {
+				"description": "Você deve informar um user"
+			},
+			"no_time": {
+				"description": "Você deve informar o tempo do ban (em minutos)"
+			},
+			"no_reason": {
+				"description": "Você deve informar uma razão"
+			},
+			"default": {
+				"description": "``❌`` Ocorreu um problema para punir este usuário."
+			}
+		}
+	},
+	"twitter": {
+		"fail": {
+			"no_permission": {
+				"description": "``❌`` Você não possui permissão para utilizar este comando. ``[MANAGE_GUILD]``"
+			}
+		}
+	},
+	"anunciar-img": {
+		"fail": {
+			"no_permission": {
+				"description": "``❌`` Você não possui permissão para utilizar este comando. ``[MANAGE_GUILD]``"
+			}
+		}
+	},
+	"anunciar": {
+		"fail": {
+			"no_permission": {
+				"description": "``❌`` Você não possui permissão para utilizar este comando. ``[MANAGE_GUILD]``"
+			}
+		}
+	},
+	"ban": {
+		"fail": {
+			"no_permission": {
+				"description": "``❌`` Você não possui permissão para utilizar este comando. ``[BAN_MEMBERS]``"
+			},
+			"invalid_syntax": {
+				"title": "``📌`` » !ban",
+				"description": "Para banir um usuário utilize:\n- ``!ban <@usuário> <motivo>``.",
+				"color": "#ff1919"
+			},
+			"default": {
+				"description": "``❌`` Ocorreu um problema para punir este usuário."
+			}
+		}
+	},
+	"apresentar": {
+		"fail": {
+			"registered": {
+				"description": "``❌`` Você já se apresentou."
+			}
+		}
+	},
+	"calcular": {
+		"fail": {
+			"default": {
+				"description": "``❌`` Utilize ``!calcular [cálculo]``."
+			}
+		}
+	},
+	"unban": {
+		"fail": {
+			"no_permission": {
+				"description": "``❌`` Você não possui permissão para utilizar este comando. ``[MANAGE_GUILD]``"
+			},
+			"invalid_syntax": {
+				"description": "Para desbanir um usuário utilize:\n- ``!unban <@usuário> <motivo>``."
+			}
+		}
+	},
+	"chat": {
+		"fail": {
+			"no_permission": {
+				"description": "``❌`` Você não possui permissão para utilizar este comando. ``[MANAGE_MESSAGES]``"
+			},
+			"no_state": {
+				"description": "Para ativar ou pausar o chat utilize:\n- ``!chat on``;\n- ``!chat off``.",
+				"color": "#ff1919"
+			}
+		}
+	},
+	"wipe": {
+		"fail": {
+			"no_permission": {
+				"description": "``❌`` Você não possui permissão para utilizar este comando. ``[MANAGE_GUILD]``"
+			}
+		}
+	},
+	"traduzir": {
+		"answer": {
+			"title": "``📡`` » !traduzir",
+			"color": "#8146DC",
+			"fields": [
+				{ "name": "**Tradução:**", "inline": true },
+				{ "name": "**Idioma:**", "inline": true }
+			]
+		}
+	},
+	"silent": {
+		"enable": "``❕`` Todos os alertas estão visíveis para você.",
+		"disable": "``❕`` Todos os alertas estão escondidos de você."
+	},
+	"avatar": {
+		"answer": {
+			"title": "``🖼️`` » !avatar",
+			"description": "**[Clique aqui](${member.avatarURL})** para baixar a imagem!",
+			"color": "#8146DC"
+		}
+	},
+	"perfil": {
+		"answer": {
+			"title": "``👥`` » !profile",
+			"color": "#8146DC",
+			"fields": [
+				{ "name": "**Nome:**", "inline": true },
+				{ "name": "**Sobre:**", "inline": true },
+				{ "name": "**Git:**", "inline": true },
+				{ "name": "**Nível:**", "inline": true },
+				{ "name": "**Experiência:**", "inline": true },
+				{ "name": "**HCoins:**", "inline": true },
+				{ "name": "**Linguagens:**", "inline": true },
+				{ "name": "**Nível de inglês:**", "inline": true },
+				{ "name": "**Juntou-se:**", "inline": true }
+			]
+		}
+	},
+	"error_command": {
+		"description": "``❌`` Ocorreu um erro inesperado.",
+		"fields": [
+			{ "name": "**Comando:**", "inline": true },
+			{ "name": "**Mensagem:**", "inline": true }
+		]
+	}
 }

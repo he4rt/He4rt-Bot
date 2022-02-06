@@ -9,12 +9,18 @@ require('dotenv').config();
 client.axios = axios.create({
 	baseURL: process.env.HE4RT_API,
 	timeout: 5000,
-	headers: { Authorization: `Basic ${process.env.HE4RT_TOKEN}` },
+	headers: { Authorization: process.env.HE4RT_TOKEN },
 });
 
 client.commands = new Enmap();
 
 const init = async () => {
+	const { data } = await client.axios.post(`bot/gamification/levelup`, {
+		discord_id: '426540070028443688',
+		message: 'a',
+		donator: false,
+	});
+	console.log(data);
 	const cmdFiles = await fs.readdir('src/commands/');
 	console.log(
 		'[#LOG]',
