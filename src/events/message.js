@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const util = require('../util');
+const antiScam = require('../util/anti_scam');
 
 const runLevelUp = async (client, message) => {
 	if (
@@ -32,9 +33,7 @@ const runLevelUp = async (client, message) => {
 	}
 	const level = new Discord.RichEmbed()
 		.setTitle(
-			`🆙 **${message.author.username}** subiu para o nível ${
-				data.level
-			}!`
+			`🆙 **${message.author.username}** subiu para o nível ${data.level}!`
 		)
 		.setThumbnail(message.author.avatarURL)
 		.setFooter(
@@ -77,9 +76,7 @@ const runCommand = async (client, message) => {
 
 	console.log(
 		'[#LOG]',
-		`${message.author.username} (${
-			message.author.id
-		}) executou o comando: ${cmd.command.name}`
+		`${message.author.username} (${message.author.id}) executou o comando: ${cmd.command.name}`
 	);
 	try {
 		if (cmd.validate) {
@@ -118,6 +115,19 @@ const runCommand = async (client, message) => {
 
 module.exports = async (client, message) => {
 	if (message.author.bot) return;
+
+	if (antiScam.containsScamLink(message.content)) {
+		console.info(
+			`deleting message that contains scam link. author=${message.author.username}`
+		);
+
+		await Promise.all([
+			message.channel.send(`
+${message.author} sua mensagem foi deletada por conter um link banido.
+Se acha que isso é um erro, contate alguém da staff.`),
+			message.delete(),
+		]);
+	}
 
 	if (message.content.toLowerCase() === 'boa noite') {
 		message.react('💤');
