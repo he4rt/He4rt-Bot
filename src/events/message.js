@@ -143,19 +143,8 @@ ${message.author} sua mensagem foi deletada por conter um link banido.
 Se acha que isso é um erro, contate alguém da staff.`),
 			message.delete(),
 		]);
-	}
 
-	if (message.content.toLowerCase() === 'boa noite') {
-		message.react('💤');
-		message.channel.send('noite!');
-	}
-	if (message.content.toLowerCase() === 'bom dia') {
-		message.react('🌅');
-		message.channel.send('dia!');
-	}
-	if (message.content.toLowerCase() === 'boa tarde') {
-		message.react('🌞');
-		message.channel.send('tarde!');
+    return
 	}
 
 	await Promise.all([
