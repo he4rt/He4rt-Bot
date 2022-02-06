@@ -144,7 +144,7 @@ Se acha que isso é um erro, contate alguém da staff.`),
 			message.delete(),
 		]);
 
-    return
+		return;
 	}
 
 	await Promise.all([
