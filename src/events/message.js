@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const util = require('../util');
+const antiScam = require('../util/anti_scam');
 
 const runLevelUp = async (client, message) => {
 	if (
@@ -130,6 +131,21 @@ const runCommand = async (client, message) => {
 
 module.exports = async (client, message) => {
 	if (message.author.bot) return;
+
+	if (antiScam.containsScamLink(message.content)) {
+		console.info(
+			`deleting message that contains scam link. author=${message.author.username}`
+		);
+
+		await Promise.all([
+			message.channel.send(`
+${message.author} sua mensagem foi deletada por conter um link banido.
+Se acha que isso é um erro, contate alguém da staff.`),
+			message.delete(),
+		]);
+
+		return;
+	}
 
 	await Promise.all([
 		runLevelUp(client, message).catch(res =>
